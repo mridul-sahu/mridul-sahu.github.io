@@ -4,274 +4,304 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mridul Sahu - Resume</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Lato:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=PT+Sans:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <style>
         /*
-          Classy Professional Light Theme for Resume
-          - Focus on elegance, readability, and a sophisticated, timeless look.
-          - Uses a very light background with dark, warm gray text.
-          - Serif font for headings, sans-serif for body text.
-          - Muted accent colors.
+          Blocky B&W Kindle-Style Resume Theme
+          - Focus on stark contrast, readability, and a structured, block-like appearance.
+          - Serif font for headings (Merriweather), Sans-serif for body (PT Sans).
+          - Strictly black and white.
+          - Compressed header, inlined details, reduced line heights.
         */
         body {
-            background-color: #f8f9fa; /* Very light gray, almost off-white background */
-            color: #343a40; /* Dark gray for body text */
-            font-family: 'Lato', sans-serif; /* Clean sans-serif for body */
-            line-height: 1.7; /* Slightly increased line height for readability */
+            background-color: #ffffff; /* Pure white background */
+            color: #000000; /* Pure black text */
+            font-family: 'PT Sans', sans-serif; /* Clear sans-serif for body */
+            line-height: 1.5; /* Base line height */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
-            font-size: 16px; /* Base font size */
+            font-size: 15px; 
         }
 
         .container {
             width: 100%;
-            max-width: 900px; /* Increased max-width for a more spacious feel */
-            margin: 40px 20px; /* More vertical margin */
-            padding: 50px;    /* Increased padding */
-            background-color: #ffffff; /* Clean white background for content */
-            border-radius: 6px; /* Slightly less rounded for a sharper look */
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08); /* Softer, more subtle shadow */
+            max-width: 780px; /* Narrower for a more book-like column */
+            margin: 20px 10px; 
+            padding: 25px 30px; 
+            background-color: #ffffff; 
+            border-radius: 0; /* Sharp corners for blocky feel */
+            /* No box-shadow for a flatter, Kindle-like appearance */
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        header {
+            text-align: center; 
+            margin-bottom: 15px; 
+        }
+
+        h1 { /* Name */
+            font-family: 'Merriweather', serif;
+            font-size: 2.4em; 
+            color: #000000; 
             margin-top: 0;
-            font-family: 'Lora', serif; /* Elegant serif font for headings */
-            color: #212529; /* Very dark gray/near black for primary headings */
-            font-weight: 700; /* Ensure headings are bold */
+            margin-bottom: 5px; 
+            letter-spacing: 0.2px; 
+            font-weight: 900; /* Heavier weight for blockier name */
+            line-height: 1.1;
         }
 
-        h1 {
-            font-size: 2.6em; /* Larger main heading */
-            text-align: center;
-            margin-bottom: 10px;
-            color: #1c1c1c; /* A deep charcoal for the main name */
+        .contact-line {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px 12px; /* Reduced gap */
+            font-size: 0.85em; /* Smaller contact info */
+            color: #000000;
+            margin-bottom: 5px; /* Very tight spacing */
+        }
+        .contact-line:last-child {
+            margin-bottom: 10px; /* Space after the last contact line */
         }
 
-        .contact-info {
-            text-align: center;
-            font-size: 0.95em; /* Slightly larger contact info */
-            color: #495057; /* Medium-dark gray */
-            margin-bottom: 15px;
-            font-family: 'Lato', sans-serif; /* Ensure contact info uses body font */
-        }
-
-        .contact-info a {
-            color: #1c1c1c; /* Match main heading color for email */
+        .contact-line span, .contact-line a {
+            display: flex;
+            align-items: center;
+            color: #000000;
             text-decoration: none;
         }
-        .contact-info a:hover {
+        .contact-line a:hover {
             text-decoration: underline;
         }
-
-        .links {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .links a {
-            color: #0056b3; /* A classic, slightly desaturated blue for links */
-            text-decoration: none;
-            margin: 0 15px; /* Increased spacing for links */
-            font-size: 0.9em;
-            font-family: 'Lato', sans-serif;
-        }
-
-        .links a:hover {
-            color: #004494; /* Darker blue on hover */
-            text-decoration: underline;
+        .contact-line svg {
+            width: 0.9em; 
+            height: 0.9em; 
+            margin-right: 4px;
+            fill: #000000; /* Black icons */
         }
 
         hr {
             border: 0;
-            height: 1px;
-            background-color: #ced4da; /* Lighter, more subtle gray for rule */
-            margin: 40px 0; /* Increased margin for HR for better separation */
+            height: 1px; /* Thinner HR */
+            background-color: #000000; /* Solid black HR */
+            margin: 18px 0; 
         }
 
-        h2 { /* Section titles like EMPLOYMENT HISTORY */
-            font-size: 1.8em;
-            color: #2a3b4d; /* A deep, serious blue/charcoal */
-            border-bottom: 1px solid #dee2e6; /* Thinner, lighter border */
-            padding-bottom: 12px;
-            margin-top: 40px;
-            margin-bottom: 30px;
+        h2 { /* Section titles */
+            font-family: 'Merriweather', serif;
+            font-size: 1.5em; 
+            color: #000000; 
+            border-bottom: 2px solid #000000; /* Thicker black border for blocky feel */
+            padding-bottom: 4px; 
+            margin-top: 20px; 
+            margin-bottom: 15px; 
+            font-weight: 700;
+            line-height: 1.2; /* Reduced line height */
         }
 
-        h3 { /* Employer/Institution names like Google */
-            font-size: 1.4em;
-            color: #343a40; /* Dark gray */
-            margin-top: 30px;
-            margin-bottom: 10px;
+        h3 { /* Employer/Institution names */
+            font-family: 'Merriweather', serif;
+            font-size: 1.2em; 
+            color: #000000; 
+            margin-top: 15px; 
+            margin-bottom: 0px; /* No space below H3 if details are inlined */
+            font-weight: 700;
+            line-height: 1.1; /* Reduced line height */
         }
         
         h4 { /* Sub-headings like Google One team names */
-            font-size: 1.15em; /* Slightly larger */
-            color: #495057; /* Medium-dark gray */
-            margin-top: 25px;
-            margin-bottom: 10px;
-            font-family: 'Lato', sans-serif; /* Use body font for these subheadings for distinction */
+            font-family: 'PT Sans', sans-serif; 
+            font-size: 0.95em; 
+            color: #000000; 
+            margin-top: 10px; 
+            margin-bottom: 5px;
             font-weight: 700;
+            text-transform: uppercase; /* For a slightly different style */
+            letter-spacing: 0.5px;
         }
-
-        .employment-location, .education-details {
-            font-style: italic;
-            color: #6c757d; /* Muted gray for location/dates */
-            margin-bottom: 15px;
+        
+        /* Inlined details styling */
+        .inline-details {
             font-size: 0.9em;
+            color: #333333; /* Slightly lighter black for less emphasis than headings */
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        .inline-details strong { /* For CGPA label etc. */
+             color: #000000;
+             font-weight: 700;
         }
 
-        .job-title {
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            color: #212529;   /* Very dark gray for job titles */
-            font-size: 1.1em;
-            margin-bottom: 10px;
+
+        .employment-location, .education-details { /* These classes might be deprecated if using .inline-details */
+            font-style: italic;
+            color: #333333; 
+            margin-bottom: 5px; 
+            font-size: 0.9em; 
+            line-height: 1.2;
         }
+        .job-title-date-line {
+            font-size: 0.95em;
+            color: #000000;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
 
         ul {
             list-style-type: none;
-            padding-left: 10px; /* Indent for bullets */
-            margin-bottom: 20px;
+            padding-left: 0px; /* Bullets will be handled by pseudo-elements with margin */
+            margin-bottom: 10px; 
         }
 
         ul li {
-            margin-bottom: 12px; /* Slightly more space between list items */
-            padding-left: 25px; 
+            margin-bottom: 3px; /* Very tight list items */
+            padding-left: 15px; 
             position: relative;
-            color: #343a40; /* Consistent body text color */
+            color: #000000; 
+            line-height: 1.35; /* Reduced line height for list items */
         }
 
         ul li::before {
-            content: '–'; /* Em dash for a cleaner, classic bullet */
-            color: #5a6670; /* Muted gray for bullets */
-            font-weight: normal; /* Not bold for em dash */
+            content: '•'; 
+            color: #000000; /* Black bullets */
+            font-weight: bold; 
             display: inline-block;
             position: absolute;
-            left: 5px; 
-            top: 0px; 
-            font-size: 1.2em;
+            left: 0px; 
+            top: -1px; /* Adjust for PT Sans */
+            font-size: 1em;
         }
         
-        /* Nested lists styling */
         ul ul {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            padding-left: 25px; /* Indent nested lists further */
+            margin-top: 3px;
+            margin-bottom: 3px;
+            padding-left: 12px; 
         }
-
+        ul ul li {
+            line-height: 1.3; 
+        }
         ul ul li::before {
-            content: '·'; /* Mid-dot for nested bullets */
-            color: #6c757d; /* Slightly lighter gray for nested bullets */
-            font-weight: bold;
-            font-size: 1.3em; /* Make mid-dot more visible */
-            top: -1px; /* Adjust vertical alignment for mid-dot */
+            content: '◦'; 
+            color: #000000; 
         }
 
-        strong { /* For bold text within list items or paragraphs */
-            color: #212529; /* Very dark gray for emphasis */
+        strong { /* General strong tag */
+            color: #000000; 
             font-weight: 700;
         }
         
-        code { /* Styling for inline code like `CommitFuture` */
+        code { 
             font-family: 'Roboto Mono', monospace;
-            background-color: #e9ecef; /* Light gray background */
-            padding: 0.2em 0.45em;
-            border-radius: 4px;
-            font-size: 0.88em; /* Slightly smaller than body text */
-            color: #2a3b4d; /* Dark blue-gray for code text */
+            background-color: #f0f0f0; /* Light gray for code, only non-B&W element for clarity */
+            padding: 0.1em 0.3em;
+            border-radius: 2px;
+            font-size: 0.85em; 
+            color: #000000; 
+            border: 1px solid #ccc; /* Subtle border for code block */
         }
 
+        .publication-details, .certification-details {
+            line-height: 1.35;
+        }
         .publication-details a, .certification-details a {
-            color: #0056b3; 
-            text-decoration: none;
+            color: #000000; 
+            text-decoration: underline; /* Underline links for B&W clarity */
         }
         .publication-details a:hover, .certification-details a:hover {
-            color: #004494; 
-            text-decoration: underline;
+            font-weight: bold; /* Simple hover effect */
         }
         .publication-details em, .certification-details em { 
             font-style: italic;
-            color: #495057; /* Medium-dark gray */
+            color: #000000; 
         }
 
         .skills-list {
             padding-left: 0;
             list-style-type: none; 
+            columns: 2; /* Attempting a 2-column layout for skills if space allows */
+            column-gap: 20px;
         }
 
         .skills-list li {
-            margin-bottom: 8px;
-            color: #343a40;
+            margin-bottom: 2px; 
+            color: #000000;
             padding-left: 0; 
+            line-height: 1.3; 
+            font-size: 0.9em;
+             -webkit-column-break-inside: avoid; /* Prevent breaking inside items */
+             page-break-inside: avoid;
+             break-inside: avoid;
         }
         .skills-list li::before {
             content: ''; 
         }
 
-        .skills-list strong { /* Category like "Core Languages" */
-            font-family: 'Lato', sans-serif; /* Body font for skill categories */
-            color: #212529; 
+        .skills-list strong { /* Skill category */
+            font-family: 'PT Sans', sans-serif; 
+            color: #000000; 
             font-weight: 700;
-            display: inline-block; 
-            margin-bottom: 6px; 
-            font-size: 1.05em;
+            display: block; /* Categories on their own line */
+            margin-bottom: 2px; 
+            font-size: 0.95em; 
+            margin-top: 5px; /* Space above new category */
+        }
+         .skills-list strong:first-child {
+            margin-top: 0;
         }
 
+
         footer {
-            margin-top: 40px;
+            margin-top: 20px; 
         }
         
         footer p {
             text-align: center; 
-            font-size: 0.85em; 
-            color: #6c757d; /* Muted gray for footer text */
+            font-size: 0.75em; 
+            color: #000000; 
         }
-
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px 15px;
-                padding: 30px; /* Adjusted padding for tablets */
+        @media (max-width: 600px) { /* Adjust breakpoint for skills columns */
+            .skills-list {
+                columns: 1; /* Single column for skills on smaller screens */
             }
-            h1 {
-                font-size: 2.2em;
+             .container {
+                padding: 20px 15px;
             }
-            h2 {
-                font-size: 1.6em;
-            }
-            h3 {
-                font-size: 1.3em;
-            }
-            .links a {
-                display: block;
-                margin: 8px 0; 
-            }
+             h1 { font-size: 2em; }
+             h2 { font-size: 1.3em; }
+             h3 { font-size: 1.1em; }
         }
+
         @media (max-width: 480px) {
             body {
-                font-size: 15px;
+                font-size: 14px; 
             }
             .container {
-                margin: 15px 10px;
-                padding: 20px; /* Adjusted padding for mobile */
+                margin: 10px 5px;
+                padding: 15px 10px; 
             }
             h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
             h2 {
-                font-size: 1.5em;
+                font-size: 1.2em;
+            }
+            .contact-line {
+                flex-direction: column; 
+                align-items: center;
+                gap: 5px;
+            }
+            .contact-line:not(:last-child) {
+                margin-bottom: 8px; /* More space between stacked contact lines */
             }
             ul {
-                padding-left: 5px;
+                padding-left: 0;
             }
             ul li {
-                padding-left: 20px;
-            }
-            ul li::before {
-                left: 0;
+                padding-left: 12px;
             }
         }
     </style>
@@ -280,12 +310,34 @@
     <div class="container">
         <header>
             <h1>MRIDUL SAHU</h1>
-            <p class="contact-info">Bangalore, KA, India | <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a> | +91 9082265471</p>
-            <p class="links">
-                <a href="https://linkedin.com/in/mridul-sahu" target="_blank" rel="noopener noreferrer">linkedin.com/in/mridul-sahu</a> |
-                <a href="https://github.com/mridul-sahu" target="_blank" rel="noopener noreferrer">github.com/mridul-sahu</a> |
-                <a href="https://x.com/TheMridulSahu" target="_blank" rel="noopener noreferrer">x.com/TheMridulSahu</a>
-            </p>
+            <div class="contact-line">
+                <span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                    <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    +91 9082265471
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                     Bangalore, KA, India
+                </span>
+            </div>
+            <div class="contact-line links"> 
+                 <a href="https://linkedin.com/in/mridul-sahu" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/mridul-sahu" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://x.com/TheMridulSahu" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    X.com
+                </a>
+            </div>
         </header>
 
         <hr>
@@ -294,10 +346,9 @@
             <h2>EMPLOYMENT HISTORY</h2>
             
             <article>
-                <h3>Google</h3>
-                <p class="employment-location"><em>Bangalore, India</em></p>
-
-                <p class="job-title">Senior Software Engineer, Core ML Frameworks | Nov 2024 – Present</p>
+                <h3>Google <span style="font-family: 'PT Sans', sans-serif; font-size: 0.8em; font-weight: normal; color: #333;">| Bangalore, India</span></h3>
+                
+                <p class="job-title-date-line">Senior Software Engineer, Core ML Frameworks | Nov 2024 – Present</p>
                 <ul>
                     <li>Led India team contributions and engineered critical components for a new low-durability Colossus storage solution, enabling high-frequency (continuous) checkpointing for large-scale ML models; my direct work on <strong>asynchronous directory creation in Orbax</strong> for this initiative reduced blocking save times by <strong>30-50%</strong>, contributing to an estimated <strong>$XXXM+ in annualized TPU resource efficiency</strong> for Google.</li>
                     <li>Authored the core technical <strong>design for asynchronous directory creation within Orbax</strong>, introducing novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) crucial for minimizing main thread contention during the continuous checkpointing of large models.</li>
@@ -307,7 +358,7 @@
                     <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
                 </ul>
 
-                <p class="job-title">Software Engineer III | Oct 2021 – Oct 2024</p>
+                <p class="job-title-date-line">Software Engineer III | Oct 2021 – Oct 2024</p>
                 
                 <h4>Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul>
@@ -333,13 +384,12 @@
                 </ul>
             </article>
 
-            <hr style="margin-top: 30px; margin-bottom:30px; border-color: #dee2e6;"> 
+            <hr style="margin-top: 18px; margin-bottom:18px;"> 
 
             <article>
-                <h3>CrispyGames / Zopte Technologies</h3>
-                <p class="employment-location"><em>Mumbai, India</em></p>
-
-                <p class="job-title">Software Engineer | Jun 2018 – Aug 2021</p>
+                <h3>CrispyGames / Zopte Technologies <span style="font-family: 'PT Sans', sans-serif; font-size: 0.8em; font-weight: normal; color: #333;">| Mumbai, India</span></h3>
+                
+                <p class="job-title-date-line">Software Engineer | Jun 2018 – Aug 2021</p>
                 <ul>
                     <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, <strong>accelerating rapid prototyping by contributing up to 60% of the code</strong> for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
                     <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
@@ -358,7 +408,7 @@
                     </li>
                 </ul>
 
-                <p class="job-title">Software Engineer, Intern | Jun 2017 – Jul 2017</p>
+                <p class="job-title-date-line">Software Engineer, Intern | Jun 2017 – Jul 2017</p>
                 <ul>
                     <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
                     <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
@@ -372,9 +422,8 @@
             <h2>EDUCATION</h2>
             <article>
                 <h3>National Institute of Technology, Meghalaya</h3>
-                <p class="education-details"><em>Shillong, India | 2014 – 2018</em></p>
-                <p>B.Tech in Computer Science and Engineering</p>
-                <p>CGPA: <strong>8.76/10</strong></p>
+                <p class="inline-details">Shillong, India | 2014 – 2018</p>
+                <p class="inline-details">B.Tech in Computer Science and Engineering | <strong>CGPA:</strong> 8.76/10</p>
             </article>
         </section>
 
