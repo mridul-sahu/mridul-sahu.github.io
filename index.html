@@ -350,11 +350,17 @@
                 
                 <p class="job-title-date-line">Senior Software Engineer, Core ML Frameworks | Nov 2024 – Present</p>
                 <ul>
-                    <li>Led India team contributions and engineered critical components for a new low-durability Colossus storage solution, enabling high-frequency (continuous) checkpointing for large-scale ML models; my direct work on <strong>asynchronous directory creation in Orbax</strong> for this initiative reduced blocking save times by <strong>30-50%</strong>, contributing major savings in annualized TPU resource efficiency for Google.</li>
-                    <li>Authored the core technical <strong>design for asynchronous directory creation within Orbax</strong>, introducing novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) crucial for minimizing main thread contention during the continuous checkpointing of large models.</li>
-                    <li>Led an India-based team to significantly extend the <strong>Orbax Experimental Emergency Checkpointing Library</strong>, successfully adding capabilities to support the checkpointing of diverse auxiliary states in addition to primary model parameters, thereby enhancing its utility for complex ML training scenarios.</li>
+                    <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
+                    <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
+                        <ul>
+                            <li><strong>Emergency Checkpoint Manager (ECM):</strong> Improved the two-stage saving mechanism (fast local cache & persistent storage) to be quicker and more reliable, reducing data loss risk during unexpected training interruptions.</li>
+                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined how training restarts from a single saved copy (<code>Single Replica Restore</code>) and how that data is efficiently shared (<code>Broadcast</code>) across all processing units, especially in complex, multi-device environments. This reduced startup times and resource bottlenecks.</li>
+                        </ul>
+                    </li>
+                    <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms, unblocking key enterprise users by addressing complex multi-device and storage interaction bugs.</li>
+                    <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax, featuring a modular design, YAML configuration, and automated CI/CD pipelines for continuous performance regression detection across various hardware. Designed key components for <strong>open-source compatibility</strong> to foster community engagement and simplify external debugging.</li>
                     <li>Driving foundational checkpointing improvements through these Orbax enhancements within the <strong>Gemax Prod</strong> initiative, thereby bolstering the reliability, scalability, and overall performance of training workflows for Google's State-of-the-Art (SOTA) foundation models.</li>
-                    <li>Leading the architecture and development of the knowledge distillation module for <strong>Tunix</strong>, a JAX-native library for streamlined LLM post-training; current efforts include implementing advanced logit-based and attention-based methods, alongside actively expanding the repertoire of supported cutting-edge distillation strategies.</li>
+                    <li>Led the design and development of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), enhancing model efficiency. Architected a flexible framework using a strategy pattern to support diverse distillation techniques, including advanced logit-matching and feature/attention-based methods. Implemented novel utilities for dynamic intermediate feature extraction and dimension alignment (pooling/projection) across heterogeneous model architectures, enabling broader adoption of model compression.</li>
                     <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
                 </ul>
 
@@ -477,7 +483,7 @@
 
         <footer>
             <hr>
-            <p>Mridul's Resume - Updated on May 7, 2025</p>
+            <p>Mridul's Resume - Updated on Sept 25, 2025</p>
         </footer>
 
     </div>
