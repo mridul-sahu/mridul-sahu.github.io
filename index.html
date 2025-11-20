@@ -4,351 +4,393 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mridul Sahu - Resume</title>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=PT+Sans:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /*
-          Blocky B&W Kindle-Style Resume Theme
-          - Focus on stark contrast, readability, and a structured, block-like appearance.
-          - Serif font for headings (Merriweather), Sans-serif for body (PT Sans).
-          - Strictly black and white.
-          - Compressed header, inlined details, reduced line heights.
-        */
+        :root {
+            --bg-color: #fafafa; /* DeepMind-esque off-white */
+            --card-bg: rgba(255, 255, 255, 0.92); 
+            --text-main: #101010; /* Stark black for contrast */
+            --text-sub: #4a4a4a;
+            --accent-blue: #1a73e8; /* Google Blue */
+            --accent-red: #ea4335;
+            --accent-yellow: #fbbc04;
+            --accent-green: #34a853;
+            --border-color: rgba(0,0,0,0.06);
+        }
+
         body {
-            background-color: #ffffff; /* Pure white background */
-            color: #000000; /* Pure black text */
-            font-family: 'PT Sans', sans-serif; /* Clear sans-serif for body */
-            line-height: 1.5; /* Base line height */
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.65;
             margin: 0;
-            padding: 0;
+            padding: 60px 20px;
             display: flex;
             justify-content: center;
-            font-size: 15px; 
+            min-height: 100vh;
+            font-size: 15px; /* Slightly smaller, denser scientific feel */
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* --- DYNAMIC ALIVE BACKGROUND --- */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .ambient-light {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -2;
+            opacity: 0.4;
+            will-change: transform;
+            animation: drift 25s ease-in-out infinite alternate; 
+        }
+        
+        .light-1 {
+            top: -10%; left: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(26, 115, 232, 0.2), transparent 70%);
+        }
+        .light-2 {
+            bottom: -20%; right: -10%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(234, 67, 53, 0.15), rgba(251, 188, 4, 0.1), transparent 70%);
+            animation-delay: -8s;
+        }
+        .light-3 {
+            top: 40%; left: 20%; width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(52, 168, 83, 0.1), transparent 60%);
+            animation-delay: -15s;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 40px) scale(1.05); }
+            100% { transform: translate(-20px, -20px) scale(0.95); }
+        }
+
+        /* --- CONTAINER --- */
         .container {
             width: 100%;
-            max-width: 780px; /* Narrower for a more book-like column */
-            margin: 20px 10px; 
-            padding: 25px 30px; 
-            background-color: #ffffff; 
-            border-radius: 0; /* Sharp corners for blocky feel */
-            /* No box-shadow for a flatter, Kindle-like appearance */
+            max-width: 850px;
+            position: relative;
+            background-color: var(--card-bg);
+            padding: 70px 80px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 
+                0 20px 40px -10px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(0,0,0,0.03); /* Subtle border */
+            transform-style: preserve-3d;
         }
 
-        header {
-            text-align: center; 
-            margin-bottom: 15px; 
-        }
-
-        h1 { /* Name */
-            font-family: 'Merriweather', serif;
-            font-size: 2.4em; 
-            color: #000000; 
-            margin-top: 0;
-            margin-bottom: 5px; 
-            letter-spacing: 0.2px; 
-            font-weight: 900; /* Heavier weight for blockier name */
-            line-height: 1.1;
+        /* --- TYPOGRAPHY --- */
+        header { text-align: center; margin-bottom: 60px; }
+        
+        h1 { 
+            font-family: 'DM Serif Display', serif; /* Editorial Serif */
+            font-size: 3.2em; 
+            color: #000; 
+            margin: 0 0 20px 0; 
+            font-weight: 400; /* DM Serif is bold by default */
+            letter-spacing: -0.02em;
+            line-height: 1;
         }
 
         .contact-line {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            gap: 5px 12px; /* Reduced gap */
-            font-size: 0.85em; /* Smaller contact info */
-            color: #000000;
-            margin-bottom: 5px; /* Very tight spacing */
+            gap: 10px 20px;
+            font-size: 0.9em;
+            color: var(--text-sub);
+            font-family: 'JetBrains Mono', monospace;
         }
-        .contact-line:last-child {
-            margin-bottom: 10px; /* Space after the last contact line */
-        }
-
-        .contact-line span, .contact-line a {
-            display: flex;
-            align-items: center;
-            color: #000000;
+        
+        .contact-line a {
+            color: var(--text-sub);
             text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
         }
-        .contact-line a:hover {
-            text-decoration: underline;
-        }
-        .contact-line svg {
-            width: 0.9em; 
-            height: 0.9em; 
-            margin-right: 4px;
-            fill: #000000; /* Black icons */
-        }
+        .contact-line a:hover { border-bottom-color: var(--accent-blue); color: #000; }
+        .contact-line svg { width: 1em; height: 1em; vertical-align: text-bottom; fill: currentColor; margin-right: 6px; }
 
         hr {
-            border: 0;
-            height: 1px; /* Thinner HR */
-            background-color: #000000; /* Solid black HR */
-            margin: 18px 0; 
+            border: 0; height: 1px; 
+            background: rgba(0,0,0,0.08);
+            margin: 40px 0;
         }
 
-        h2 { /* Section titles */
-            font-family: 'Merriweather', serif;
-            font-size: 1.5em; 
-            color: #000000; 
-            border-bottom: 2px solid #000000; /* Thicker black border for blocky feel */
-            padding-bottom: 4px; 
-            margin-top: 20px; 
-            margin-bottom: 15px; 
-            font-weight: 700;
-            line-height: 1.2; /* Reduced line height */
+        h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8em;
+            color: #000;
+            margin: 40px 0 25px 0;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+            display: inline-block; /* DeepMind style: minimal, only underline text */
+            padding-right: 20px;
         }
 
-        h3 { /* Employer/Institution names */
-            font-family: 'Merriweather', serif;
-            font-size: 1.2em; 
-            color: #000000; 
-            margin-top: 15px; 
-            margin-bottom: 0px; /* No space below H3 if details are inlined */
-            font-weight: 700;
-            line-height: 1.1; /* Reduced line height */
+        article { margin-bottom: 40px; }
+
+        h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4em;
+            color: #000;
+            margin: 0 0 5px 0;
+            font-weight: 400;
         }
-        
-        h4 { /* Sub-headings like Google One team names */
-            font-family: 'PT Sans', sans-serif; 
-            font-size: 0.95em; 
-            color: #000000; 
-            margin-top: 10px; 
-            margin-bottom: 5px;
+
+        .location-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65em;
+            font-weight: 500;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 10px;
+            vertical-align: middle;
+            background: rgba(0,0,0,0.04);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 5px;
+        }
+        .job-title {
+            font-weight: 600;
+            color: #000;
+            font-size: 1.05em;
+        }
+        .job-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9em;
+            color: #222;
+            margin: 25px 0 10px 0;
             font-weight: 700;
-            text-transform: uppercase; /* For a slightly different style */
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
-        /* Inlined details styling */
-        .inline-details {
-            font-size: 0.9em;
-            color: #333333; /* Slightly lighter black for less emphasis than headings */
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
-        .inline-details strong { /* For CGPA label etc. */
-             color: #000000;
-             font-weight: 700;
-        }
 
-
-        .employment-location, .education-details { /* These classes might be deprecated if using .inline-details */
-            font-style: italic;
-            color: #333333; 
-            margin-bottom: 5px; 
-            font-size: 0.9em; 
-            line-height: 1.2;
-        }
-        .job-title-date-line {
-            font-size: 0.95em;
-            color: #000000;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-
-        ul {
-            list-style-type: none;
-            padding-left: 0px; /* Bullets will be handled by pseudo-elements with margin */
-            margin-bottom: 10px; 
-        }
-
+        ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
         ul li {
-            margin-bottom: 3px; /* Very tight list items */
-            padding-left: 15px; 
+            margin-bottom: 8px;
+            padding-left: 15px;
             position: relative;
-            color: #000000; 
-            line-height: 1.35; /* Reduced line height for list items */
+            color: #2a2a2a;
         }
-
         ul li::before {
-            content: '•'; 
-            color: #000000; /* Black bullets */
-            font-weight: bold; 
+            content: '•';
+            color: var(--accent-blue);
+            position: absolute; left: 0; top: 0;
+            font-weight: bold;
+        }
+        
+        /* Code Snippets */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0,0,0,0.04);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            color: #d93025;
+        }
+
+        strong { font-weight: 600; color: #000; }
+
+        /* --- COMPRESSED SKILLS GRID --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px 15px;
+        }
+
+        .skill-group {
+            background: rgba(0,0,0,0.02);
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .skill-group strong {
+            display: block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 4px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-pill {
+            font-size: 0.85em;
+            color: #111;
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.08);
+            /* Default state for animation */
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* --- ANIMATIONS (TENET & SPECIALIZED) --- */
+
+        /* 1. AI Streaming Text (Smooth Diffusion) */
+        .stream-word {
             display: inline-block;
-            position: absolute;
-            left: 0px; 
-            top: -1px; /* Adjust for PT Sans */
-            font-size: 1em;
+            white-space: pre;
+            opacity: 0;
+            filter: blur(4px);
+            transform: translateY(5px);
+            transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+            will-change: opacity, filter, transform;
         }
         
-        ul ul {
-            margin-top: 3px;
-            margin-bottom: 3px;
-            padding-left: 12px; 
-        }
-        ul ul li {
-            line-height: 1.3; 
-        }
-        ul ul li::before {
-            content: '◦'; 
-            color: #000000; 
+        /* Active State */
+        .in-view .stream-word {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
         }
 
-        strong { /* General strong tag */
-            color: #000000; 
-            font-weight: 700;
+        /* 2. Block Reveal (Headers/Lines) */
+        .anim-block {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000);
         }
-        
-        code { 
-            font-family: 'Roboto Mono', monospace;
-            background-color: #f0f0f0; /* Light gray for code, only non-B&W element for clarity */
-            padding: 0.1em 0.3em;
-            border-radius: 2px;
-            font-size: 0.85em; 
-            color: #000000; 
-            border: 1px solid #ccc; /* Subtle border for code block */
+        .in-view.anim-block {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .publication-details, .certification-details {
-            line-height: 1.35;
+        /* 3. PUBLICATIONS: "Research Unfold" (Rotate X) */
+        .anim-pub {
+            opacity: 0;
+            transform: perspective(1000px) rotateX(-45deg) translateY(-20px);
+            transform-origin: top;
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .publication-details a, .certification-details a {
-            color: #000000; 
-            text-decoration: underline; /* Underline links for B&W clarity */
-        }
-        .publication-details a:hover, .certification-details a:hover {
-            font-weight: bold; /* Simple hover effect */
-        }
-        .publication-details em, .certification-details em { 
-            font-style: italic;
-            color: #000000; 
+        .in-view.anim-pub {
+            opacity: 1;
+            transform: perspective(1000px) rotateX(0deg) translateY(0);
         }
 
-        .skills-list {
-            padding-left: 0;
-            list-style-type: none; 
-            columns: 2; /* Attempting a 2-column layout for skills if space allows */
-            column-gap: 20px;
+        /* 4. CERTIFICATIONS: "Stamp Pop" */
+        .cert-list li {
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .in-view .cert-list li {
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
-        .skills-list li {
-            margin-bottom: 2px; 
-            color: #000000;
-            padding-left: 0; 
-            line-height: 1.3; 
-            font-size: 0.9em;
-             -webkit-column-break-inside: avoid; /* Prevent breaking inside items */
-             page-break-inside: avoid;
-             break-inside: avoid;
-        }
-        .skills-list li::before {
-            content: ''; 
+        /* 5. SKILLS: "Neural Activation" (Pulse/Ripple) */
+        .in-view .skill-pill {
+            opacity: 1;
+            transform: scale(1);
+            /* We apply the pulse animation via JS delay, or CSS keyframes here */
+            animation: neuralPulse 3s infinite;
         }
 
-        .skills-list strong { /* Skill category */
-            font-family: 'PT Sans', sans-serif; 
-            color: #000000; 
-            font-weight: 700;
-            display: block; /* Categories on their own line */
-            margin-bottom: 2px; 
-            font-size: 0.95em; 
-            margin-top: 5px; /* Space above new category */
-        }
-         .skills-list strong:first-child {
-            margin-top: 0;
+        @keyframes neuralPulse {
+            0%, 100% { border-color: rgba(0,0,0,0.08); box-shadow: 0 0 0 0 rgba(26, 115, 232, 0); }
+            50% { border-color: rgba(26, 115, 232, 0.3); box-shadow: 0 0 4px 0 rgba(26, 115, 232, 0.1); }
         }
 
-
-        footer {
-            margin-top: 20px; 
+        /* Special Bold Pop */
+        .pop-bold {
+            display: inline-block;
+            font-weight: 600;
+            color: #000;
+            transition: color 0.3s ease;
         }
-        
-        footer p {
-            text-align: center; 
-            font-size: 0.75em; 
-            color: #000000; 
+        .in-view .pop-bold {
+            animation: highlightBold 0.6s ease-out forwards;
+            animation-delay: 0.2s;
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 600px) { /* Adjust breakpoint for skills columns */
-            .skills-list {
-                columns: 1; /* Single column for skills on smaller screens */
-            }
-             .container {
-                padding: 20px 15px;
-            }
-             h1 { font-size: 2em; }
-             h2 { font-size: 1.3em; }
-             h3 { font-size: 1.1em; }
+        @keyframes highlightBold {
+            0% { color: #000; transform: scale(1); }
+            50% { color: var(--accent-blue); transform: scale(1.05); }
+            100% { color: #000; transform: scale(1); }
         }
 
-        @media (max-width: 480px) {
-            body {
-                font-size: 14px; 
-            }
-            .container {
-                margin: 10px 5px;
-                padding: 15px 10px; 
-            }
-            h1 {
-                font-size: 1.8em;
-            }
-            h2 {
-                font-size: 1.2em;
-            }
-            .contact-line {
-                flex-direction: column; 
-                align-items: center;
-                gap: 5px;
-            }
-            .contact-line:not(:last-child) {
-                margin-bottom: 8px; /* More space between stacked contact lines */
-            }
-            ul {
-                padding-left: 0;
-            }
-            ul li {
-                padding-left: 12px;
-            }
+        footer { margin-top: 80px; text-align: center; font-size: 0.85em; color: var(--text-sub); opacity: 0.7; }
+
+        @media (max-width: 700px) {
+            .container { padding: 40px 25px; }
+            h1 { font-size: 2.4em; }
+            .skills-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <div class="noise-overlay"></div>
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+    <div class="ambient-light light-3"></div>
+
     <div class="container">
-        <header>
-            <h1>MRIDUL SAHU</h1>
+        <header class="anim-block">
+            <h1>Mridul Sahu</h1>
             <div class="contact-line">
-                <span>
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-                    <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
-                </span>
-                <span>
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    +91 9082265471
-                </span>
-                <span>
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                     Bangalore, KA, India
-                </span>
+                <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
+                <span>+91 9082265471</span>
+                <span>Bangalore, India</span>
             </div>
-            <div class="contact-line links"> 
-                 <a href="https://linkedin.com/in/mridul-sahu" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    LinkedIn
-                </a>
-                <a href="https://github.com/mridul-sahu" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://x.com/TheMridulSahu" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    X.com
-                </a>
+            <div class="contact-line" style="margin-top: 8px;">
+                 <a href="https://linkedin.com/in/mridul-sahu" target="_blank">LinkedIn</a>
+                <a href="https://github.com/mridul-sahu" target="_blank">GitHub</a>
+                <a href="https://x.com/TheMridulSahu" target="_blank">X.com</a>
             </div>
         </header>
 
-        <hr>
+        <hr class="anim-block">
 
         <section id="employment">
-            <h2>EMPLOYMENT HISTORY</h2>
-            
-            <article>
-                <h3>Google <span style="font-family: 'PT Sans', sans-serif; font-size: 0.8em; font-weight: normal; color: #333;">| Bangalore, India</span></h3>
+            <h2 class="anim-block">Employment History</h2>
+             
+            <article class="stream-section">
+                <h3 class="anim-block">Google <span class="location-text">Bangalore</span></h3>
                 
-                <p class="job-title-date-line">Senior Software Engineer, Core ML Frameworks | Nov 2024 – Present</p>
+                <div class="job-header anim-block">
+                    <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
+                    <span class="job-date">Nov 2024 – Present</span>
+                </div>
                 <ul>
                     <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
                     <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
@@ -364,9 +406,12 @@
                     <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
                 </ul>
 
-                <p class="job-title-date-line">Software Engineer III | Oct 2021 – Oct 2024</p>
+                <div class="job-header anim-block" style="margin-top: 35px;">
+                    <span class="job-title">Software Engineer III</span>
+                    <span class="job-date">Oct 2021 – Oct 2024</span>
+                </div>
                 
-                <h4>Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
+                <h4 class="anim-block">Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul>
                     <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status.</li>
                     <li><strong>Orchestrated a successful phased launch impacting XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and <strong>driving substantial Google One signups and upgrades (estimated ~X Million users/year)</strong>. This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
@@ -377,7 +422,7 @@
                     <li>Architected and implemented the <strong>backend infrastructure for Google service-level usage breakdown for Enterprise Customers</strong>, delivering a scalable, real-time solution that eliminated inefficient caching of millions of user-level rows for admin consoles.</li>
                 </ul>
 
-                <h4>Google One - Benefits (Oct 2021 – Apr 2023)</h4>
+                <h4 class="anim-block">Google One - Benefits (Oct 2021 – Apr 2023)</h4>
                 <ul>
                     <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
                     <li>Designed and deployed a <strong>comprehensive reconciliation framework within Google One</strong> to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of <strong>minimizing consumer complaints related to benefits</strong>.</li>
@@ -390,12 +435,15 @@
                 </ul>
             </article>
 
-            <hr style="margin-top: 18px; margin-bottom:18px;"> 
+            <hr class="anim-block">
 
-            <article>
-                <h3>CrispyGames / Zopte Technologies <span style="font-family: 'PT Sans', sans-serif; font-size: 0.8em; font-weight: normal; color: #333;">| Mumbai, India</span></h3>
+            <article class="stream-section">
+                <h3 class="anim-block">CrispyGames / Zopte Technologies <span class="location-text">Mumbai</span></h3>
                 
-                <p class="job-title-date-line">Software Engineer | Jun 2018 – Sept 2021</p>
+                <div class="job-header anim-block">
+                    <span class="job-title">Software Engineer</span>
+                    <span class="job-date">Jun 2018 – Sept 2021</span>
+                </div>
                 <ul>
                     <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, <strong>accelerating rapid prototyping by contributing up to 60% of the code</strong> for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
                     <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
@@ -414,7 +462,10 @@
                     </li>
                 </ul>
 
-                <p class="job-title-date-line">Software Engineer, Intern | Jun 2017 – Jul 2017</p>
+                <div class="job-header anim-block" style="margin-top: 25px;">
+                    <span class="job-title">Software Engineer, Intern</span>
+                    <span class="job-date">Jun 2017 – Jul 2017</span>
+                </div>
                 <ul>
                     <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
                     <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
@@ -422,43 +473,49 @@
             </article>
         </section>
 
-        <hr>
+        <hr class="anim-block">
 
         <section id="education">
-            <h2>EDUCATION</h2>
-            <article>
+            <h2 class="anim-block">Education</h2>
+            <article class="anim-block">
                 <h3>National Institute of Technology, Meghalaya</h3>
-                <p class="inline-details">Shillong, India | 2014 – 2018</p>
-                <p class="inline-details">B.Tech in Computer Science and Engineering | <strong>CGPA:</strong> 8.76/10</p>
+                <div class="job-header" style="border: none; margin-bottom: 0;">
+                    <span class="job-date">Shillong, India | 2014 – 2018</span>
+                </div>
+                <p style="margin-top: 4px;">B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
             </article>
         </section>
 
-        <hr>
+        <hr class="anim-block">
 
         <section id="certifications">
-            <h2>CERTIFICATIONS</h2>
-            <ul class="certification-details">
-                <li><a href="https://www.coursera.org/account/accomplishments/verify/PLKCH41J06C1" target="_blank" rel="noopener noreferrer"><strong>Generative AI with Large Language Models</strong></a>, <em>DeepLearning.AI & Coursera</em> (Completed: Apr 2025)</li>
-                <li><strong>Learning JAX</strong>, <em>LinkedIn Learning</em> (Completed: Apr 2025)</li>
-                <li><a href="https://www.coursera.org/account/accomplishments/verify/NTP9QO06OTPK" target="_blank" rel="noopener noreferrer"><strong>Transformer Models and BERT Model</strong></a>, <em>Google Cloud & Coursera</em> (Completed: Apr 2025)</li>
-                <li><a href="https://www.educative.io/verify-certificate/vgA3wPFLmLVKzwkA2tyZpYXPqM0MIl" target="_blank" rel="noopener noreferrer"><strong>Distributed Systems for Practitioners</strong></a>, <em>Educative.io</em> (Completed: Mar 2023)</li>
+            <h2 class="anim-block">Certifications</h2>
+            <!-- Stamp Animation Class -->
+            <ul class="cert-list">
+                <li><a href="https://www.coursera.org/account/accomplishments/verify/PLKCH41J06C1" target="_blank"><strong>Generative AI with Large Language Models</strong></a>, DeepLearning.AI & Coursera (2025)</li>
+                <li><strong>Learning JAX</strong>, LinkedIn Learning (2025)</li>
+                <li><a href="https://www.coursera.org/account/accomplishments/verify/NTP9QO06OTPK" target="_blank"><strong>Transformer Models and BERT Model</strong></a>, Google Cloud & Coursera (2025)</li>
+                <li><a href="https://www.educative.io/verify-certificate/vgA3wPFLmLVKzwkA2tyZpYXPqM0MIl" target="_blank"><strong>Distributed Systems for Practitioners</strong></a>, Educative.io (2023)</li>
             </ul>
         </section>
 
-        <hr>
+        <hr class="anim-block">
 
         <section id="publication">
-            <h2>PUBLICATION</h2>
-            <p class="publication-details">
-                S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" rel="noopener noreferrer"><em>EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</em></a>," <em>2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018</em>, pp. 67-72.
-            </p>
+            <h2 class="anim-block">Publication</h2>
+            <!-- Fold Unfold Animation -->
+            <div class="anim-pub">
+                <p style="font-style: italic; color: #444; background: #f4f4f4; padding: 15px; border-left: 3px solid #000;">
+                    S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:#000; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT).
+                </p>
+            </div>
         </section>
 
-        <hr>
+        <hr class="anim-block">
 
-        <section id="other-activities">
-            <h2>OTHER ACTIVITIES & ACHIEVEMENTS</h2>
-            <ul>
+        <section id="activities">
+            <h2 class="anim-block">Other Activities</h2>
+            <ul class="stream-section">
                 <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>.</li>
                 <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
                 <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
@@ -466,26 +523,189 @@
             </ul>
         </section>
 
-        <hr>
+        <hr class="anim-block">
 
         <section id="technical-skills">
-            <h2>TECHNICAL SKILLS</h2>
-            <ul class="skills-list">
-                <li><strong>Core Languages:</strong> Python, Java, Go, C++, Dart</li>
-                <li><strong>Frameworks & Libraries:</strong> JAX, Orbax, Flax, Optax, Tunix, Flutter</li>
-                <li><strong>Systems & Architecture:</strong> Distributed Systems, Microservices, System Design, API Design, Machine Learning Systems</li>
-                <li><strong>DevOps & Cloud:</strong> Kubernetes, GCP (Google Cloud Platform), Docker, Git, Unix/Linux</li>
-                <li><strong>Databases & Storage:</strong> SQL, MongoDB, MySQL, Elastic Search, Redis, Cloud Pub/Sub</li>
-                <li><strong>Web Technologies:</strong> HTML/CSS, JavaScript, Angular Dart</li>
-                <li><strong>Familiar With:</strong> Ruby on Rails, Swift, Bash Scripting, Minikube, Hugo, Nginx, OpenCV, gRPC, RESTful APIs</li>
-            </ul>
+            <h2 class="anim-block">Technical Skills</h2>
+            <!-- Compressed Grid Layout -->
+            <div class="skills-container">
+                
+                <div class="skill-group">
+                    <strong>Core Languages</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">Java</span>
+                        <span class="skill-pill">Go</span>
+                        <span class="skill-pill">C++</span>
+                        <span class="skill-pill">Dart</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <strong>Frameworks & ML</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">JAX</span>
+                        <span class="skill-pill">Orbax</span>
+                        <span class="skill-pill">Flax</span>
+                        <span class="skill-pill">Optax</span>
+                        <span class="skill-pill">Tunix</span>
+                        <span class="skill-pill">Flutter</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <strong>Systems</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Distributed Systems</span>
+                        <span class="skill-pill">Microservices</span>
+                        <span class="skill-pill">API Design</span>
+                        <span class="skill-pill">ML Systems</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <strong>DevOps & Cloud</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Kubernetes</span>
+                        <span class="skill-pill">GCP</span>
+                        <span class="skill-pill">Docker</span>
+                        <span class="skill-pill">Git</span>
+                        <span class="skill-pill">Unix/Linux</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <strong>Databases</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">SQL</span>
+                        <span class="skill-pill">MongoDB</span>
+                        <span class="skill-pill">MySQL</span>
+                        <span class="skill-pill">Elastic Search</span>
+                        <span class="skill-pill">Redis</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <strong>Web</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">HTML/CSS</span>
+                        <span class="skill-pill">JavaScript</span>
+                        <span class="skill-pill">Angular Dart</span>
+                    </div>
+                </div>
+
+                 <div class="skill-group">
+                    <strong>Familiar With</strong>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Ruby on Rails</span>
+                        <span class="skill-pill">Swift</span>
+                        <span class="skill-pill">Bash</span>
+                        <span class="skill-pill">gRPC</span>
+                        <span class="skill-pill">OpenCV</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <footer>
+        <footer class="anim-block">
             <hr>
             <p>Mridul's Resume - Updated on Sept 25, 2025</p>
         </footer>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. MOUSE PARALLAX FOR LIGHTS
+            const lights = document.querySelectorAll('.ambient-light');
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 30;
+                const y = (e.clientY / window.innerHeight - 0.5) * 30;
+                
+                lights.forEach((light, index) => {
+                    const factor = (index + 1) * 1.5;
+                    light.style.marginLeft = `${x * factor}px`;
+                    light.style.marginTop = `${y * factor}px`;
+                });
+            });
+
+            // 2. AI TEXT STREAM SPLITTER
+            // We split by word for smoother "token" generation feel
+            const streamSections = document.querySelectorAll('.stream-section ul li, .stream-section p');
+            
+            streamSections.forEach(el => {
+                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+                const nodes = [];
+                while(walker.nextNode()) nodes.push(walker.currentNode);
+                
+                nodes.forEach(node => {
+                    if (!node.textContent.trim()) return;
+                    const isBold = node.parentNode.tagName === 'STRONG';
+                    const wrapper = document.createElement('span');
+                    const words = node.textContent.split(/(\s+)/);
+                    
+                    words.forEach((word, index) => {
+                        if (word.trim().length > 0) {
+                            const span = document.createElement('span');
+                            span.textContent = word;
+                            span.className = 'stream-word';
+                            if(isBold) span.classList.add('pop-bold');
+                            
+                            // Random variation for AI "thinking" time + sequential delay
+                            // This makes it look smooth but organic
+                            const delay = (index * 15) + (Math.random() * 50);
+                            span.style.transitionDelay = `${delay}ms`;
+                            
+                            wrapper.appendChild(span);
+                        } else {
+                            wrapper.appendChild(document.createTextNode(word));
+                        }
+                    });
+                    node.parentNode.replaceChild(wrapper, node);
+                });
+            });
+
+            // 3. SKILLS RANDOM DELAY GENERATOR
+            const skillPills = document.querySelectorAll('.skill-pill');
+            skillPills.forEach(pill => {
+                // Random animation delay for the "Neural Pulse" effect
+                const randomDelay = Math.random() * 2; // 0 to 2s
+                pill.style.animationDelay = `${randomDelay}s`;
+                pill.style.transitionDelay = `${Math.random() * 0.5}s`; // pop in random
+            });
+
+            // 4. CERTIFICATION STAGGER
+            const certItems = document.querySelectorAll('.cert-list li');
+            certItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 100}ms`;
+            });
+
+            // 5. TENET REVERSAL OBSERVER
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px', 
+                threshold: 0.05
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Scroll Down -> Assemble
+                        entry.target.classList.add('in-view');
+                    } else {
+                        // Scroll Up/Leave -> Disassemble (Tenet Effect)
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, observerOptions);
+
+            // Target elements
+            const targets = document.querySelectorAll(
+                '.anim-block, .stream-section ul li, .stream-section p, .anim-pub, .cert-list, .skill-group'
+            );
+            targets.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
