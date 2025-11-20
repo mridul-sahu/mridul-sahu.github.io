@@ -9,635 +9,636 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa; /* Slightly darker for better contrast without card */
-            --text-main: #0a0a0a; 
+            --bg-color: #eef2f6;
+            --glass-bg: rgba(255, 255, 255, 0.75); 
+            --text-main: #050505; 
             --text-sub: #333;
             --accent-blue: #1a73e8;
-            --border-color: #000;
+            --accent-flash: #2962ff;
         }
 
         body {
             margin: 0;
-            padding: 60px 20px; /* Padding on body now */
-            display: flex;
-            justify-content: center;
+            padding: 0;
             min-height: 100vh;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.65;
             color: var(--text-main);
-            font-size: 15px; 
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            position: relative; /* For background layers */
+            background-color: var(--bg-color);
         }
 
-        /* --- BACKGROUND LAYERS --- */
-        
-        /* 1. Moving Orbs (Increased Visibility) */
-        .ambient-light {
+        /* --- PHYSICS LAYERS --- */
+        #gravity-canvas {
             position: fixed;
-            border-radius: 50%;
-            filter: blur(70px); /* Slightly less blur for definition */
-            z-index: -1; /* Behind content */
-            opacity: 0.7; /* Increased opacity */
-            will-change: transform;
-            animation: drift 25s ease-in-out infinite alternate; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; /* Base layer */
             pointer-events: none;
         }
-        
-        .light-1 {
-            top: -15%; left: -15%; width: 55vw; height: 55vw;
-            background: radial-gradient(circle, rgba(26, 115, 232, 0.25), transparent 70%);
-        }
-        .light-2 {
-            bottom: -15%; right: -15%; width: 65vw; height: 65vw;
-            background: radial-gradient(circle, rgba(234, 67, 53, 0.2), transparent 70%);
-            animation-delay: -8s;
-        }
-        .light-3 {
-            top: 35%; left: 25%; width: 45vw; height: 45vw;
-            background: radial-gradient(circle, rgba(52, 168, 83, 0.15), transparent 60%);
-            animation-delay: -15s;
-        }
 
-        @keyframes drift {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(40px, 60px) scale(1.1); }
-            66% { transform: translate(-30px, 20px) scale(0.9); }
-            100% { transform: translate(20px, -40px) scale(1); }
-        }
-
-        /* 2. Noise Texture (On top of lights, behind content) */
-        .noise-overlay {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        /* --- MAIN CONTENT WRAPPER (No Card Style) --- */
-        .content-wrapper {
-            width: 100%;
-            max-width: 800px;
+        /* --- CONTENT CONTAINER --- */
+        .scene {
             position: relative;
-            z-index: 1; /* Content is on top */
+            z-index: 1; /* Above canvas */
+            display: flex;
+            justify-content: center;
+            padding: 80px 20px;
+            perspective: 1000px;
         }
 
-        /* --- TYPOGRAPHY & SECTIONS --- */
-        header { text-align: center; margin-bottom: 60px; }
+        .resume-sheet {
+            width: 100%;
+            max-width: 950px;
+            background: var(--glass-bg);
+            /* Antigravity Glass Effect */
+            backdrop-filter: blur(12px) saturate(140%);
+            -webkit-backdrop-filter: blur(12px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 90px 100px;
+            box-shadow: 
+                0 30px 60px -15px rgba(50, 50, 93, 0.1),
+                0 20px 40px -20px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 1px rgba(255,255,255,0.5);
+            
+            /* Initial State */
+            opacity: 0;
+            transform: translateY(40px) rotateX(2deg);
+            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            
+            /* Subtle Float Animation for the Sheet itself */
+            animation: sheet-float 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes sheet-float {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            100% { transform: translateY(-10px) rotateX(1deg); }
+        }
+
+        .resume-sheet.loaded {
+            opacity: 1;
+            /* Animation handles the transform now */
+        }
+
+        /* --- TYPOGRAPHY --- */
+        header { text-align: center; margin-bottom: 90px; }
         
         h1 { 
             font-family: 'DM Serif Display', serif;
-            font-size: 3.4em; 
+            font-size: 4.5em; /* Massive Header */
             color: #000; 
-            margin: 0 0 15px 0; 
-            font-weight: 400;
-            line-height: 1;
+            margin: 0 0 25px 0; 
+            line-height: 0.85;
+            letter-spacing: -0.04em;
         }
 
         .contact-line {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 8px 20px;
-            font-size: 0.95em;
-            color: var(--text-sub);
-            font-family: 'Inter', sans-serif;
+            gap: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 12px;
+            flex-wrap: wrap;
         }
         
-        .contact-line a {
-            color: var(--text-sub);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
+        .contact-line a { 
+            color: #555; text-decoration: none; position: relative; 
+            transition: color 0.3s;
         }
-        .contact-line a:hover { border-bottom-color: var(--accent-blue); color: #000; }
-        .contact-line svg { width: 1em; height: 1em; vertical-align: text-bottom; fill: currentColor; margin-right: 5px; }
+        .contact-line a::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
+            background: var(--accent-blue); transition: width 0.3s ease;
+        }
+        .contact-line a:hover { color: #000; }
+        .contact-line a:hover::after { width: 100%; }
 
         hr {
-            border: 0; height: 2px; 
-            background: #000;
-            margin: 40px 0;
+            border: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.2), transparent);
+            margin: 60px 0;
         }
 
         h2 {
             font-family: 'DM Serif Display', serif;
-            font-size: 1.7em;
-            color: #000;
-            margin: 40px 0 25px 0;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
+            font-size: 2.4em;
+            margin: 50px 0 30px 0;
             border-bottom: 2px solid #000;
-            padding-bottom: 8px;
-            display: block; 
-            width: 100%;
+            padding-bottom: 10px;
+            letter-spacing: -0.02em;
+            display: table;
+            padding-right: 40px;
         }
-
-        article { margin-bottom: 40px; }
+        
+        article { margin-bottom: 60px; }
 
         h3 {
             font-family: 'DM Serif Display', serif;
-            font-size: 1.4em;
-            color: #000;
-            margin: 0 0 5px 0;
-            font-weight: 400;
+            font-size: 1.8em;
+            margin: 0 0 8px 0;
+            color: #111;
         }
-
+        
         .location-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85em;
-            font-weight: 400;
-            color: #555;
-            margin-left: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-left: 12px;
+            vertical-align: middle;
         }
 
         .job-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 12px;
             border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 6px;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
         }
-        .job-title {
-            font-weight: 700;
-            color: #000;
-            font-size: 1.05em;
-        }
-        .job-date {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95em;
-            color: #111;
-            font-weight: 600;
-        }
+        
+        .job-title { font-weight: 600; font-size: 1.1em; color: #000; }
+        .job-date { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; color: #555; }
 
         h4 {
             font-family: 'Inter', sans-serif;
-            font-size: 1em;
+            font-size: 1.05em;
             color: #000;
-            margin: 25px 0 10px 0;
+            margin: 35px 0 15px 0;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
         ul li {
-            margin-bottom: 8px;
-            padding-left: 20px;
             position: relative;
-            color: #111;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            color: #222;
+            font-size: 1.05em;
         }
         ul li::before {
-            content: '•';
-            color: #000;
-            position: absolute; left: 0; top: 0;
-            font-weight: bold;
-            font-size: 1.2em;
-            line-height: 1em;
-        }
-        
-        code {
-            font-family: 'JetBrains Mono', monospace;
-            background: #eee;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 0.9em;
-            color: #c5221f;
+            content: '';
+            position: absolute; left: 5px; top: 11px;
+            width: 5px; height: 5px;
+            background: var(--accent-blue);
+            border-radius: 50%;
         }
 
         strong { font-weight: 700; color: #000; }
-
-        /* --- TECHNICAL SKILLS --- */
+        
+        /* Skills Grid */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px 50px;
+            gap: 30px 80px;
         }
-        
-        .skill-row {
-            margin-bottom: 12px;
-            font-size: 1em;
-        }
-        
         .skill-row strong {
-            display: block;
-            margin-bottom: 4px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            color: #000;
+            display: block; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em; letter-spacing: 0.1em; text-transform: uppercase;
+            margin-bottom: 6px; color: #666;
         }
-        
-        .skill-row span {
-            color: #222;
-            line-height: 1.4;
+        .skill-row span { font-size: 1.1em; font-weight: 400; }
+
+        footer { 
+            margin-top: 120px; 
+            text-align: center; 
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em; 
+            color: #888; 
         }
 
-        /* --- ANIMATIONS --- */
+        /* --- ANIMATION CLASSES --- */
 
-        /* 1. AI Streaming Text */
-        .stream-word {
+        /* 1. Decode Effect (Headlines) */
+        .decode-text { opacity: 0; }
+        .decode-text.in-view { opacity: 1; }
+
+        /* 2. Diffusion Blur (Body Text) */
+        .diffuse-word {
             display: inline-block;
             white-space: pre;
+            filter: blur(12px);
             opacity: 0;
-            filter: blur(8px);
-            transform: translateY(5px);
-            transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
-            will-change: opacity, filter, transform;
+            transform: translateY(8px);
+            transition: filter 0.8s ease, opacity 0.8s ease, transform 0.8s ease;
+            will-change: filter, opacity, transform;
         }
-        .in-view .stream-word {
-            opacity: 1;
+        
+        /* FIXED: Selector targets the element itself, not child of parent */
+        .diffuse-word.in-view {
             filter: blur(0);
-            transform: translateY(0);
-        }
-
-        /* 2. Block Reveal */
-        .anim-block {
-            opacity: 0;
-            transform: translateY(25px);
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000);
-        }
-        .anim-block.in-view {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* 3. PUBLICATIONS: "Research Unfold" */
-        .anim-pub {
-            opacity: 0;
-            transform: perspective(1000px) rotateX(-45deg) translateY(-20px);
-            transform-origin: top;
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .anim-pub.in-view {
-            opacity: 1;
-            transform: perspective(1000px) rotateX(0deg) translateY(0);
-        }
-
-        /* 4. CERTIFICATIONS: "Stamp Pop" */
-        .cert-list li {
-            opacity: 0;
-            transform: scale(0.9) translateX(-15px);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .cert-list.in-view li {
-            opacity: 1;
-            transform: scale(1) translateX(0);
-        }
-
-        /* 5. SKILLS ANIMATION */
-        .skill-row {
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.6s ease;
-        }
-        .skill-row.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Bold Pop */
-        .pop-bold {
+        /* 3. Bold Pop Attention */
+        .bold-pop {
             display: inline-block;
-            transition: color 0.3s ease;
+            font-weight: 700;
+            transition: color 0.4s ease;
         }
-        .in-view .pop-bold {
-            animation: highlightBold 0.6s ease-out forwards;
-            animation-delay: 0.2s;
+        /* FIXED: Selector targets the element itself */
+        .bold-pop.in-view {
+            animation: attentionFlash 1.2s ease-out forwards;
+            animation-delay: 0.4s; 
         }
-        @keyframes highlightBold {
+
+        @keyframes attentionFlash {
             0% { color: #000; transform: scale(1); }
-            50% { color: var(--accent-blue); transform: scale(1.05); }
-            100% { color: #000; transform: scale(1); }
+            30% { color: var(--accent-flash); transform: scale(1.15); text-shadow: 0 0 15px rgba(41, 98, 255, 0.4); }
+            100% { color: #000; transform: scale(1); text-shadow: none; }
         }
 
-        footer { margin-top: 80px; text-align: center; font-size: 0.9em; color: #666; }
+        /* 4. Section Lift */
+        section {
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        section.in-view-sec {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        @media (max-width: 650px) {
-            body { padding: 30px 15px; }
-            h1 { font-size: 2.5em; }
-            .skills-grid { grid-template-columns: 1fr; gap: 15px; }
+        @media (max-width: 800px) {
+            .resume-sheet { padding: 60px 30px; }
+            h1 { font-size: 3em; }
+            .skills-grid { grid-template-columns: 1fr; gap: 20px; }
+            .contact-line { flex-direction: column; gap: 10px; align-items: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
-    <div class="ambient-light light-1"></div>
-    <div class="ambient-light light-2"></div>
-    <div class="ambient-light light-3"></div>
+    <!-- PHYSICS CANVAS -->
+    <canvas id="gravity-canvas"></canvas>
 
-    <div class="content-wrapper">
-        <header class="anim-block">
-            <h1>MRIDUL SAHU</h1>
-            <div class="contact-line">
-                <span>
-                    <svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+    <div class="scene">
+        <div class="resume-sheet">
+            
+            <header>
+                <h1 class="decode-text" data-text="MRIDUL SAHU">MRIDUL SAHU</h1>
+                <div class="contact-line stream-text">
                     <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
-                </span>
-                <span>
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    +91 9082265471
-                </span>
-                <span>
-                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5 2.5z"/></svg>
-                    Bangalore, KA, India
-                </span>
-            </div>
-            <div class="contact-line" style="margin-top: 8px;">
-                 <a href="https://linkedin.com/in/mridul-sahu" target="_blank">
-                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    LinkedIn
-                 </a>
-                <a href="https://github.com/mridul-sahu" target="_blank">
-                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://x.com/TheMridulSahu" target="_blank">
-                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    X.com
-                </a>
-            </div>
-        </header>
+                    <span>+91 9082265471</span>
+                    <span>Bangalore, India</span>
+                </div>
+                <div class="contact-line stream-text">
+                    <a href="https://linkedin.com/in/mridul-sahu" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/mridul-sahu" target="_blank">GitHub</a>
+                    <a href="https://x.com/TheMridulSahu" target="_blank">X.com</a>
+                </div>
+            </header>
 
-        <hr class="anim-block">
+            <hr>
 
-        <section id="employment">
-            <h2 class="anim-block">EMPLOYMENT HISTORY</h2>
-             
-            <article class="stream-section">
-                <h3 class="anim-block">Google <span class="location-text">| Bangalore, India</span></h3>
+            <section id="employment">
+                <h2 class="decode-text" data-text="Employment History">Employment History</h2>
                 
-                <div class="job-header anim-block">
-                    <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
-                    <span class="job-date">Nov 2024 – Present</span>
-                </div>
-                <ul>
-                    <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
-                    <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
-                        <ul>
-                            <li><strong>Emergency Checkpoint Manager (ECM):</strong> Improved the two-stage saving mechanism (fast local cache & persistent storage) to be quicker and more reliable, reducing data loss risk during unexpected training interruptions.</li>
-                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined how training restarts from a single saved copy (<code>Single Replica Restore</code>) and how that data is efficiently shared (<code>Broadcast</code>) across all processing units, especially in complex, multi-device environments. This reduced startup times and resource bottlenecks.</li>
-                        </ul>
-                    </li>
-                    <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms, unblocking key enterprise users by addressing complex multi-device and storage interaction bugs.</li>
-                    <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax, featuring a modular design, YAML configuration, and automated CI/CD pipelines for continuous performance regression detection across various hardware. Designed key components for <strong>open-source compatibility</strong> to foster community engagement and simplify external debugging.</li>
-                    <li>Driving foundational checkpointing improvements through these Orbax enhancements within the <strong>Gemax Prod</strong> initiative, thereby bolstering the reliability, scalability, and overall performance of training workflows for Google's State-of-the-Art (SOTA) foundation models.</li>
-                    <li>Led the design and development of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), enhancing model efficiency. Architected a flexible framework using a strategy pattern to support diverse distillation techniques, including advanced logit-matching and feature/attention-based methods. Implemented novel utilities for dynamic intermediate feature extraction and dimension alignment (pooling/projection) across heterogeneous model architectures, enabling broader adoption of model compression.</li>
-                    <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
+                <article class="stream-text">
+                    <h3>Google <span class="location-text">| Bangalore, India</span></h3>
+                    <div class="job-header">
+                        <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
+                        <span class="job-date">Nov 2024 – Present</span>
+                    </div>
+                    <ul>
+                        <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong>.</li>
+                        <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing <strong>Emergency Checkpoint Manager (ECM)</strong> and <strong>Checkpoint Restoration</strong>, reducing data loss risk and startup times.</li>
+                        <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms.</li>
+                        <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax with automated CI/CD pipelines.</li>
+                        <li>Led the design of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), implementing novel utilities for dynamic feature extraction.</li>
+                    </ul>
+
+                    <div class="job-header" style="margin-top: 40px;">
+                        <span class="job-title">Software Engineer III</span>
+                        <span class="job-date">Oct 2021 – Oct 2024</span>
+                    </div>
+                    
+                    <h4>Google One - Storage Quota Service</h4>
+                    <ul>
+                        <li>Spearheaded engineering efforts to launch critical new email communications and warning banners, alerting millions of users about storage status.</li>
+                        <li>Orchestrated a successful phased launch impacting XX Million users annually with <strong>zero production incidents</strong>.</li>
+                        <li>Architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS.</li>
+                        <li>Engineered an internal, highly extensible storage data validation and recovery pipeline with built-in optimizations for CPU/storage.</li>
+                    </ul>
+
+                    <h4>Google One - Benefits</h4>
+                    <ul>
+                        <li>Architected the foundational backend system for user eligibility, achieving a <strong>70% performance optimization</strong>.</li>
+                        <li>Designed a comprehensive reconciliation framework to mitigate data inconsistencies with partner teams.</li>
+                        <li>Successfully owned and executed the complete on-call migration for G1 Benefits and Storage Quota Service teams from MTV to India.</li>
+                    </ul>
+                </article>
+
+                <article class="stream-text">
+                    <h3>CrispyGames / Zopte Technologies <span class="location-text">| Mumbai, India</span></h3>
+                    <div class="job-header">
+                        <span class="job-title">Software Engineer</span>
+                        <span class="job-date">Jun 2018 – Sept 2021</span>
+                    </div>
+                    <ul>
+                        <li>Developed an innovative <strong>Code Generator</strong> accelerating rapid prototyping by contributing up to 60% of the code for numerous projects.</li>
+                        <li>Engineered a high-performance <strong>Python-based backtesting platform</strong> achieving an ~80x performance uplift.</li>
+                        <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>.</li>
+                        <li>Architected a resilient microservices-based service mesh from scratch using Zookeeper, Redis, and Kubernetes.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <hr>
+
+            <section id="education">
+                <h2 class="decode-text" data-text="Education">Education</h2>
+                <article class="stream-text">
+                    <h3>National Institute of Technology, Meghalaya</h3>
+                    <div class="job-header" style="border: none; margin-bottom: 0;">
+                        <span class="job-title">B.Tech in Computer Science and Engineering</span>
+                        <span class="job-date">2014 – 2018</span>
+                    </div>
+                    <p>CGPA: <strong>8.76/10</strong></p>
+                </article>
+            </section>
+
+            <hr>
+
+            <section id="certifications">
+                <h2 class="decode-text" data-text="Certifications">Certifications</h2>
+                <ul class="stream-text">
+                    <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (2025)</li>
+                    <li><strong>Learning JAX</strong>, LinkedIn Learning (2025)</li>
+                    <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (2025)</li>
+                    <li><strong>Distributed Systems for Practitioners</strong>, Educative.io (2023)</li>
                 </ul>
+            </section>
 
-                <div class="job-header anim-block" style="margin-top: 30px;">
-                    <span class="job-title">Software Engineer III</span>
-                    <span class="job-date">Oct 2021 – Oct 2024</span>
+            <hr>
+
+            <section id="publication">
+                <h2 class="decode-text" data-text="Publication">Publication</h2>
+                <div class="stream-text">
+                    <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration: underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT).</p>
                 </div>
-                
-                <h4 class="anim-block">Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
-                <ul>
-                    <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status.</li>
-                    <li><strong>Orchestrated a successful phased launch impacting XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and <strong>driving substantial Google One signups and upgrades (estimated ~X Million users/year)</strong>. This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
-                    <li>Assumed <strong>Tech Lead responsibilities for a major Gmail x SQS feature initiative</strong>; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
-                    <li>Engineered an internal, <strong>highly extensible storage data validation and recovery pipeline</strong>, safeguarding data integrity for <strong>XX Billion users</strong>. This framework incorporated built-in <strong>optimizations for CPU and storage resources</strong>, proactive alerting, and a rapid, command-driven recovery mechanism to preempt user-facing issues.</li>
-                    <li>Conceptualized and designed a <strong>massively scalable asynchronous processing system</strong>, which eradicated database lock contentions and enabled support for high write path QPS (O(100K)), thereby unlocking significant capacity for user usage calculations across all Google services.</li>
-                    <li>Developed a <strong>precision-optimized outage recovery mechanism</strong> to accurately correct and restore usage information for <strong>XX Billion Google users</strong> across key services (Gmail, Photos, Drive), featuring robust backfill capabilities for seamless integration of new Google services.</li>
-                    <li>Architected and implemented the <strong>backend infrastructure for Google service-level usage breakdown for Enterprise Customers</strong>, delivering a scalable, real-time solution that eliminated inefficient caching of millions of user-level rows for admin consoles.</li>
-                </ul>
+            </section>
 
-                <h4 class="anim-block">Google One - Benefits (Oct 2021 – Apr 2023)</h4>
-                <ul>
-                    <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
-                    <li>Designed and deployed a <strong>comprehensive reconciliation framework within Google One</strong> to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of <strong>minimizing consumer complaints related to benefits</strong>.</li>
-                    <li>Led the end-to-end design, implementation, and <strong>successful rollout of multiple major benefit launches and international expansions</strong>, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
-                    <li>Identified and rectified critical <strong>infrastructure deficiencies within Google One that affected millions of users</strong>, delivering extensible solutions that significantly hardened the existing infrastructure and enhanced overall product reliability.</li>
-                    <li>Engineered backend capabilities for an advanced benefits feature, enabling internal and external partners to <strong>dynamically split or combine benefits</strong>, thereby allowing for more tailored and effective information delivery to users.</li>
-                    <li>Established and evangelized best practices for <strong>comprehensive alerting, SLOs, and monitoring capabilities</strong> across both existing services and new features, ensuring early detection of outages and bugs to maintain a superior user experience.</li>
-                    <li>Provided key design contributions to launches owned by teammates, fostering the development of a <strong>more robust and versatile system architecture</strong> capable of supporting expanded use cases and enabling wider product experimentation.</li>
-                    <li><strong>Successfully owned and executed the complete on-call migration for both G1 Benefits and G1 Storage Quota Service teams from MTV to India</strong>. This complex undertaking included orchestrating knowledge transfer, deployment schedules, offline process realignment, and establishing new operational playbooks and incident management strategies, all accomplished <strong>without any incidents or degradation of user experience</strong>.</li>
-                </ul>
-            </article>
+            <hr>
 
-            <hr class="anim-block">
-
-            <article class="stream-section">
-                <h3 class="anim-block">CrispyGames / Zopte Technologies <span class="location-text">| Mumbai, India</span></h3>
-                
-                <div class="job-header anim-block">
-                    <span class="job-title">Software Engineer</span>
-                    <span class="job-date">Jun 2018 – Sept 2021</span>
-                </div>
-                <ul>
-                    <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, <strong>accelerating rapid prototyping by contributing up to 60% of the code</strong> for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
-                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
-                    <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an <strong>Order Management System (OMS) and Tick Collector</strong>, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
-                    <li>Integrated <strong>CDSL DP with E-DIS facility</strong> into the existing trading infrastructure and developed a streamlined client onboarding flow utilizing <strong>CVLKRA, CKYC, and Digio APIs</strong>, incorporating e-Signing and PDF processing for a new IBT platform.</li>
-                    <li>Constructed a <strong>dynamic reporting tool</strong> that consumed executed order and trade data to present insightful information and key performance statistics in a user-friendly interface, empowering users to <strong>build and test their trading strategies in real-time</strong>.</li>
-                    <li>Architected and built a <strong>resilient microservices-based service mesh from scratch</strong> (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on <strong>Kubernetes Clusters</strong>, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
-                    <li>Founded and delivered curriculum for an <strong>online coding education platform (Zopte Academy)</strong>. Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance.</li>
-                    <li>Developed a suite of versatile <strong>pluggable widgets, user flows, and UI components using Flutter and Angular Dart</strong>, significantly enabling developers to build and iterate on applications with greater efficiency.</li>
-                    <li><strong>Key R&D / Internal Projects:</strong>
-                        <ul>
-                            <li>Developed a foundational <strong>ML pipeline</strong> (Dlib, Tesseract, TensorFlow, OpenCV) in Python and Golang to extract valuable information from diverse data streams (e.g., analyzing poker gameplay, detecting room activity, conceptualizing indoor cat tracking).</li>
-                            <li>Contributed to the development of an <strong>algorithmic trading platform</strong> using classification/regression models to predict trading patterns from price data and public company information, with further plans to integrate news/social media feeds.</li>
-                            <li>Prototyped a social media application, <em>Pawsome</em> (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets.</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <div class="job-header anim-block" style="margin-top: 25px;">
-                    <span class="job-title">Software Engineer, Intern</span>
-                    <span class="job-date">Jun 2017 – Jul 2017</span>
-                </div>
-                <ul>
-                    <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
-                    <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
-                </ul>
-            </article>
-        </section>
-
-        <hr class="anim-block">
-
-        <section id="education">
-            <h2 class="anim-block">EDUCATION</h2>
-            <article class="anim-block">
-                <h3>National Institute of Technology, Meghalaya</h3>
-                <div class="job-header" style="border: none; margin-bottom: 0;">
-                    <span class="job-date">Shillong, India | 2014 – 2018</span>
-                </div>
-                <p style="margin-top: 4px;">B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
-            </article>
-        </section>
-
-        <hr class="anim-block">
-
-        <section id="certifications">
-            <h2 class="anim-block">CERTIFICATIONS</h2>
-            <ul class="cert-list">
-                <li><a href="https://www.coursera.org/account/accomplishments/verify/PLKCH41J06C1" target="_blank"><strong>Generative AI with Large Language Models</strong></a>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
-                <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
-                <li><a href="https://www.coursera.org/account/accomplishments/verify/NTP9QO06OTPK" target="_blank"><strong>Transformer Models and BERT Model</strong></a>, Google Cloud & Coursera (Completed: Apr 2025)</li>
-                <li><a href="https://www.educative.io/verify-certificate/vgA3wPFLmLVKzwkA2tyZpYXPqM0MIl" target="_blank"><strong>Distributed Systems for Practitioners</strong></a>, Educative.io (Completed: Mar 2023)</li>
-            </ul>
-        </section>
-
-        <hr class="anim-block">
-
-        <section id="publication">
-            <h2 class="anim-block">PUBLICATION</h2>
-            <div class="anim-pub">
-                <p style="font-style: italic; color: #222;">
-                    S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:#000; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.
-                </p>
-            </div>
-        </section>
-
-        <hr class="anim-block">
-
-        <section id="activities">
-            <h2 class="anim-block">OTHER ACTIVITIES & ACHIEVEMENTS</h2>
-            <ul class="stream-section">
-                <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>.</li>
-                <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
-                <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
-                <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
-            </ul>
-        </section>
-
-        <hr class="anim-block">
-
-        <section id="technical-skills">
-            <h2 class="anim-block">TECHNICAL SKILLS</h2>
-            <div class="skills-grid">
-                
-                <div class="skills-column">
+            <section id="skills">
+                <h2 class="decode-text" data-text="Technical Skills">Technical Skills</h2>
+                <div class="skills-grid stream-text">
                     <div class="skill-row">
-                        <strong>Core Languages:</strong>
+                        <strong>Core Languages</strong>
                         <span>Python, Java, Go, C++, Dart</span>
                     </div>
                     <div class="skill-row">
-                        <strong>Frameworks & Libraries:</strong>
+                        <strong>Databases & Storage</strong>
+                        <span>SQL, MongoDB, MySQL, Redis, Pub/Sub</span>
+                    </div>
+                    <div class="skill-row">
+                        <strong>Frameworks & ML</strong>
                         <span>JAX, Orbax, Flax, Optax, Tunix, Flutter</span>
                     </div>
                     <div class="skill-row">
-                        <strong>Systems & Architecture:</strong>
-                        <span>Distributed Systems, Microservices, System Design, API Design, Machine Learning Systems</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>DevOps & Cloud:</strong>
-                        <span>Kubernetes, GCP (Google Cloud Platform), Docker, Git, Unix/Linux</span>
-                    </div>
-                </div>
-
-                <div class="skills-column">
-                     <div class="skill-row">
-                        <strong>Databases & Storage:</strong>
-                        <span>SQL, MongoDB, MySQL, Elastic Search, Redis, Cloud Pub/Sub</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>Web Technologies:</strong>
+                        <strong>Web Technologies</strong>
                         <span>HTML/CSS, JavaScript, Angular Dart</span>
                     </div>
                     <div class="skill-row">
-                        <strong>Familiar With:</strong>
-                        <span>Ruby on Rails, Swift, Bash Scripting, Minikube, Hugo, Nginx, OpenCV, gRPC, RESTful APIs</span>
+                        <strong>Systems & Ops</strong>
+                        <span>Kubernetes, GCP, Docker, Distributed Systems</span>
+                    </div>
+                    <div class="skill-row">
+                        <strong>Familiar With</strong>
+                        <span>Ruby on Rails, Swift, Bash, OpenCV, gRPC</span>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
+            <footer>
+                <p class="decode-text" data-text="Mridul's Resume">Mridul's Resume</p>
+            </footer>
 
-        <footer class="anim-block">
-            <hr style="margin: 20px auto; width: 50px;">
-            <p>Mridul's Resume - Updated on Sept 25, 2025</p>
-        </footer>
-
+        </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // 1. MOUSE PARALLAX FOR LIGHTS (Background)
-            const lights = document.querySelectorAll('.ambient-light');
-            document.addEventListener('mousemove', (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 50;
-                const y = (e.clientY / window.innerHeight - 0.5) * 50;
-                
-                lights.forEach((light, index) => {
-                    const factor = (index + 1) * 1.2;
-                    light.style.marginLeft = `${x * factor}px`;
-                    light.style.marginTop = `${y * factor}px`;
-                });
-            });
-
-            // 2. AI TEXT STREAM SPLITTER
-            const streamSections = document.querySelectorAll('.stream-section ul li, .stream-section p');
+            // --- 1. PHYSICS ENGINE (Antigravity) ---
+            const canvas = document.getElementById('gravity-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
             
-            streamSections.forEach(el => {
-                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-                const nodes = [];
-                while(walker.nextNode()) nodes.push(walker.currentNode);
+            const shapes = [];
+            // Wireframe colors: Blue, Dark Grey, Slate
+            const colors = [
+                'rgba(26, 115, 232, 0.4)', 
+                'rgba(32, 33, 36, 0.3)', 
+                'rgba(59, 130, 246, 0.4)'
+            ];
+            
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class WireframeShape {
+                constructor() {
+                    this.init();
+                }
+
+                init() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.z = Math.random() * 2 + 0.5; // Depth
+                    this.size = (Math.random() * 60 + 30) * this.z;
+                    
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.vy = (Math.random() - 0.5) * 0.4;
+                    
+                    this.rx = Math.random() * Math.PI;
+                    this.ry = Math.random() * Math.PI;
+                    this.vrx = (Math.random() - 0.5) * 0.005;
+                    this.vry = (Math.random() - 0.5) * 0.005;
+                    
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.type = Math.random() > 0.5 ? 'cube' : 'tetra';
+                }
+
+                update(mx, my) {
+                    // Turbulence
+                    const dx = this.x - mx;
+                    const dy = this.y - my;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    const repulsion = Math.max(0, 600 - dist) / 600; // Large radius
+
+                    this.vx += (dx / dist) * repulsion * 0.05;
+                    this.vy += (dy / dist) * repulsion * 0.05;
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.rx += this.vrx;
+                    this.ry += this.vry;
+
+                    this.vx *= 0.99; // Drag
+                    this.vy *= 0.99;
+
+                    // Wrap
+                    if(this.x < -200) this.x = width + 200;
+                    if(this.x > width + 200) this.x = -200;
+                    if(this.y < -200) this.y = height + 200;
+                    if(this.y > height + 200) this.y = -200;
+                }
+
+                draw() {
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+
+                    const vertices = this.type === 'cube' ? this.cubeVerts() : this.tetraVerts();
+                    const projected = vertices.map(v => {
+                        let x1 = v.x * Math.cos(this.ry) - v.z * Math.sin(this.ry);
+                        let z1 = v.z * Math.cos(this.ry) + v.x * Math.sin(this.ry);
+                        let y1 = v.y * Math.cos(this.rx) - z1 * Math.sin(this.rx);
+                        return {
+                            x: this.x + x1 * this.size,
+                            y: this.y + y1 * this.size
+                        };
+                    });
+
+                    const edges = this.type === 'cube' ? this.cubeEdges() : this.tetraEdges();
+                    edges.forEach(edge => {
+                        ctx.moveTo(projected[edge[0]].x, projected[edge[0]].y);
+                        ctx.lineTo(projected[edge[1]].x, projected[edge[1]].y);
+                    });
+                    ctx.stroke();
+                }
+
+                cubeVerts() {
+                    return [ {x:-1,y:-1,z:-1}, {x:1,y:-1,z:-1}, {x:1,y:1,z:-1}, {x:-1,y:1,z:-1}, {x:-1,y:-1,z:1}, {x:1,y:-1,z:1}, {x:1,y:1,z:1}, {x:-1,y:1,z:1} ];
+                }
+                cubeEdges() {
+                    return [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+                }
+                tetraVerts() {
+                    return [ {x:1,y:1,z:1}, {x:-1,y:-1,z:1}, {x:-1,y:1,z:-1}, {x:1,y:-1,z:-1} ];
+                }
+                tetraEdges() {
+                    return [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+                }
+            }
+
+            for(let i=0; i<15; i++) shapes.push(new WireframeShape());
+
+            let mx = width/2, my = height/2;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                shapes.forEach(s => { s.update(mx, my); s.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+
+            // --- 2. DIFFUSION & DECODE ENGINE ---
+            
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const target = entry.target;
+                    
+                    if (entry.isIntersecting) {
+                        // Headline Decode
+                        if(target.classList.contains('decode-text')) {
+                            target.classList.add('in-view');
+                            const original = target.dataset.text;
+                            let i = 0;
+                            const interval = setInterval(() => {
+                                target.innerText = original.split("").map((c, idx) => {
+                                    if(idx < i) return c;
+                                    return chars[Math.floor(Math.random() * chars.length)];
+                                }).join("");
+                                if(i >= original.length) clearInterval(interval);
+                                i += 1/2; 
+                            }, 25);
+                            // Store ID to clear if reversed quickly
+                            target.dataset.interval = interval;
+                        }
+                        
+                        // Body Diffusion
+                        if(target.classList.contains('stream-text')) {
+                            const words = target.querySelectorAll('.diffuse-word');
+                            words.forEach(w => w.classList.add('in-view'));
+                        }
+
+                        // Section Lift
+                        if(target.tagName === 'SECTION') target.classList.add('in-view-sec');
+                        
+                    } else {
+                        // Reversal
+                        if(target.classList.contains('decode-text')) {
+                            clearInterval(target.dataset.interval); // Clear running anim
+                            target.classList.remove('in-view');
+                            target.innerText = target.dataset.text; 
+                        }
+                        if(target.classList.contains('stream-text')) {
+                             const words = target.querySelectorAll('.diffuse-word');
+                             words.forEach(w => w.classList.remove('in-view'));
+                        }
+                        if(target.tagName === 'SECTION') target.classList.remove('in-view-sec');
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: "0px" });
+
+            // Text Splitter (Recursive)
+            const textRoots = document.querySelectorAll('.stream-text');
+            textRoots.forEach(root => {
+                const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+                const textNodes = [];
+                while(walker.nextNode()) textNodes.push(walker.currentNode);
                 
-                nodes.forEach(node => {
-                    if (!node.textContent.trim()) return;
-                    const isBold = node.parentNode.tagName === 'STRONG';
+                textNodes.forEach(node => {
+                    if(!node.textContent.trim()) return;
+                    
+                    // Determine if bold context
+                    let isBold = false;
+                    let parent = node.parentNode;
+                    while(parent && parent !== root) {
+                        if(parent.tagName === 'STRONG' || parent.tagName === 'B') isBold = true;
+                        parent = parent.parentNode;
+                    }
+
                     const wrapper = document.createElement('span');
                     const words = node.textContent.split(/(\s+)/);
                     
-                    words.forEach((word, index) => {
-                        if (word.trim().length > 0) {
-                            const span = document.createElement('span');
-                            span.textContent = word;
-                            span.className = 'stream-word';
-                            if(isBold) span.classList.add('pop-bold');
-                            // Faster streaming feel
-                            const delay = (index * 8) + (Math.random() * 20);
-                            span.style.transitionDelay = `${delay}ms`;
-                            wrapper.appendChild(span);
+                    words.forEach((w, i) => {
+                        if (w.trim().length > 0) {
+                            const s = document.createElement('span');
+                            s.textContent = w;
+                            s.className = 'diffuse-word'; // Base class (hidden)
+                            if(isBold) s.classList.add('bold-pop');
+                            s.style.transitionDelay = `${Math.random() * 150 + (i * 5)}ms`;
+                            wrapper.appendChild(s);
                         } else {
-                            wrapper.appendChild(document.createTextNode(word));
+                            wrapper.appendChild(document.createTextNode(w));
                         }
                     });
                     node.parentNode.replaceChild(wrapper, node);
                 });
             });
 
-            // 3. SKILLS STAGGER
-            const skillRows = document.querySelectorAll('.skill-row');
-            skillRows.forEach((row, index) => {
-                row.style.transitionDelay = `${index * 50}ms`;
-            });
-
-            // 4. CERTIFICATION STAGGER
-            const certItems = document.querySelectorAll('.cert-list li');
-            certItems.forEach((item, index) => {
-                item.style.transitionDelay = `${index * 100}ms`;
-            });
-
-            // 5. TENET REVERSAL OBSERVER
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px', 
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Scroll Down -> Assemble
-                        entry.target.classList.add('in-view');
-                    } else {
-                        // Scroll Up/Leave -> Disassemble (Tenet Effect)
-                        entry.target.classList.remove('in-view');
-                    }
-                });
-            }, observerOptions);
-
-            // Target elements (Corrected selectors)
-            const targets = document.querySelectorAll(
-                '.anim-block, .stream-section ul li, .stream-section p, .anim-pub, .cert-list, .skill-row'
-            );
-            targets.forEach(el => observer.observe(el));
+            // Init Observers
+            document.querySelectorAll('.decode-text').forEach(el => observer.observe(el));
+            document.querySelectorAll('.stream-text').forEach(el => observer.observe(el));
+            document.querySelectorAll('section').forEach(el => observer.observe(el));
+            
+            // Sheet Entry
+            setTimeout(() => document.querySelector('.resume-sheet').classList.add('loaded'), 100);
         });
     </script>
 </body>
