@@ -28,27 +28,40 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.65;
             color: var(--text-main);
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 0%, #fcfcfc 0%, #ffffff 80%);
+            background-color: transparent; /* Let layers show */
             min-height: 100%;
             overflow-x: hidden;
         }
 
-        /* --- LAYOUT --- */
+        /* --- LAYOUT LAYERS --- */
+        
+        /* 1. Solid Base (Bottom) */
+        .bg-base {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-color);
+            /* Subtle gradient to give depth to the canvas lines */
+            background-image: radial-gradient(circle at 50% 0%, #fcfcfc 0%, #f0f2f5 100%);
+            z-index: -3;
+        }
+
+        /* 2. Canvas (The Network) */
         #bg-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
-            opacity: 0.5;
+            opacity: 1;
         }
 
+        /* 3. Glass (The Fog) */
         .glass-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(20px) saturate(120%);
-            -webkit-backdrop-filter: blur(20px) saturate(120%);
+            /* Increased transparency to show background */
+            background: rgba(255,255,255,0.4); 
+            backdrop-filter: blur(15px) saturate(120%);
+            -webkit-backdrop-filter: blur(15px) saturate(120%);
             z-index: -1;
         }
 
@@ -56,7 +69,7 @@
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px 80px 20px;
+            padding: 0 20px 150px 20px;
             position: relative;
             z-index: 1;
         }
@@ -66,26 +79,11 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 20px 0; /* Reduced Spacing */
+            padding: 30px 0;
             box-sizing: border-box;
         }
 
-        /* --- SHINE EFFECT --- */
-        .shimmer-active {
-            background: linear-gradient(110deg, #000 40%, #666 50%, #000 60%);
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent !important;
-            animation: shine-text 2.5s linear infinite; /* Faster Shine */
-        }
-
-        @keyframes shine-text {
-            0% { background-position: 100% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* --- TYPOGRAPHY --- */
+        /* --- HEADER NAME --- */
         h1 {
             font-family: 'Outfit', sans-serif;
             font-size: 5em;
@@ -94,16 +92,83 @@
             letter-spacing: -0.04em;
             text-align: center;
             line-height: 0.9;
-            opacity: 0; /* Handled by JS */
+            position: relative;
+            color: #000;
         }
 
+        /* --- SHINE EFFECT --- */
+        .shimmer-text {
+            background: linear-gradient(110deg, #000 40%, #555 45%, #000 50%);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            animation: shine-text 2s linear infinite; /* Fast Shine */
+        }
+
+        @keyframes shine-text {
+            0% { background-position: 100% 0; }
+            100% { background-position: -150% 0; }
+        }
+
+        /* --- CONTACT INFO --- */
+        .contact-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: var(--text-sub);
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .contact-item:hover {
+            color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+        
+        .contact-item svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            opacity: 0.7;
+        }
+
+        .contact-row .contact-item:not(:last-child)::after {
+            content: ''; display: block; width: 1px; height: 12px;
+            background: #ddd; margin-left: 25px;
+        }
+        @media (max-width: 600px) {
+             .contact-row .contact-item:not(:last-child)::after { display: none; }
+             .contact-row { gap: 15px; }
+        }
+
+        /* --- HEADERS --- */
         h2 {
             font-family: 'Outfit', sans-serif;
             font-size: 2.2em;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: -0.01em;
-            margin: 0 0 15px 0; /* Reduced */
+            margin: 0 0 20px 0;
             padding-bottom: 10px;
             border-bottom: 3px solid #000;
             display: inline-block;
@@ -128,79 +193,49 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.2em;
             font-weight: 600;
-            margin: 20px 0 10px 0; /* Reduced */
+            margin: 30px 0 10px 0;
             color: #111;
             letter-spacing: 0.01em;
         }
 
-        /* --- HEADER INFO --- */
-        .contact-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 40px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-            color: var(--text-sub);
-        }
-
-        .contact-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-sub);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .contact-item:hover { color: var(--accent-color); transform: translateY(-1px); }
-        .contact-item svg { width: 14px; height: 14px; fill: currentColor; opacity: 0.7; }
-
-        .contact-row .contact-item:not(:last-child)::after {
-            content: ''; display: block; width: 1px; height: 12px;
-            background: #ddd; margin-left: 20px;
-        }
-        @media (max-width: 600px) {
-             .contact-row .contact-item:not(:last-child)::after { display: none; }
-        }
-
         /* --- CONTENT BLOCKS --- */
-        article { margin-bottom: 30px; /* Reduced */ }
+        article { margin-bottom: 50px; }
 
         .job-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
         }
         .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
         
         .job-meta { 
             font-family: 'JetBrains Mono', monospace; 
-            color: #666; font-size: 0.85em; background: #f4f4f4;
-            padding: 4px 8px; border-radius: 4px;
+            color: #666; 
+            font-size: 0.85em; 
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
 
         ul li {
-            position: relative; padding-left: 25px; margin-bottom: 8px; /* Tighter */
-            color: #333; font-size: 1.05em;
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.05em;
         }
 
         ul > li::before {
-            content: ''; position: absolute; left: 6px; top: 11px;
-            width: 6px; height: 6px; background: var(--accent-color); border-radius: 1px;
+            content: '';
+            position: absolute; left: 6px; top: 11px;
+            width: 6px; height: 6px;
+            background: var(--accent-color);
+            border-radius: 1px;
         }
 
         ul ul { margin-top: 8px; margin-bottom: 8px; }
@@ -209,71 +244,108 @@
 
         /* --- SKILLS GRID --- */
         .skills-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 25px 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px 50px;
         }
-        .skill-row { margin-bottom: 10px; }
+        .skill-row { margin-bottom: 12px; }
+        
         .skill-row strong {
-            display: block; font-family: 'Outfit', sans-serif; font-size: 0.85em; color: #000;
-            margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
-            padding-bottom: 4px; border-bottom: 2px solid #f0f0f0;
+            display: block;
+            font-family: 'Outfit', sans-serif; 
+            font-size: 0.85em;
+            color: #000;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #f0f0f0;
         }
-        .skill-row span { font-family: 'JetBrains Mono', monospace; font-size: 0.95em; color: #333; line-height: 1.6; }
+        
+        .skill-row span { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.95em; 
+            color: #333; 
+            line-height: 1.6;
+        }
 
-        /* --- ANIMATION STATES --- */
+        /* --- ANIMATION CLASSES --- */
+        
         .anim-trigger {
-            opacity: 0; transform: translateY(30px);
+            opacity: 0;
+            transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        .anim-trigger.in-view { opacity: 1; transform: translateY(0); }
+        .anim-trigger.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        /* Computed Word */
         .computed-word {
-            display: inline-block; white-space: pre; opacity: 0;
-            filter: blur(8px); transform: translateY(5px); vertical-align: top; 
+            display: inline-block;
+            white-space: pre;
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(5px);
+            vertical-align: top; 
             transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
         }
-        .computed-word.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
+        
+        .computed-word.in-view {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
 
-        /* Highlight */
         .highlight-tech {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.9em; font-weight: 500;
-            color: var(--accent-blue); background: #f0f7ff; padding: 0 4px; border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--accent-blue);
+            background: #f0f7ff;
+            padding: 0 4px;
+            border-radius: 3px;
         }
 
         strong { font-weight: 700; color: #000; }
 
         /* Crypto Header */
         .crypto-header {
-            opacity: 0; transform: translateY(20px);
+            opacity: 0;
+            transform: translateY(20px);
             transition: opacity 0.8s ease, transform 0.8s ease;
-            /* Ensure shine clip works */
             display: inline-block; 
         }
-        .crypto-header.visible { opacity: 1; transform: translateY(0); }
+        .crypto-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; margin-top: 20px; }
+        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; margin-top: 40px; }
 
         @media (max-width: 700px) {
             .resume-container { padding: 0 20px 80px 20px; }
             h1 { font-size: 3em; }
             .skills-grid { grid-template-columns: 1fr; gap: 20px; }
-            .job-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .job-header { flex-direction: column; align-items: flex-start; gap: 8px; }
             section, header { padding: 30px 0; }
         }
     </style>
 </head>
 <body>
 
+    <!-- LAYERS -->
+    <div class="bg-base"></div>
     <canvas id="bg-canvas"></canvas>
     <div class="glass-overlay"></div>
 
     <div class="resume-container">
         
         <header class="anim-trigger">
-            <h1 class="crypto-header" data-text="MRIDUL SAHU">MRIDUL SAHU</h1>
+            <h1 class="crypto-header shimmer-text" data-text="MRIDUL SAHU">MRIDUL SAHU</h1>
             
             <div class="contact-wrapper stream-text">
-                <!-- Row 1: Details -->
                 <div class="contact-row">
                     <a href="mailto:mridulsahu01@gmail.com" class="contact-item">
                         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -289,7 +361,6 @@
                     </span>
                 </div>
                 
-                <!-- Row 2: Links -->
                 <div class="contact-row">
                     <a href="https://linkedin.com/in/mridul-sahu" target="_blank" class="contact-item">
                         <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -485,7 +556,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- 1. SUBTLE BG ANIMATION ---
+            // --- 1. BACKGROUND CANVAS ---
             const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
             let width, height, time = 0;
@@ -499,8 +570,9 @@
 
             function animateBg() {
                 ctx.clearRect(0, 0, width, height);
-                ctx.strokeStyle = 'rgba(0,0,0,0.03)'; 
-                ctx.lineWidth = 1;
+                // Stronger lines for better visibility
+                ctx.strokeStyle = 'rgba(0,0,0,0.06)'; 
+                ctx.lineWidth = 1.5;
                 
                 const step = 60;
                 for (let i = 0; i < height; i += step) {
@@ -516,12 +588,10 @@
             }
             animateBg();
 
-            // --- 2. ROBUST TEXT SPLITTER ---
-            // We split text into words for granular animation
+            // --- 2. TEXT SPLITTER ---
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
             
             textRoots.forEach(root => {
-                // Skip complex containers, process leaf nodes only
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
                 if(root.classList.contains('contact-wrapper')) return; 
                 if(root.classList.contains('company-header')) return;
@@ -535,7 +605,6 @@
                     
                     let isBold = false;
                     let parent = node.parentNode;
-                    // Check if inside bold tag
                     if(parent.tagName === 'STRONG' || parent.tagName === 'B') {
                         isBold = true;
                         parent.classList.add('highlight-tech');
@@ -566,8 +635,7 @@
                 entries.forEach(entry => {
                     const target = entry.target;
                     
-                    // TRIGGER ONCE LOGIC:
-                    // Only run if intersecting AND NOT already triggered
+                    // TRIGGER ONCE LOGIC
                     if (entry.isIntersecting && !target.classList.contains('triggered-once')) {
                         target.classList.add('triggered-once');
 
@@ -585,28 +653,26 @@
                                 }).join("");
                                 if(i >= original.length) {
                                     clearInterval(target.interval);
-                                    // ADD SHINE EFFECT ON FINISH
-                                    target.classList.add('shimmer-active');
+                                    target.classList.add('shimmer-active'); // Apply Shine Effect
                                 }
                                 i += 1/2; 
                             }, 30);
                             target.dataset.interval = interval;
                         }
 
-                        // B. Text Diffusion
+                        // B. Text Diffusion (Faster)
                         if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
                             const words = target.querySelectorAll('.computed-word');
                             
                             words.forEach((w, i) => {
                                 void w.offsetWidth; 
-                                
-                                // Staggered Delay
-                                const delay = i * 10; 
+                                // FAST DELAY: 3ms per char for rapid streaming
+                                const delay = i * 3; 
                                 
                                 setTimeout(() => {
                                     w.classList.add('in-view');
                                     
-                                    // Crypto Scramble
+                                    // Short Crypto Scramble
                                     if(w.textContent.length > 3) {
                                         const original = w.dataset.final;
                                         let count = 0;
@@ -630,13 +696,12 @@
                     }
                 });
             }, { 
-                threshold: 0.1, 
+                threshold: 0.05, // Increased sensitivity
                 rootMargin: "0px 0px -5% 0px" 
             });
 
             document.querySelectorAll('.crypto-header').forEach(el => observer.observe(el));
             document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
-            // Granular Text Observation
             document.querySelectorAll('.obs-list li, .stream-text, p, .contact-wrapper, .skills-grid').forEach(el => {
                 if(el.querySelector('.computed-word')) observer.observe(el);
             });
