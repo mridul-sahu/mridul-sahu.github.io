@@ -6,277 +6,369 @@
     <title>Mridul Sahu - Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #ffffff;
             --text-main: #111111;
             --text-sub: #555555;
             --accent-color: #1a73e8; 
+            --accent-pop: #2563eb;
             --border-color: #e0e0e0;
         }
 
         html {
-            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
-            height: 100vh;
-            overflow-y: scroll;
+            height: 100%;
         }
 
         body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            line-height: 1.7;
+            line-height: 1.65;
             color: var(--text-main);
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 50%, #fcfcfc 0%, #ffffff 100%);
-            /* Ensure body takes up space for scroll snap to work on children */
-            height: 100%; 
+            background-image: radial-gradient(circle at 50% 0%, #fcfcfc 0%, #ffffff 80%);
+            min-height: 100%;
+            overflow-x: hidden;
         }
 
-        /* --- 3D CONTAINER --- */
-        .resume-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* --- SCROLL SNAP SECTIONS --- */
-        /* Each major block takes up at least viewport height for focus */
-        section, header {
-            min-height: 100vh;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 60px 0;
-            
-            /* 3D TRANSITION STATE (Idle) */
-            opacity: 0;
-            transform: perspective(1000px) translateZ(-100px) rotateX(5deg) scale(0.95);
-            filter: blur(5px);
-            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
-            will-change: transform, opacity, filter;
-        }
-
-        /* Active State (In View) */
-        section.in-view, header.in-view {
-            opacity: 1;
-            transform: perspective(1000px) translateZ(0) rotateX(0) scale(1);
-            filter: blur(0);
-        }
-
-        /* --- TOPOGRAPHY BACKGROUND (Subtle) --- */
+        /* --- LAYOUT --- */
         #bg-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
-        /* --- TYPOGRAPHY --- */
+        .glass-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(20px) saturate(120%);
+            -webkit-backdrop-filter: blur(20px) saturate(120%);
+            z-index: -1;
+        }
+
+        .resume-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 150px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- SECTIONS --- */
+        section, header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 0;
+            box-sizing: border-box;
+        }
+
+        /* --- HEADER NAME (Prismatic Effect) --- */
         h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 4em;
+            font-size: 5em;
             font-weight: 800;
-            margin: 0 0 20px 0;
-            letter-spacing: -0.03em;
-            color: #000;
+            margin: 0 0 30px 0;
+            letter-spacing: -0.04em;
             text-align: center;
-            line-height: 1;
+            line-height: 0.9;
+            position: relative;
+            
+            /* Constant Shimmer Effect */
+            background: linear-gradient(110deg, #000 40%, #444 45%, #000 50%);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine-text 8s linear infinite;
+            
+            /* 3D Lift */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+            transform: translateZ(0);
         }
 
+        @keyframes shine-text {
+            0% { background-position: 100% 0; }
+            100% { background-position: -150% 0; }
+        }
+
+        /* --- CONTACT INFO (Rearranged) --- */
+        .contact-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 80px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: var(--text-sub);
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .contact-item:hover {
+            color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+        
+        .contact-item svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            opacity: 0.7;
+        }
+
+        /* Divider between items in row */
+        .contact-row .contact-item:not(:last-child)::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 12px;
+            background: #ddd;
+            margin-left: 25px;
+        }
+        /* Hide divider on mobile wrap */
+        @media (max-width: 600px) {
+             .contact-row .contact-item:not(:last-child)::after { display: none; }
+             .contact-row { gap: 15px; }
+        }
+
+
+        /* --- HEADERS --- */
         h2 {
             font-family: 'Outfit', sans-serif;
-            font-size: 2em;
-            font-weight: 600;
+            font-size: 2.2em;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: -0.01em;
             margin: 0 0 40px 0;
             padding-bottom: 15px;
-            border-bottom: 1px solid #000;
-            display: table; /* Shrink to fit */
-            padding-right: 30px;
+            border-bottom: 3px solid #000;
+            display: inline-block;
         }
 
         h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.5em;
+            font-size: 1.8em;
             font-weight: 600;
             margin: 0 0 8px 0;
             color: #000;
         }
 
         h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1em;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2em;
             font-weight: 600;
-            margin: 35px 0 15px 0;
-            color: #222;
+            margin: 40px 0 15px 0;
+            color: #111;
+            letter-spacing: 0.01em;
         }
 
-        /* --- HEADER INFO --- */
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px 30px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            color: var(--text-sub);
-            margin-bottom: 20px;
-        }
-
-        .contact-info a {
-            color: var(--text-sub);
-            text-decoration: none;
-            transition: color 0.2s;
-            border-bottom: 1px solid transparent;
-        }
-        .contact-info a:hover { color: var(--accent-color); border-color: var(--accent-color); }
-
-        /* --- JOBS & SECTIONS --- */
-        article {
-            margin-bottom: 50px;
-        }
+        /* --- CONTENT BLOCKS --- */
+        article { margin-bottom: 80px; }
 
         .job-header {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 15px;
-            font-family: 'Inter', sans-serif;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 8px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
+        
+        .job-meta { 
+            font-family: 'JetBrains Mono', monospace; 
+            color: #666; 
+            font-size: 0.85em; 
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
-        .job-title { font-weight: 600; color: #000; font-size: 1.1em; }
-        .job-meta { font-family: 'Inter', sans-serif; color: #666; font-size: 0.95em; }
-
-        ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
+        ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
 
         ul li {
             position: relative;
-            padding-left: 22px;
-            margin-bottom: 10px;
+            padding-left: 25px;
+            margin-bottom: 14px;
             color: #333;
             font-size: 1.05em;
         }
 
-        ul li::before {
+        ul > li::before {
             content: '';
-            position: absolute;
-            left: 6px;
-            top: 11px;
-            width: 5px; height: 5px;
+            position: absolute; left: 6px; top: 11px;
+            width: 6px; height: 6px;
             background: var(--accent-color);
-            border-radius: 50%;
+            border-radius: 1px;
         }
 
-        /* --- SKILLS GRID --- */
+        ul ul { margin-top: 10px; margin-bottom: 10px; }
+        ul ul li { font-size: 0.95em; color: #555; margin-bottom: 8px; }
+        ul ul li::before { background: #bbb; width: 4px; height: 4px; border-radius: 50%; }
+
+        /* --- SKILLS GRID (JetBrains Theme) --- */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px 60px;
+            gap: 40px 60px;
         }
-        .skill-row { margin-bottom: 10px; }
+        .skill-row { margin-bottom: 15px; }
+        
         .skill-row strong {
             display: block;
+            font-family: 'Outfit', sans-serif; 
             font-size: 0.85em;
-            color: #777;
-            margin-bottom: 5px;
+            color: #000;
+            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #f0f0f0;
         }
-        .skill-row span { font-size: 1.15em; color: #111; }
+        
+        .skill-row span { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.95em; 
+            color: #333; 
+            line-height: 1.6;
+        }
 
         /* --- ANIMATION CLASSES --- */
+        
+        /* 1. Section Pop */
+        .anim-trigger {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .anim-trigger.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        /* 1. Cryptography Decode (Headlines) */
-        .crypto-text { opacity: 0; }
-        .crypto-text.in-view { opacity: 1; }
-
-        /* 2. LLM Diffusion (Body Text) */
-        .diffuse-word {
+        /* 2. Computed Word (Crypto Effect) */
+        .computed-word {
             display: inline-block;
             white-space: pre;
             opacity: 0;
-            filter: blur(15px); /* High initial blur for "Diffusion" look */
-            transform: scale(0.9);
-            transition: opacity 1.2s ease, filter 1.2s ease, transform 1.2s ease; /* Slower transition */
-            will-change: opacity, filter, transform;
+            filter: blur(8px);
+            transform: translateY(5px);
+            vertical-align: top; /* Stabilizes layout */
+            
+            /* Transition for ENTRY only */
+            transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
         }
         
-        .diffuse-word.in-view {
+        .computed-word.in-view {
             opacity: 1;
             filter: blur(0);
-            transform: scale(1);
+            transform: translateY(0);
         }
 
-        /* 3. Bold Pop (Subtle) */
-        strong, .pop-bold {
-            font-weight: 600;
-            color: #000;
-            transition: color 0.5s;
-            display: inline-block;
-        }
-        
-        .pop-active {
-            animation: cleanPop 1s ease-out forwards;
+        /* 3. Highlight */
+        .highlight-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--accent-blue);
+            background: #f0f7ff;
+            padding: 0 4px;
+            border-radius: 3px;
         }
 
-        @keyframes cleanPop {
-            0% { transform: scale(1); color: #000; }
-            50% { transform: scale(1.08); color: var(--accent-color); }
-            100% { transform: scale(1); color: #000; }
-        }
-        
-        /* 4. Footer styling */
-        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; }
+        strong { font-weight: 700; color: #000; }
 
-        /* Mobile Responsiveness */
+        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 60px; }
+
         @media (max-width: 700px) {
-            .resume-container { padding: 0 20px; }
-            h1 { font-size: 2.8em; }
-            .skills-grid { grid-template-columns: 1fr; gap: 20px; }
-            .job-header { flex-direction: column; gap: 5px; }
-            section, header { padding: 80px 0; min-height: auto; } /* Relax snap height on mobile */
+            .resume-container { padding: 0 25px 100px 25px; }
+            h1 { font-size: 3em; }
+            .skills-grid { grid-template-columns: 1fr; gap: 30px; }
+            .job-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            section, header { padding: 60px 0; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
+    <div class="glass-overlay"></div>
 
     <div class="resume-container">
         
-        <header>
-            <h1 class="crypto-text" data-text="MRIDUL SAHU">MRIDUL SAHU</h1>
-            <div class="contact-info stream-text">
-                <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
-                <span>+91 9082265471</span>
-                <span>Bangalore, KA, India</span>
-                <a href="https://linkedin.com/in/mridul-sahu" target="_blank">LinkedIn</a>
-                <a href="https://github.com/mridul-sahu" target="_blank">GitHub</a>
-                <a href="https://x.com/TheMridulSahu" target="_blank">X.com</a>
+        <header class="anim-trigger">
+            <h1 class="crypto-header" data-text="MRIDUL SAHU">MRIDUL SAHU</h1>
+            
+            <div class="contact-wrapper stream-text">
+                <!-- Row 1: Details -->
+                <div class="contact-row">
+                    <a href="mailto:mridulsahu01@gmail.com" class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        mridulsahu01@gmail.com
+                    </a>
+                    <span class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        +91 9082265471
+                    </span>
+                    <span class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Bangalore, KA, India
+                    </span>
+                </div>
+                
+                <!-- Row 2: Links -->
+                <div class="contact-row">
+                    <a href="https://linkedin.com/in/mridul-sahu" target="_blank" class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/mridul-sahu" target="_blank" class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="https://x.com/TheMridulSahu" target="_blank" class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        X.com
+                    </a>
+                </div>
             </div>
         </header>
 
-        <section>
-            <h2 class="crypto-text" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY</h2>
+        <section class="anim-trigger">
+            <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY</h2>
             
-            <article class="stream-text">
-                <h3>Google <span style="font-weight:400; color:#666; font-size:0.8em;">| Bangalore, India</span></h3>
+            <article>
+                <h3>Google <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Bangalore, India</span></h3>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
                     <span class="job-meta">Nov 2024 – Present</span>
                 </div>
-                <ul>
+                <ul class="obs-list">
                     <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, CommitFuture abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
                     <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
                         <ul>
@@ -297,7 +389,7 @@
                 </div>
                 
                 <h4>Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
-                <ul>
+                <ul class="obs-list">
                     <li>Spearheaded engineering efforts across diverse teams and fostered xFN & XPA collaboration to launch critical new email communications and Gmail warning banners, effectively alerting millions of users about their storage grace period status.</li>
                     <li>Orchestrated a successful phased launch impacting <strong>XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and driving substantial Google One signups and upgrades (estimated ~X Million users/year). This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
                     <li>Assumed Tech Lead responsibilities for a major Gmail x SQS feature initiative; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
@@ -308,7 +400,7 @@
                 </ul>
 
                 <h4>Google One - Benefits (Oct 2021 – Apr 2023)</h4>
-                <ul>
+                <ul class="obs-list">
                     <li>Architected and implemented the foundational backend system for determining user eligibility for Google One benefits, resolving complex large-scale orchestration challenges. This system became the cornerstone for a major customer acquisition feature, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
                     <li>Designed and deployed a comprehensive reconciliation framework within Google One to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of minimizing consumer complaints related to benefits.</li>
                     <li>Led the end-to-end design, implementation, and successful rollout of multiple major benefit launches and international expansions, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
@@ -321,14 +413,14 @@
             </article>
         </section>
 
-        <section class="anim-section">
-            <article class="stream-text">
-                <h3>CrispyGames / Zopte Technologies <span style="font-weight:400; color:#666; font-size:0.8em;">| Mumbai, India</span></h3>
+        <section class="anim-trigger">
+            <article>
+                <h3>CrispyGames / Zopte Technologies <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Mumbai, India</span></h3>
                 <div class="job-header">
                     <span class="job-title">Software Engineer</span>
                     <span class="job-meta">Jun 2018 – Sept 2021</span>
                 </div>
-                <ul>
+                <ul class="obs-list">
                     <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, accelerating rapid prototyping by contributing up to 60% of the code for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
                     <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). Achieved an <strong>~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
                     <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an Order Management System (OMS) and Tick Collector, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
@@ -350,28 +442,28 @@
                     <span class="job-title">Software Engineer, Intern</span>
                     <span class="job-meta">Jun 2017 – Jul 2017</span>
                 </div>
-                <ul>
+                <ul class="obs-list">
                     <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
                     <li>Built web-based administration tools to manage and inspect running applications, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
                 </ul>
             </article>
         </section>
 
-        <section class="anim-section">
-            <h2 class="crypto-text" data-text="EDUCATION">EDUCATION</h2>
-            <article class="stream-text">
+        <section class="anim-trigger">
+            <h2 class="crypto-header" data-text="EDUCATION">EDUCATION</h2>
+            <article>
                 <h3>National Institute of Technology, Meghalaya</h3>
-                <div class="job-header">
+                <div class="job-header" style="border: none; margin-bottom: 0;">
                     <span class="job-title">B.Tech in Computer Science and Engineering</span>
                     <span class="job-meta">Shillong, India | 2014 – 2018</span>
                 </div>
-                <p>B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
+                <p class="stream-text">B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
             </article>
         </section>
 
-        <section class="anim-section">
-            <h2 class="crypto-text" data-text="CERTIFICATIONS">CERTIFICATIONS</h2>
-            <ul class="stream-text">
+        <section class="anim-trigger">
+            <h2 class="crypto-header" data-text="CERTIFICATIONS">CERTIFICATIONS</h2>
+            <ul class="obs-list">
                 <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
                 <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
                 <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
@@ -379,58 +471,60 @@
             </ul>
         </section>
 
-        <section class="anim-section">
-            <h2 class="crypto-text" data-text="PUBLICATION">PUBLICATION</h2>
-            <div class="stream-text">
-                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
+        <section class="anim-trigger">
+            <h2 class="crypto-header" data-text="PUBLICATION & ACTIVITIES">PUBLICATION & ACTIVITIES</h2>
+            
+            <div style="margin-bottom: 50px;">
+                <h4>Publication</h4>
+                <p class="stream-text">S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
+            </div>
+
+            <div>
+                <h4>Other Activities</h4>
+                <ul class="obs-list">
+                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: Traceback.</li>
+                    <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
+                    <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
+                    <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
+                </ul>
             </div>
         </section>
 
-        <section class="anim-section">
-            <h2 class="crypto-text" data-text="OTHER ACTIVITIES & ACHIEVEMENTS">OTHER ACTIVITIES & ACHIEVEMENTS</h2>
-            <ul class="stream-text">
-                <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: Traceback.</li>
-                <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
-                <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
-                <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
-            </ul>
-        </section>
-
-        <section class="anim-section">
-            <h2 class="crypto-text" data-text="TECHNICAL SKILLS">TECHNICAL SKILLS</h2>
+        <section class="anim-trigger">
+            <h2 class="crypto-header" data-text="TECHNICAL SKILLS">TECHNICAL SKILLS</h2>
             <div class="skills-grid stream-text">
                 <div class="skill-row">
-                    <strong>Core Languages:</strong>
+                    <strong>Core Languages</strong>
                     <span>Python, Java, Go, C++, Dart</span>
                 </div>
                 <div class="skill-row">
-                    <strong>Frameworks & Libraries:</strong>
+                    <strong>Frameworks & Libraries</strong>
                     <span>JAX, Orbax, Flax, Optax, Tunix, Flutter</span>
                 </div>
                 <div class="skill-row">
-                    <strong>Systems & Architecture:</strong>
+                    <strong>Systems & Architecture</strong>
                     <span>Distributed Systems, Microservices, System Design, API Design, Machine Learning Systems</span>
                 </div>
                 <div class="skill-row">
-                    <strong>DevOps & Cloud:</strong>
-                    <span>Kubernetes, GCP (Google Cloud Platform), Docker, Git, Unix/Linux</span>
+                    <strong>DevOps & Cloud</strong>
+                    <span>Kubernetes, GCP, Docker, Git, Unix/Linux</span>
                 </div>
                 <div class="skill-row">
-                    <strong>Databases & Storage:</strong>
+                    <strong>Databases & Storage</strong>
                     <span>SQL, MongoDB, MySQL, Elastic Search, Redis, Cloud Pub/Sub</span>
                 </div>
                 <div class="skill-row">
-                    <strong>Web Technologies:</strong>
+                    <strong>Web Technologies</strong>
                     <span>HTML/CSS, JavaScript, Angular Dart</span>
                 </div>
                 <div class="skill-row">
-                    <strong>Familiar With:</strong>
+                    <strong>Familiar With</strong>
                     <span>Ruby on Rails, Swift, Bash Scripting, Minikube, Hugo, Nginx, OpenCV, gRPC, RESTful APIs</span>
                 </div>
             </div>
         </section>
         
-        <footer class="anim-section">
+        <footer>
              <hr>
              <p>Mridul's Resume - Updated on Sept 25, 2025</p>
         </footer>
@@ -439,10 +533,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- 1. SUBTLE BG ANIMATION ---
-            const canvas = document.createElement('canvas');
-            canvas.id = 'bg-canvas';
-            document.body.appendChild(canvas);
+            // --- 1. BACKGROUND CANVAS ---
+            const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
             let width, height, time = 0;
             
@@ -455,99 +547,30 @@
 
             function animateBg() {
                 ctx.clearRect(0, 0, width, height);
-                ctx.strokeStyle = 'rgba(0,0,0,0.02)'; // Very subtle
+                ctx.strokeStyle = 'rgba(0,0,0,0.03)'; 
                 ctx.lineWidth = 1;
                 
-                // Draw flowing topographical lines
-                for (let i = 0; i < height; i += 60) {
+                const step = 60;
+                for (let i = 0; i < height; i += step) {
                     ctx.beginPath();
-                    for (let j = 0; j < width; j += 50) {
-                        const yOffset = Math.sin(j * 0.002 + time) * 30 + Math.cos(i * 0.01 + time * 0.5) * 20;
-                        ctx.lineTo(j, i + yOffset);
+                    for (let x = 0; x < width; x += 30) {
+                        const y = i + Math.sin(x * 0.005 + time) * 20 + Math.cos(x * 0.01 - time) * 10;
+                        ctx.lineTo(x, y);
                     }
                     ctx.stroke();
                 }
-                time += 0.005;
+                time += 0.01;
                 requestAnimationFrame(animateBg);
             }
             animateBg();
 
-            // --- 2. CRYPTO DECODE ENGINE ---
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            // --- 2. ROBUST TEXT SPLITTER ---
+            const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const target = entry.target;
-                    
-                    if (entry.isIntersecting) {
-                        
-                        // A. Section Pop-In (3D Snap Effect)
-                        if(target.classList.contains('anim-section') || target.tagName === 'HEADER' || target.tagName === 'SECTION') {
-                            target.classList.add('in-view');
-                        }
-
-                        // B. Headline Scramble
-                        if(target.classList.contains('crypto-text')) {
-                            target.classList.add('in-view');
-                            const original = target.dataset.text;
-                            let i = 0;
-                            
-                            if(target.dataset.interval) clearInterval(target.dataset.interval);
-
-                            const interval = setInterval(() => {
-                                target.innerText = original.split("").map((c, idx) => {
-                                    if(idx < i) return c;
-                                    return chars[Math.floor(Math.random() * chars.length)];
-                                }).join("");
-                                
-                                if(i >= original.length) clearInterval(interval);
-                                i += 1/2; 
-                            }, 30);
-                            target.dataset.interval = interval;
-                        }
-                        
-                        // C. Body Diffusion
-                        if(target.classList.contains('stream-text')) {
-                            const words = target.querySelectorAll('.diffuse-word');
-                            words.forEach(w => {
-                                // Randomize delay for "Stochastic/Not in Order" effect
-                                // Range: 0 to 800ms
-                                const randomDelay = Math.random() * 800;
-                                w.style.transitionDelay = `${randomDelay}ms`;
-                                w.classList.add('in-view');
-                                
-                                if(w.classList.contains('pop-active-trigger')) {
-                                    setTimeout(() => w.classList.add('pop-active'), randomDelay + 400); 
-                                }
-                            });
-                        }
-
-                    } else {
-                        // REVERSAL
-                        if(target.classList.contains('anim-section') || target.tagName === 'HEADER' || target.tagName === 'SECTION') {
-                            target.classList.remove('in-view');
-                        }
-                        if(target.classList.contains('crypto-text')) {
-                            clearInterval(target.dataset.interval);
-                            target.classList.remove('in-view');
-                            target.innerText = target.dataset.text; 
-                        }
-                        if(target.classList.contains('stream-text')) {
-                             const words = target.querySelectorAll('.diffuse-word');
-                             words.forEach(w => {
-                                 w.style.transitionDelay = '0ms'; // Remove delay on exit for fast clear
-                                 w.classList.remove('in-view');
-                                 w.classList.remove('pop-active');
-                             });
-                        }
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: "0px" });
-
-
-            // --- 3. TEXT SPLITTER (Robust) ---
-            const textRoots = document.querySelectorAll('.stream-text');
             textRoots.forEach(root => {
+                if(root.tagName === 'LI' && root.querySelector('ul')) return;
+                if(root.classList.contains('contact-wrapper')) return; // Don't split icons
+
                 const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
                 const textNodes = [];
                 while(walker.nextNode()) textNodes.push(walker.currentNode);
@@ -557,21 +580,20 @@
                     
                     let isBold = false;
                     let parent = node.parentNode;
-                    while(parent && parent !== root) {
-                        if(parent.tagName === 'STRONG' || parent.tagName === 'B') isBold = true;
-                        parent = parent.parentNode;
+                    if(parent.tagName === 'STRONG' || parent.tagName === 'B') {
+                        isBold = true;
+                        parent.classList.add('highlight-tech');
                     }
 
                     const wrapper = document.createElement('span');
                     const words = node.textContent.split(/(\s+)/);
                     
-                    words.forEach((w, i) => {
+                    words.forEach((w) => {
                         if (w.trim().length > 0) {
                             const s = document.createElement('span');
                             s.textContent = w;
-                            s.className = 'diffuse-word';
-                            if(isBold) s.classList.add('pop-active-trigger');
-                            // Delays are set in the Observer for true randomness on each entry
+                            s.className = 'computed-word';
+                            s.dataset.final = w; 
                             wrapper.appendChild(s);
                         } else {
                             wrapper.appendChild(document.createTextNode(w));
@@ -581,10 +603,99 @@
                 });
             });
 
-            // --- 4. INITIALIZE ---
-            document.querySelectorAll('header, section').forEach(el => observer.observe(el));
-            document.querySelectorAll('.crypto-text').forEach(el => observer.observe(el));
-            document.querySelectorAll('.stream-text').forEach(el => observer.observe(el));
+            // --- 3. INTERSECTION OBSERVER ---
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const target = entry.target;
+                    const isVisible = entry.isIntersecting;
+
+                    // A. Crypto Header
+                    if(target.classList.contains('crypto-header')) {
+                        if(isVisible) {
+                            target.classList.add('visible');
+                            const original = target.dataset.text;
+                            let i = 0;
+                            if(target.dataset.interval) clearInterval(target.dataset.interval);
+
+                            const interval = setInterval(() => {
+                                target.innerText = original.split("").map((c, idx) => {
+                                    if(idx < i) return c;
+                                    return chars[Math.floor(Math.random() * 26)];
+                                }).join("");
+                                if(i >= original.length) clearInterval(target.interval);
+                                i += 1/2; 
+                            }, 30);
+                            target.dataset.interval = interval;
+                        } else {
+                            target.classList.remove('visible');
+                            target.innerText = target.dataset.text; 
+                        }
+                    }
+
+                    // B. Text Diffusion
+                    // We observe specific blocks (LI, P) so text animates only when THAT block enters
+                    if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
+                        const words = target.querySelectorAll('.computed-word');
+                        
+                        if(isVisible) {
+                            words.forEach((w, i) => {
+                                // Reset
+                                w.classList.remove('in-view');
+                                void w.offsetWidth; 
+                                
+                                // Staggered Delay (10ms)
+                                const delay = i * 10; 
+                                
+                                setTimeout(() => {
+                                    w.classList.add('in-view');
+                                    
+                                    // Crypto Scramble
+                                    if(w.textContent.length > 3) {
+                                        const original = w.dataset.final;
+                                        let count = 0;
+                                        const scramble = setInterval(() => {
+                                            w.innerText = chars[Math.floor(Math.random() * chars.length)];
+                                            count++;
+                                            if(count > 2) {
+                                                w.innerText = original;
+                                                clearInterval(scramble);
+                                            }
+                                        }, 40);
+                                    }
+                                }, delay);
+                            });
+                        } else {
+                            // INSTANT EXIT
+                            words.forEach(w => {
+                                w.style.transition = 'none'; // Disable transition for instant hide
+                                w.classList.remove('in-view');
+                                // Re-enable transition after a tick
+                                setTimeout(() => { w.style.transition = ''; }, 50);
+                            });
+                        }
+                    }
+                    
+                    // C. Section Pop
+                    if(target.classList.contains('anim-trigger')) {
+                         if(isVisible) target.classList.add('in-view');
+                         else target.classList.remove('in-view');
+                    }
+
+                });
+            }, { 
+                threshold: 0.1, 
+                rootMargin: "0px 0px -5% 0px" 
+            });
+
+            document.querySelectorAll('.crypto-header').forEach(el => observer.observe(el));
+            document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
+            // Granular Text Observation
+            document.querySelectorAll('.obs-list li, .stream-text, p, .contact-info, .skills-grid').forEach(el => {
+                if(el.querySelector('.computed-word')) observer.observe(el);
+            });
+
         });
     </script>
 </body>
