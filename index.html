@@ -139,9 +139,7 @@
             margin-bottom: 10px;
         }
         
-        .company-name {
-            font-style: normal; /* Reset em */
-        }
+        .company-name { font-style: normal; }
 
         h4 {
             font-family: 'Outfit', sans-serif;
@@ -152,7 +150,18 @@
             letter-spacing: 0.01em;
         }
 
-        /* --- CONTACT --- */
+        /* --- LINKS & CONTACT --- */
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        a:hover {
+            color: var(--accent-pop);
+            text-decoration: underline;
+        }
+
         .contact-wrapper {
             display: flex;
             flex-direction: column;
@@ -175,17 +184,27 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-sub);
+            color: var(--text-sub); /* Default grey for header */
             text-decoration: none;
-            transition: all 0.2s ease;
             padding: 4px 8px;
             border-radius: 4px;
         }
         .contact-item:hover { 
             background: rgba(26,115,232,0.1);
             color: var(--accent-color); 
+            text-decoration: none;
         }
         .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Divider */
+        .contact-row .contact-item:not(:last-child)::after {
+            content: ''; display: block; width: 1px; height: 12px;
+            background: #ccc; margin-left: 25px;
+        }
+        @media (max-width: 600px) {
+             .contact-row .contact-item:not(:last-child)::after { display: none; }
+             .contact-row { gap: 15px; }
+        }
 
         /* --- CONTENT BLOCKS --- */
         article { margin-bottom: 40px; }
@@ -278,6 +297,7 @@
             .skills-grid { grid-template-columns: 1fr; gap: 20px; }
             .job-header { flex-direction: column; align-items: flex-start; gap: 5px; }
             .contact-row { flex-direction: column; gap: 10px; }
+            .contact-row .contact-item:not(:last-child)::after { display: none; }
             section, header { padding: 30px 0; }
         }
     </style>
@@ -333,7 +353,7 @@
             <article class="stream-text">
                 <div class="company-row">
                     <h3 class="crypto-header" data-text="Google">Google</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">*Bangalore, India*</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India</span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
@@ -452,7 +472,7 @@
             </div>
 
             <div class="stream-text">
-                <h4>Other Activities & Achievements</h4>
+                <h4>Other Activities</h4>
                 <ul class="obs-list">
                     <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>.</li>
                     <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
@@ -595,8 +615,8 @@
                             ctx.beginPath();
                             ctx.moveTo(nodeA.x, nodeA.y);
                             ctx.lineTo(nodeB.x, nodeB.y);
-                            // Visible connections
-                            ctx.strokeStyle = `rgba(0,0,0,0.1)`; 
+                            // Stronger opacity for visibility
+                            ctx.strokeStyle = `rgba(0,0,0,0.06)`;
                             ctx.lineWidth = 1;
                             ctx.stroke();
                             
@@ -620,6 +640,7 @@
 
             // --- 2. ROBUST TEXT SPLITTER ---
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
+            
             textRoots.forEach(root => {
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
                 if(root.classList.contains('contact-wrapper')) return; 
@@ -634,13 +655,14 @@
                     
                     let isBold = false;
                     let parent = node.parentNode;
-                    if(parent.tagName === 'STRONG' || parent.tagName === 'B' || parent.tagName === 'EM' || parent.tagName === 'I') {
+                    if(parent.tagName === 'STRONG' || parent.tagName === 'B') {
                         isBold = true;
                         parent.classList.add('highlight-tech');
                     }
 
                     const wrapper = document.createElement('span');
                     const words = node.textContent.split(/(\s+)/);
+                    
                     words.forEach((w) => {
                         if (w.trim().length > 0) {
                             const s = document.createElement('span');
@@ -663,6 +685,7 @@
                 entries.forEach(entry => {
                     const target = entry.target;
                     
+                    // TRIGGER ONCE LOGIC
                     if (entry.isIntersecting && !target.classList.contains('triggered-once')) {
                         target.classList.add('triggered-once');
 
@@ -680,21 +703,26 @@
                                 }).join("");
                                 if(i >= original.length) {
                                     clearInterval(target.interval);
-                                    target.classList.add('shimmer-text'); 
+                                    target.classList.add('shimmer-text'); // Apply Shine Effect
                                 }
                                 i += 1/2; 
                             }, 30);
                             target.dataset.interval = interval;
                         }
 
-                        // B. Text Diffusion
+                        // B. Text Diffusion (Faster)
                         if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
                             const words = target.querySelectorAll('.computed-word');
+                            
                             words.forEach((w, i) => {
                                 void w.offsetWidth; 
+                                // FAST DELAY: 3ms per char for rapid streaming
                                 const delay = i * 3; 
+                                
                                 setTimeout(() => {
                                     w.classList.add('in-view');
+                                    
+                                    // Short Crypto Scramble
                                     if(w.textContent.length > 3) {
                                         const original = w.dataset.final;
                                         let count = 0;
@@ -717,13 +745,17 @@
                         }
                     }
                 });
-            }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+            }, { 
+                threshold: 0.1, 
+                rootMargin: "0px 0px -5% 0px" 
+            });
 
             document.querySelectorAll('.crypto-header').forEach(el => observer.observe(el));
             document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
             document.querySelectorAll('.obs-list li, .stream-text, p, .contact-wrapper, .skills-grid').forEach(el => {
                 if(el.querySelector('.computed-word')) observer.observe(el);
             });
+
         });
     </script>
 </body>
