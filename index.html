@@ -6,400 +6,446 @@
     <title>Mridul Sahu - Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #ffffff;
-            --text-main: #101010; 
-            --text-sub: #444;
-            --accent-blue: #4285F4;
-            --accent-purple: #9C27B0;
-            --accent-red: #EA4335;
+            --text-main: #111111;
+            --text-sub: #555555;
+            --accent-color: #1a73e8; 
+            --border-color: #e0e0e0;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            height: 100vh;
+            overflow-y: scroll;
         }
 
         body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             color: var(--text-main);
             background-color: var(--bg-color);
-            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #fcfcfc 0%, #ffffff 100%);
+            /* Ensure body takes up space for scroll snap to work on children */
+            height: 100%; 
         }
 
-        /* --- CANVAS LAYER --- */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* --- 3D CONTAINER --- */
+        .resume-container {
             width: 100%;
-            height: 100%;
-            z-index: 0; /* Behind content */
-            pointer-events: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* --- CONTENT LAYER --- */
-        .scene {
-            position: relative;
-            z-index: 1; /* Above canvas */
+        /* --- SCROLL SNAP SECTIONS --- */
+        /* Each major block takes up at least viewport height for focus */
+        section, header {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            padding: 100px 20px;
-        }
-
-        .resume-sheet {
-            width: 100%;
-            max-width: 950px;
-            /* Highly translucent glass */
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 80px 100px;
-            border-radius: 2px;
-            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.05);
+            padding: 60px 0;
             
-            /* Entry Animation */
+            /* 3D TRANSITION STATE (Idle) */
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: perspective(1000px) translateZ(-100px) rotateX(5deg) scale(0.95);
+            filter: blur(5px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
+            will-change: transform, opacity, filter;
         }
 
-        .resume-sheet.loaded {
+        /* Active State (In View) */
+        section.in-view, header.in-view {
             opacity: 1;
-            transform: translateY(0);
+            transform: perspective(1000px) translateZ(0) rotateX(0) scale(1);
+            filter: blur(0);
+        }
+
+        /* --- TOPOGRAPHY BACKGROUND (Subtle) --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
         /* --- TYPOGRAPHY --- */
-        header { text-align: center; margin-bottom: 100px; }
-        
-        h1 { 
+        h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 4.8em; 
-            color: #000; 
-            margin: 0 0 25px 0; 
-            font-weight: 700;
-            letter-spacing: -0.04em;
+            font-size: 4em;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.03em;
+            color: #000;
+            text-align: center;
             line-height: 1;
         }
 
-        .contact-line {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            color: #555;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .contact-line a { 
-            color: #555; text-decoration: none; 
-            transition: color 0.2s;
-        }
-        .contact-line a:hover { color: var(--accent-blue); }
-
-        /* Section Headers (Blog Style) */
         h2 {
             font-family: 'Outfit', sans-serif;
-            font-size: 2.8em;
-            margin: 80px 0 40px 0;
-            color: #000;
+            font-size: 2em;
             font-weight: 600;
-            letter-spacing: -0.03em;
-            /* Divider above header */
-            border-top: 1px solid rgba(0,0,0,0.08);
-            padding-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 40px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #000;
+            display: table; /* Shrink to fit */
+            padding-right: 30px;
         }
-        
-        /* Removing border from first header in a section */
-        section:first-of-type h2 { border-top: none; padding-top: 0; margin-top: 0; }
-
-        article { margin-bottom: 60px; }
 
         h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.8em;
+            font-size: 1.5em;
+            font-weight: 600;
             margin: 0 0 8px 0;
-            font-weight: 500;
-            color: #111;
-            display: flex;
-            align-items: baseline;
-            flex-wrap: wrap;
+            color: #000;
         }
-        
-        .location-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5em;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #888;
-            margin-left: 15px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background: rgba(0,0,0,0.03);
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 35px 0 15px 0;
+            color: #222;
+        }
+
+        /* --- HEADER INFO --- */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            color: var(--text-sub);
+            margin-bottom: 20px;
+        }
+
+        .contact-info a {
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+        .contact-info a:hover { color: var(--accent-color); border-color: var(--accent-color); }
+
+        /* --- JOBS & SECTIONS --- */
+        article {
+            margin-bottom: 50px;
         }
 
         .job-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-family: 'Inter', sans-serif;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 10px;
-        }
-        
-        .job-title { font-weight: 600; font-size: 1.15em; color: #202124; }
-        .job-date { font-size: 1em; color: #5f6368; }
-
-        h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.2em;
-            color: #202124;
-            margin: 40px 0 15px 0;
-            font-weight: 600;
+            padding-bottom: 8px;
         }
 
-        ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
+        .job-title { font-weight: 600; color: #000; font-size: 1.1em; }
+        .job-meta { font-family: 'Inter', sans-serif; color: #666; font-size: 0.95em; }
+
+        ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
+
         ul li {
             position: relative;
-            padding-left: 24px;
-            margin-bottom: 12px;
-            color: #3c4043;
+            padding-left: 22px;
+            margin-bottom: 10px;
+            color: #333;
             font-size: 1.05em;
         }
-        
+
         ul li::before {
             content: '';
-            position: absolute; left: 8px; top: 11px;
+            position: absolute;
+            left: 6px;
+            top: 11px;
             width: 5px; height: 5px;
-            background: #111;
+            background: var(--accent-color);
             border-radius: 50%;
         }
 
-        strong { font-weight: 600; color: #000; }
-        
+        /* --- SKILLS GRID --- */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px 80px;
+            gap: 30px 60px;
         }
+        .skill-row { margin-bottom: 10px; }
         .skill-row strong {
-            display: block; font-family: 'Outfit', sans-serif;
-            font-size: 0.9em; letter-spacing: 0.02em; 
-            margin-bottom: 8px; color: #5f6368; font-weight: 600;
+            display: block;
+            font-size: 0.85em;
+            color: #777;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
         }
-        .skill-row span { font-size: 1.1em; line-height: 1.5; color: #202124; }
+        .skill-row span { font-size: 1.15em; color: #111; }
 
-        footer { 
-            margin-top: 120px; 
-            text-align: center; 
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9em; 
-            color: #888; 
-        }
+        /* --- ANIMATION CLASSES --- */
 
-        /* --- ANIMATIONS --- */
-        
-        /* Section Entry */
-        section {
+        /* 1. Cryptography Decode (Headlines) */
+        .crypto-text { opacity: 0; }
+        .crypto-text.in-view { opacity: 1; }
+
+        /* 2. LLM Diffusion (Body Text) */
+        .diffuse-word {
+            display: inline-block;
+            white-space: pre;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            filter: blur(15px); /* High initial blur for "Diffusion" look */
+            transform: scale(0.9);
+            transition: opacity 1.2s ease, filter 1.2s ease, transform 1.2s ease; /* Slower transition */
+            will-change: opacity, filter, transform;
         }
-        section.in-view {
+        
+        .diffuse-word.in-view {
             opacity: 1;
-            transform: translateY(0);
+            filter: blur(0);
+            transform: scale(1);
         }
 
-        @media (max-width: 800px) {
-            .resume-sheet { padding: 60px 30px; }
-            h1 { font-size: 3.5em; }
-            .skills-grid { grid-template-columns: 1fr; gap: 30px; }
+        /* 3. Bold Pop (Subtle) */
+        strong, .pop-bold {
+            font-weight: 600;
+            color: #000;
+            transition: color 0.5s;
+            display: inline-block;
+        }
+        
+        .pop-active {
+            animation: cleanPop 1s ease-out forwards;
+        }
+
+        @keyframes cleanPop {
+            0% { transform: scale(1); color: #000; }
+            50% { transform: scale(1.08); color: var(--accent-color); }
+            100% { transform: scale(1); color: #000; }
+        }
+        
+        /* 4. Footer styling */
+        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 700px) {
+            .resume-container { padding: 0 20px; }
+            h1 { font-size: 2.8em; }
+            .skills-grid { grid-template-columns: 1fr; gap: 20px; }
+            .job-header { flex-direction: column; gap: 5px; }
+            section, header { padding: 80px 0; min-height: auto; } /* Relax snap height on mobile */
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="scene">
-        <div class="resume-sheet">
+    <div class="resume-container">
+        
+        <header>
+            <h1 class="crypto-text" data-text="MRIDUL SAHU">MRIDUL SAHU</h1>
+            <div class="contact-info stream-text">
+                <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
+                <span>+91 9082265471</span>
+                <span>Bangalore, KA, India</span>
+                <a href="https://linkedin.com/in/mridul-sahu" target="_blank">LinkedIn</a>
+                <a href="https://github.com/mridul-sahu" target="_blank">GitHub</a>
+                <a href="https://x.com/TheMridulSahu" target="_blank">X.com</a>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="crypto-text" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY</h2>
             
-            <header>
-                <h1>MRIDUL SAHU</h1>
-                <div class="contact-line">
-                    <a href="mailto:mridulsahu01@gmail.com">mridulsahu01@gmail.com</a>
-                    <span>+91 9082265471</span>
-                    <span>Bangalore, India</span>
+            <article class="stream-text">
+                <h3>Google <span style="font-weight:400; color:#666; font-size:0.8em;">| Bangalore, India</span></h3>
+                <div class="job-header">
+                    <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
+                    <span class="job-meta">Nov 2024 – Present</span>
                 </div>
-                <div class="contact-line">
-                    <a href="https://linkedin.com/in/mridul-sahu" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/mridul-sahu" target="_blank">GitHub</a>
-                    <a href="https://x.com/TheMridulSahu" target="_blank">X.com</a>
-                </div>
-            </header>
+                <ul>
+                    <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, CommitFuture abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
+                    <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
+                        <ul>
+                            <li><strong>Emergency Checkpoint Manager (ECM):</strong> Improved the two-stage saving mechanism (fast local cache & persistent storage) to be quicker and more reliable, reducing data loss risk during unexpected training interruptions.</li>
+                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined how training restarts from a single saved copy (Single Replica Restore) and how that data is efficiently shared (Broadcast) across all processing units, especially in complex, multi-device environments. This reduced startup times and resource bottlenecks.</li>
+                        </ul>
+                    </li>
+                    <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms, unblocking key enterprise users by addressing complex multi-device and storage interaction bugs.</li>
+                    <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax, featuring a modular design, YAML configuration, and automated CI/CD pipelines for continuous performance regression detection across various hardware. Designed key components for open-source compatibility to foster community engagement and simplify external debugging.</li>
+                    <li>Driving foundational checkpointing improvements through these Orbax enhancements within the <strong>Gemax Prod</strong> initiative, thereby bolstering the reliability, scalability, and overall performance of training workflows for Google's State-of-the-Art (SOTA) foundation models.</li>
+                    <li>Led the design and development of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), enhancing model efficiency. Architected a flexible framework using a strategy pattern to support diverse distillation techniques, including advanced logit-matching and feature/attention-based methods. Implemented novel utilities for dynamic intermediate feature extraction and dimension alignment (pooling/projection) across heterogeneous model architectures, enabling broader adoption of model compression.</li>
+                    <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
+                </ul>
 
-            <section id="employment">
-                <h2>Employment History</h2>
+                <div class="job-header" style="margin-top:40px;">
+                    <span class="job-title">Software Engineer III</span>
+                    <span class="job-meta">Oct 2021 – Oct 2024</span>
+                </div>
                 
-                <article>
-                    <h3>Google <span class="location-text">Bangalore</span></h3>
-                    <div class="job-header">
-                        <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
-                        <span class="job-date">Nov 2024 – Present</span>
-                    </div>
-                    <ul>
-                        <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong>.</li>
-                        <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing <strong>Emergency Checkpoint Manager (ECM)</strong> and <strong>Checkpoint Restoration</strong>, reducing data loss risk and startup times.</li>
-                        <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms.</li>
-                        <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax with automated CI/CD pipelines.</li>
-                        <li>Led the design of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), implementing novel utilities for dynamic feature extraction.</li>
-                        <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance.</li>
-                    </ul>
-
-                    <div class="job-header" style="margin-top: 40px;">
-                        <span class="job-title">Software Engineer III</span>
-                        <span class="job-date">Oct 2021 – Oct 2024</span>
-                    </div>
-                    
-                    <h4>Google One - Storage Quota Service</h4>
-                    <ul>
-                        <li>Spearheaded engineering efforts to launch critical new email communications and warning banners, alerting millions of users about storage status.</li>
-                        <li>Orchestrated a successful phased launch impacting XX Million users annually with <strong>zero production incidents</strong>.</li>
-                        <li>Architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS.</li>
-                        <li>Engineered an internal, highly extensible storage data validation and recovery pipeline with built-in optimizations for CPU/storage.</li>
-                        <li>Developed a precision-optimized outage recovery mechanism to accurately correct and restore usage information.</li>
-                    </ul>
-
-                    <h4>Google One - Benefits</h4>
-                    <ul>
-                        <li>Architected the foundational backend system for user eligibility, achieving a <strong>70% performance optimization</strong>.</li>
-                        <li>Designed a comprehensive reconciliation framework to mitigate data inconsistencies with partner teams.</li>
-                        <li>Successfully owned and executed the complete on-call migration for G1 Benefits and Storage Quota Service teams from MTV to India.</li>
-                    </ul>
-                </article>
-
-                <article>
-                    <h3>CrispyGames / Zopte Technologies <span class="location-text">Mumbai</span></h3>
-                    <div class="job-header">
-                        <span class="job-title">Software Engineer</span>
-                        <span class="job-date">Jun 2018 – Sept 2021</span>
-                    </div>
-                    <ul>
-                        <li>Developed an innovative <strong>Code Generator</strong> accelerating rapid prototyping by contributing up to 60% of the code for numerous projects.</li>
-                        <li>Engineered a high-performance <strong>Python-based backtesting platform</strong> achieving an ~80x performance uplift.</li>
-                        <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>.</li>
-                        <li>Architected a resilient microservices-based service mesh from scratch using Zookeeper, Redis, and Kubernetes.</li>
-                    </ul>
-
-                    <div class="job-header" style="margin-top: 25px;">
-                        <span class="job-title">Software Engineer, Intern</span>
-                        <span class="job-date">Jun 2017 – Jul 2017</span>
-                    </div>
-                    <ul>
-                        <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
-                        <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
-                    </ul>
-                </article>
-            </section>
-
-            <section id="education">
-                <h2>Education</h2>
-                <article>
-                    <h3>National Institute of Technology, Meghalaya</h3>
-                    <div class="job-header" style="border: none; margin-bottom: 0;">
-                        <span class="job-title">B.Tech in Computer Science and Engineering</span>
-                        <span class="job-date">2014 – 2018</span>
-                    </div>
-                    <p>CGPA: <strong>8.76/10</strong></p>
-                </article>
-            </section>
-
-            <section id="certifications">
-                <h2>Certifications</h2>
+                <h4>Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul>
-                    <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (2025)</li>
-                    <li><strong>Learning JAX</strong>, LinkedIn Learning (2025)</li>
-                    <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (2025)</li>
-                    <li><strong>Distributed Systems for Practitioners</strong>, Educative.io (2023)</li>
+                    <li>Spearheaded engineering efforts across diverse teams and fostered xFN & XPA collaboration to launch critical new email communications and Gmail warning banners, effectively alerting millions of users about their storage grace period status.</li>
+                    <li>Orchestrated a successful phased launch impacting <strong>XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and driving substantial Google One signups and upgrades (estimated ~X Million users/year). This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
+                    <li>Assumed Tech Lead responsibilities for a major Gmail x SQS feature initiative; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
+                    <li>Engineered an internal, highly extensible storage data validation and recovery pipeline, safeguarding data integrity for <strong>XX Billion users</strong>. This framework incorporated built-in optimizations for CPU and storage resources, proactive alerting, and a rapid, command-driven recovery mechanism to preempt user-facing issues.</li>
+                    <li>Conceptualized and designed a massively scalable asynchronous processing system, which eradicated database lock contentions and enabled support for high write path QPS (O(100K)), thereby unlocking significant capacity for user usage calculations across all Google services.</li>
+                    <li>Developed a precision-optimized outage recovery mechanism to accurately correct and restore usage information for <strong>XX Billion Google users</strong> across key services (Gmail, Photos, Drive), featuring robust backfill capabilities for seamless integration of new Google services.</li>
+                    <li>Architected and implemented the backend infrastructure for Google service-level usage breakdown for Enterprise Customers, delivering a scalable, real-time solution that eliminated inefficient caching of millions of user-level rows for admin consoles.</li>
                 </ul>
-            </section>
 
-            <section id="publication">
-                <h2>Publication</h2>
-                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration: underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
-            </section>
-
-            <section id="activities">
-                <h2>Other Activities & Achievements</h2>
+                <h4>Google One - Benefits (Oct 2021 – Apr 2023)</h4>
                 <ul>
-                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>.</li>
-                    <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
-                    <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
-                    <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
+                    <li>Architected and implemented the foundational backend system for determining user eligibility for Google One benefits, resolving complex large-scale orchestration challenges. This system became the cornerstone for a major customer acquisition feature, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
+                    <li>Designed and deployed a comprehensive reconciliation framework within Google One to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of minimizing consumer complaints related to benefits.</li>
+                    <li>Led the end-to-end design, implementation, and successful rollout of multiple major benefit launches and international expansions, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
+                    <li>Identified and rectified critical infrastructure deficiencies within Google One that affected millions of users, delivering extensible solutions that significantly hardened the existing infrastructure and enhanced overall product reliability.</li>
+                    <li>Engineered backend capabilities for an advanced benefits feature, enabling internal and external partners to dynamically split or combine benefits, thereby allowing for more tailored and effective information delivery to users.</li>
+                    <li>Established and evangelized best practices for comprehensive alerting, SLOs, and monitoring capabilities across both existing services and new features, ensuring early detection of outages and bugs to maintain a superior user experience.</li>
+                    <li>Provided key design contributions to launches owned by teammates, fostering the development of a more robust and versatile system architecture capable of supporting expanded use cases and enabling wider product experimentation.</li>
+                    <li>Successfully owned and executed the complete on-call migration for both G1 Benefits and G1 Storage Quota Service teams from MTV to India. This complex undertaking included orchestrating knowledge transfer, deployment schedules, offline process realignment, and establishing new operational playbooks and incident management strategies, all accomplished without any incidents or degradation of user experience.</li>
                 </ul>
-            </section>
+            </article>
+        </section>
 
-            <section id="skills">
-                <h2>Technical Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-row">
-                        <strong>Core Languages</strong>
-                        <span>Python, Java, Go, C++, Dart</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>Databases & Storage</strong>
-                        <span>SQL, MongoDB, MySQL, Redis, Cloud Pub/Sub</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>Frameworks & Libraries</strong>
-                        <span>JAX, Orbax, Flax, Optax, Tunix, Flutter</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>Web Technologies</strong>
-                        <span>HTML/CSS, JavaScript, Angular Dart</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>Systems & Architecture</strong>
-                        <span>Distributed Systems, Microservices, System Design, API Design, ML Systems</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>DevOps & Cloud</strong>
-                        <span>Kubernetes, GCP, Docker, Git, Unix/Linux</span>
-                    </div>
-                    <div class="skill-row">
-                        <strong>Familiar With</strong>
-                        <span>Ruby on Rails, Swift, Bash Scripting, Minikube, Hugo, Nginx, OpenCV, gRPC, RESTful APIs</span>
-                    </div>
+        <section class="anim-section">
+            <article class="stream-text">
+                <h3>CrispyGames / Zopte Technologies <span style="font-weight:400; color:#666; font-size:0.8em;">| Mumbai, India</span></h3>
+                <div class="job-header">
+                    <span class="job-title">Software Engineer</span>
+                    <span class="job-meta">Jun 2018 – Sept 2021</span>
                 </div>
-            </section>
+                <ul>
+                    <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, accelerating rapid prototyping by contributing up to 60% of the code for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
+                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). Achieved an <strong>~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
+                    <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an Order Management System (OMS) and Tick Collector, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
+                    <li>Integrated CDSL DP with E-DIS facility into the existing trading infrastructure and developed a streamlined client onboarding flow utilizing CVLKRA, CKYC, and Digio APIs, incorporating e-Signing and PDF processing for a new IBT platform.</li>
+                    <li>Constructed a dynamic reporting tool that consumed executed order and trade data to present insightful information and key performance statistics in a user-friendly interface, empowering users to build and test their trading strategies in real-time.</li>
+                    <li>Architected and built a resilient microservices-based service mesh from scratch (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on Kubernetes Clusters, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
+                    <li>Founded and delivered curriculum for an online coding education platform (Zopte Academy). Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance.</li>
+                    <li>Developed a suite of versatile pluggable widgets, user flows, and UI components using Flutter and Angular Dart, significantly enabling developers to build and iterate on applications with greater efficiency.</li>
+                    <li><strong>Key R&D / Internal Projects:</strong>
+                        <ul>
+                            <li>Developed a foundational <strong>ML pipeline</strong> (Dlib, Tesseract, TensorFlow, OpenCV) in Python and Golang to extract valuable information from diverse data streams (e.g., analyzing poker gameplay, detecting room activity, conceptualizing indoor cat tracking).</li>
+                            <li>Contributed to the development of an algorithmic trading platform using classification/regression models to predict trading patterns from price data and public company information, with further plans to integrate news/social media feeds.</li>
+                            <li>Prototyped a social media application, Pawsome (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets.</li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <footer>
-                <p>Mridul's Resume - Updated on Sept 25, 2025</p>
-            </footer>
+                <div class="job-header" style="margin-top:30px;">
+                    <span class="job-title">Software Engineer, Intern</span>
+                    <span class="job-meta">Jun 2017 – Jul 2017</span>
+                </div>
+                <ul>
+                    <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
+                    <li>Built web-based administration tools to manage and inspect running applications, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
+                </ul>
+            </article>
+        </section>
 
-        </div>
+        <section class="anim-section">
+            <h2 class="crypto-text" data-text="EDUCATION">EDUCATION</h2>
+            <article class="stream-text">
+                <h3>National Institute of Technology, Meghalaya</h3>
+                <div class="job-header">
+                    <span class="job-title">B.Tech in Computer Science and Engineering</span>
+                    <span class="job-meta">Shillong, India | 2014 – 2018</span>
+                </div>
+                <p>B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
+            </article>
+        </section>
+
+        <section class="anim-section">
+            <h2 class="crypto-text" data-text="CERTIFICATIONS">CERTIFICATIONS</h2>
+            <ul class="stream-text">
+                <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
+                <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
+                <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
+                <li><strong>Distributed Systems for Practitioners</strong>, Educative.io (Completed: Mar 2023)</li>
+            </ul>
+        </section>
+
+        <section class="anim-section">
+            <h2 class="crypto-text" data-text="PUBLICATION">PUBLICATION</h2>
+            <div class="stream-text">
+                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
+            </div>
+        </section>
+
+        <section class="anim-section">
+            <h2 class="crypto-text" data-text="OTHER ACTIVITIES & ACHIEVEMENTS">OTHER ACTIVITIES & ACHIEVEMENTS</h2>
+            <ul class="stream-text">
+                <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: Traceback.</li>
+                <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
+                <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
+                <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
+            </ul>
+        </section>
+
+        <section class="anim-section">
+            <h2 class="crypto-text" data-text="TECHNICAL SKILLS">TECHNICAL SKILLS</h2>
+            <div class="skills-grid stream-text">
+                <div class="skill-row">
+                    <strong>Core Languages:</strong>
+                    <span>Python, Java, Go, C++, Dart</span>
+                </div>
+                <div class="skill-row">
+                    <strong>Frameworks & Libraries:</strong>
+                    <span>JAX, Orbax, Flax, Optax, Tunix, Flutter</span>
+                </div>
+                <div class="skill-row">
+                    <strong>Systems & Architecture:</strong>
+                    <span>Distributed Systems, Microservices, System Design, API Design, Machine Learning Systems</span>
+                </div>
+                <div class="skill-row">
+                    <strong>DevOps & Cloud:</strong>
+                    <span>Kubernetes, GCP (Google Cloud Platform), Docker, Git, Unix/Linux</span>
+                </div>
+                <div class="skill-row">
+                    <strong>Databases & Storage:</strong>
+                    <span>SQL, MongoDB, MySQL, Elastic Search, Redis, Cloud Pub/Sub</span>
+                </div>
+                <div class="skill-row">
+                    <strong>Web Technologies:</strong>
+                    <span>HTML/CSS, JavaScript, Angular Dart</span>
+                </div>
+                <div class="skill-row">
+                    <strong>Familiar With:</strong>
+                    <span>Ruby on Rails, Swift, Bash Scripting, Minikube, Hugo, Nginx, OpenCV, gRPC, RESTful APIs</span>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="anim-section">
+             <hr>
+             <p>Mridul's Resume - Updated on Sept 25, 2025</p>
+        </footer>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- ADVANCED PARTICLE SWARM ENGINE ---
-            const canvas = document.getElementById('particle-canvas');
+            // --- 1. SUBTLE BG ANIMATION ---
+            const canvas = document.createElement('canvas');
+            canvas.id = 'bg-canvas';
+            document.body.appendChild(canvas);
             const ctx = canvas.getContext('2d');
-            let width, height;
+            let width, height, time = 0;
             
-            let particles = [];
-            // Dense field for the "cloud" look
-            const numParticles = 1200; 
-            
-            // Antigravity Colors: Blue, Purple, Red, Green, Yellow (Subtle)
-            const colors = ['#4285F4', '#9C27B0', '#EA4335', '#34A853', '#FBBC04'];
-
             function resize() {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
@@ -407,105 +453,138 @@
             window.addEventListener('resize', resize);
             resize();
 
-            class Particle {
-                constructor() {
-                    this.init();
-                }
-
-                init() {
-                    // Random position across full screen
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    
-                    // Base position (Home) - helps maintain "shape"
-                    this.originX = this.x;
-                    this.originY = this.y;
-                    
-                    this.size = Math.random() * 2 + 0.5; // Small, crisp dots
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    // Movement properties
-                    this.vx = 0;
-                    this.vy = 0;
-                    this.density = Math.random() * 20 + 1; // Weight
-                }
-
-                update(mx, my) {
-                    // 1. Mouse Interaction (Repulsion/Flow)
-                    let dx = mx - this.x;
-                    let dy = my - this.y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-                    let forceDirectionX = dx / distance;
-                    let forceDirectionY = dy / distance;
-                    
-                    // Repulsion radius
-                    let maxDistance = 150;
-                    let force = (maxDistance - distance) / maxDistance;
-                    
-                    if (distance < maxDistance) {
-                        // Move away from mouse
-                        let directionX = forceDirectionX * force * this.density * 0.6;
-                        let directionY = forceDirectionY * force * this.density * 0.6;
-                        this.vx -= directionX;
-                        this.vy -= directionY;
-                    } else {
-                        // 2. Return to Origin (Elasticity)
-                        // This creates the "maintain shape" effect
-                        if (this.x !== this.originX) {
-                            let dx = this.originX - this.x;
-                            this.vx += dx * 0.01; // Pull back X
-                        }
-                        if (this.y !== this.originY) {
-                            let dy = this.originY - this.y;
-                            this.vy += dy * 0.01; // Pull back Y
-                        }
-                    }
-
-                    // Friction (Damping)
-                    this.vx *= 0.92;
-                    this.vy *= 0.92;
-
-                    // Update pos
-                    this.x += this.vx;
-                    this.y += this.vy;
-                }
-
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            // Init Particles
-            for(let i=0; i<numParticles; i++) particles.push(new Particle());
-
-            let mx = -1000, my = -1000;
-            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-            function animateParticles() {
+            function animateBg() {
                 ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update(mx, my); p.draw(); });
-                requestAnimationFrame(animateParticles);
+                ctx.strokeStyle = 'rgba(0,0,0,0.02)'; // Very subtle
+                ctx.lineWidth = 1;
+                
+                // Draw flowing topographical lines
+                for (let i = 0; i < height; i += 60) {
+                    ctx.beginPath();
+                    for (let j = 0; j < width; j += 50) {
+                        const yOffset = Math.sin(j * 0.002 + time) * 30 + Math.cos(i * 0.01 + time * 0.5) * 20;
+                        ctx.lineTo(j, i + yOffset);
+                    }
+                    ctx.stroke();
+                }
+                time += 0.005;
+                requestAnimationFrame(animateBg);
             }
-            animateParticles();
+            animateBg();
 
-            // --- SECTION OBSERVER ---
+            // --- 2. CRYPTO DECODE ENGINE ---
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    const target = entry.target;
+                    
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
+                        
+                        // A. Section Pop-In (3D Snap Effect)
+                        if(target.classList.contains('anim-section') || target.tagName === 'HEADER' || target.tagName === 'SECTION') {
+                            target.classList.add('in-view');
+                        }
+
+                        // B. Headline Scramble
+                        if(target.classList.contains('crypto-text')) {
+                            target.classList.add('in-view');
+                            const original = target.dataset.text;
+                            let i = 0;
+                            
+                            if(target.dataset.interval) clearInterval(target.dataset.interval);
+
+                            const interval = setInterval(() => {
+                                target.innerText = original.split("").map((c, idx) => {
+                                    if(idx < i) return c;
+                                    return chars[Math.floor(Math.random() * chars.length)];
+                                }).join("");
+                                
+                                if(i >= original.length) clearInterval(interval);
+                                i += 1/2; 
+                            }, 30);
+                            target.dataset.interval = interval;
+                        }
+                        
+                        // C. Body Diffusion
+                        if(target.classList.contains('stream-text')) {
+                            const words = target.querySelectorAll('.diffuse-word');
+                            words.forEach(w => {
+                                // Randomize delay for "Stochastic/Not in Order" effect
+                                // Range: 0 to 800ms
+                                const randomDelay = Math.random() * 800;
+                                w.style.transitionDelay = `${randomDelay}ms`;
+                                w.classList.add('in-view');
+                                
+                                if(w.classList.contains('pop-active-trigger')) {
+                                    setTimeout(() => w.classList.add('pop-active'), randomDelay + 400); 
+                                }
+                            });
+                        }
+
                     } else {
-                        entry.target.classList.remove('in-view');
+                        // REVERSAL
+                        if(target.classList.contains('anim-section') || target.tagName === 'HEADER' || target.tagName === 'SECTION') {
+                            target.classList.remove('in-view');
+                        }
+                        if(target.classList.contains('crypto-text')) {
+                            clearInterval(target.dataset.interval);
+                            target.classList.remove('in-view');
+                            target.innerText = target.dataset.text; 
+                        }
+                        if(target.classList.contains('stream-text')) {
+                             const words = target.querySelectorAll('.diffuse-word');
+                             words.forEach(w => {
+                                 w.style.transitionDelay = '0ms'; // Remove delay on exit for fast clear
+                                 w.classList.remove('in-view');
+                                 w.classList.remove('pop-active');
+                             });
+                        }
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.1, rootMargin: "0px" });
 
-            document.querySelectorAll('section').forEach(el => observer.observe(el));
-            
-            // Page Load Trigger
-            setTimeout(() => document.querySelector('.resume-sheet').classList.add('loaded'), 100);
+
+            // --- 3. TEXT SPLITTER (Robust) ---
+            const textRoots = document.querySelectorAll('.stream-text');
+            textRoots.forEach(root => {
+                const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+                const textNodes = [];
+                while(walker.nextNode()) textNodes.push(walker.currentNode);
+                
+                textNodes.forEach(node => {
+                    if(!node.textContent.trim()) return;
+                    
+                    let isBold = false;
+                    let parent = node.parentNode;
+                    while(parent && parent !== root) {
+                        if(parent.tagName === 'STRONG' || parent.tagName === 'B') isBold = true;
+                        parent = parent.parentNode;
+                    }
+
+                    const wrapper = document.createElement('span');
+                    const words = node.textContent.split(/(\s+)/);
+                    
+                    words.forEach((w, i) => {
+                        if (w.trim().length > 0) {
+                            const s = document.createElement('span');
+                            s.textContent = w;
+                            s.className = 'diffuse-word';
+                            if(isBold) s.classList.add('pop-active-trigger');
+                            // Delays are set in the Observer for true randomness on each entry
+                            wrapper.appendChild(s);
+                        } else {
+                            wrapper.appendChild(document.createTextNode(w));
+                        }
+                    });
+                    node.parentNode.replaceChild(wrapper, node);
+                });
+            });
+
+            // --- 4. INITIALIZE ---
+            document.querySelectorAll('header, section').forEach(el => observer.observe(el));
+            document.querySelectorAll('.crypto-text').forEach(el => observer.observe(el));
+            document.querySelectorAll('.stream-text').forEach(el => observer.observe(el));
         });
     </script>
 </body>
