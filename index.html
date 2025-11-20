@@ -9,12 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --text-main: #050505;
-            --text-sub: #333;
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-sub: #555555;
             --accent-color: #1a73e8; 
             --accent-pop: #2563eb;
-            --train-color: #4285f4;
-            --backprop-color: #ea4335;
             --border-color: #e0e0e0;
         }
 
@@ -58,17 +57,16 @@
             width: 100%;
             max-width: 950px;
             margin: 0 auto;
-            padding: 100px 60px;
+            padding: 80px 60px;
             position: relative;
             z-index: 1;
             
-            /* Increased transparency for better background visibility */
             background: linear-gradient(
                 to bottom, 
-                rgba(255, 255, 255, 0.6) 0%, 
-                rgba(255, 255, 255, 0.4) 20%,
-                rgba(255, 255, 255, 0.4) 80%,
-                rgba(255, 255, 255, 0.6) 100%
+                rgba(255, 255, 255, 0.85) 0%, 
+                rgba(255, 255, 255, 0.6) 20%,
+                rgba(255, 255, 255, 0.6) 80%,
+                rgba(255, 255, 255, 0.85) 100%
             );
             
             backdrop-filter: blur(8px); 
@@ -83,17 +81,17 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 40px 0;
+            padding: 25px 0;
             box-sizing: border-box;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+            margin-bottom: 25px;
         }
-        section:last-child { border-bottom: none; }
+        section:last-child { border-bottom: none; margin-bottom: 0; }
 
         /* --- TYPOGRAPHY --- */
         h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 5.5em;
+            font-size: 5em;
             font-weight: 800;
             margin: 0 0 20px 0;
             letter-spacing: -0.04em;
@@ -114,11 +112,11 @@
 
         h2 {
             font-family: 'Outfit', sans-serif;
-            font-size: 2.4em;
+            font-size: 2.2em;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: -0.02em;
-            margin: 0 0 30px 0;
+            margin: 0 0 25px 0;
             padding-left: 20px;
             border-left: 4px solid var(--accent-color);
             display: inline-block;
@@ -140,12 +138,16 @@
             flex-wrap: wrap;
             margin-bottom: 10px;
         }
+        
+        .company-name {
+            font-style: normal; /* Reset em */
+        }
 
         h4 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: 600;
-            margin: 40px 0 15px 0;
+            margin: 30px 0 10px 0;
             color: #111;
             letter-spacing: 0.01em;
         }
@@ -155,10 +157,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 60px;
+            gap: 10px;
+            margin-bottom: 40px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95em;
+            font-size: 0.9em;
             color: var(--text-sub);
         }
 
@@ -195,6 +197,8 @@
             margin-bottom: 15px;
             padding-bottom: 5px;
             font-family: 'Inter', sans-serif;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
         
@@ -202,35 +206,33 @@
             font-family: 'JetBrains Mono', monospace; 
             color: #555; font-size: 0.85em; 
             border: 1px solid rgba(0,0,0,0.1);
-            padding: 2px 8px; border-radius: 4px;
-            background: rgba(255,255,255,0.5);
+            padding: 4px 8px; border-radius: 4px;
+            background: rgba(255,255,255,0.8);
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
 
         ul li {
-            position: relative;
-            padding-left: 24px;
-            margin-bottom: 12px;
-            color: #222;
-            font-size: 1.05em;
+            position: relative; padding-left: 25px; margin-bottom: 10px;
+            color: #333; font-size: 1.05em;
         }
 
         ul > li::before {
-            content: '';
-            position: absolute; left: 6px; top: 11px;
-            width: 6px; height: 6px;
-            border: 1.5px solid var(--accent-color); /* Hollow diamond style */
+            content: ''; position: absolute; left: 6px; top: 11px;
+            width: 6px; height: 6px; border: 1.5px solid var(--accent-color);
             transform: rotate(45deg);
         }
 
-        ul ul li::before { border-radius: 50%; border: none; background: #999; width: 4px; height: 4px; }
+        ul ul { margin-top: 8px; margin-bottom: 8px; }
+        ul ul li { font-size: 0.95em; color: #555; margin-bottom: 6px; }
+        ul ul li::before { border-radius: 50%; border: none; background: #999; width: 4px; height: 4px; top: 10px; transform: none; }
 
         /* --- SKILLS --- */
         .skills-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px 60px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px 50px;
         }
-        .skill-row { margin-bottom: 15px; }
+        .skill-row { margin-bottom: 12px; }
+        
         .skill-row strong {
             display: block; font-family: 'Outfit', sans-serif; 
             font-size: 0.85em; color: var(--accent-color); margin-bottom: 5px;
@@ -240,30 +242,26 @@
 
         /* --- ANIMATION CLASSES --- */
         .anim-trigger {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .anim-trigger.in-view { opacity: 1; transform: translateY(0); }
 
         .computed-word {
-            display: inline-block;
-            white-space: pre;
-            opacity: 0;
-            filter: blur(8px);
-            transform: translateY(5px);
-            vertical-align: top; 
+            display: inline-block; white-space: pre; opacity: 0;
+            filter: blur(8px); transform: translateY(5px); vertical-align: top; 
             transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
         }
         .computed-word.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
 
         .highlight-tech {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em; font-weight: 600;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.9em; font-weight: 600;
             color: var(--accent-pop);
             background: rgba(37, 99, 235, 0.05);
             padding: 0 2px; border-radius: 2px;
         }
+
+        strong { font-weight: 700; color: #000; }
 
         .crypto-header {
             opacity: 0; transform: translateY(20px);
@@ -280,7 +278,7 @@
             .skills-grid { grid-template-columns: 1fr; gap: 20px; }
             .job-header { flex-direction: column; align-items: flex-start; gap: 5px; }
             .contact-row { flex-direction: column; gap: 10px; }
-            .contact-row .contact-item:not(:last-child)::after { display: none; }
+            section, header { padding: 30px 0; }
         }
     </style>
 </head>
@@ -335,22 +333,22 @@
             <article class="stream-text">
                 <div class="company-row">
                     <h3 class="crypto-header" data-text="Google">Google</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">*Bangalore, India*</span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
                     <span class="job-meta">Nov 2024 – Present</span>
                 </div>
                 <ul class="obs-list">
-                    <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, CommitFuture abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
+                    <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
                     <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
                         <ul>
                             <li><strong>Emergency Checkpoint Manager (ECM):</strong> Improved the two-stage saving mechanism (fast local cache & persistent storage) to be quicker and more reliable, reducing data loss risk during unexpected training interruptions.</li>
-                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined how training restarts from a single saved copy (Single Replica Restore) and how that data is efficiently shared (Broadcast) across all processing units, especially in complex, multi-device environments. This reduced startup times and resource bottlenecks.</li>
+                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined how training restarts from a single saved copy (<code>Single Replica Restore</code>) and how that data is efficiently shared (<code>Broadcast</code>) across all processing units, especially in complex, multi-device environments. This reduced startup times and resource bottlenecks.</li>
                         </ul>
                     </li>
                     <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms, unblocking key enterprise users by addressing complex multi-device and storage interaction bugs.</li>
-                    <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax, featuring a modular design, YAML configuration, and automated CI/CD pipelines for continuous performance regression detection across various hardware. Designed key components for open-source compatibility to foster community engagement and simplify external debugging.</li>
+                    <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax, featuring a modular design, YAML configuration, and automated CI/CD pipelines for continuous performance regression detection across various hardware. Designed key components for <strong>open-source compatibility</strong> to foster community engagement and simplify external debugging.</li>
                     <li>Driving foundational checkpointing improvements through these Orbax enhancements within the <strong>Gemax Prod</strong> initiative, thereby bolstering the reliability, scalability, and overall performance of training workflows for Google's State-of-the-Art (SOTA) foundation models.</li>
                     <li>Led the design and development of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), enhancing model efficiency. Architected a flexible framework using a strategy pattern to support diverse distillation techniques, including advanced logit-matching and feature/attention-based methods. Implemented novel utilities for dynamic intermediate feature extraction and dimension alignment (pooling/projection) across heterogeneous model architectures, enabling broader adoption of model compression.</li>
                     <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
@@ -363,51 +361,51 @@
                 
                 <h4 class="crypto-header" data-text="Google One - Storage Quota Service (Apr 2023 – Oct 2024)">Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul class="obs-list">
-                    <li>Spearheaded engineering efforts across diverse teams and fostered xFN & XPA collaboration to launch critical new email communications and Gmail warning banners, effectively alerting millions of users about their storage grace period status.</li>
-                    <li>Orchestrated a successful phased launch impacting <strong>XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and driving substantial Google One signups and upgrades (estimated ~X Million users/year). This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
-                    <li>Assumed Tech Lead responsibilities for a major Gmail x SQS feature initiative; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
-                    <li>Engineered an internal, highly extensible storage data validation and recovery pipeline, safeguarding data integrity for <strong>XX Billion users</strong>. This framework incorporated built-in optimizations for CPU and storage resources, proactive alerting, and a rapid, command-driven recovery mechanism to preempt user-facing issues.</li>
-                    <li>Conceptualized and designed a massively scalable asynchronous processing system, which eradicated database lock contentions and enabled support for high write path QPS (O(100K)), thereby unlocking significant capacity for user usage calculations across all Google services.</li>
-                    <li>Developed a precision-optimized outage recovery mechanism to accurately correct and restore usage information for <strong>XX Billion Google users</strong> across key services (Gmail, Photos, Drive), featuring robust backfill capabilities for seamless integration of new Google services.</li>
-                    <li>Architected and implemented the backend infrastructure for Google service-level usage breakdown for Enterprise Customers, delivering a scalable, real-time solution that eliminated inefficient caching of millions of user-level rows for admin consoles.</li>
+                    <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status.</li>
+                    <li><strong>Orchestrated a successful phased launch impacting XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and <strong>driving substantial Google One signups and upgrades (estimated ~X Million users/year)</strong>. This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
+                    <li>Assumed <strong>Tech Lead responsibilities for a major Gmail x SQS feature initiative</strong>; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
+                    <li>Engineered an internal, <strong>highly extensible storage data validation and recovery pipeline</strong>, safeguarding data integrity for <strong>XX Billion users</strong>. This framework incorporated built-in <strong>optimizations for CPU and storage resources</strong>, proactive alerting, and a rapid, command-driven recovery mechanism to preempt user-facing issues.</li>
+                    <li>Conceptualized and designed a <strong>massively scalable asynchronous processing system</strong>, which eradicated database lock contentions and enabled support for high write path QPS (O(100K)), thereby unlocking significant capacity for user usage calculations across all Google services.</li>
+                    <li>Developed a <strong>precision-optimized outage recovery mechanism</strong> to accurately correct and restore usage information for <strong>XX Billion Google users</strong> across key services (Gmail, Photos, Drive), featuring robust backfill capabilities for seamless integration of new Google services.</li>
+                    <li>Architected and implemented the <strong>backend infrastructure for Google service-level usage breakdown for Enterprise Customers</strong>, delivering a scalable, real-time solution that eliminated inefficient caching of millions of user-level rows for admin consoles.</li>
                 </ul>
 
                 <h4 class="crypto-header" data-text="Google One - Benefits (Oct 2021 – Apr 2023)">Google One - Benefits (Oct 2021 – Apr 2023)</h4>
                 <ul class="obs-list">
-                    <li>Architected and implemented the foundational backend system for determining user eligibility for Google One benefits, resolving complex large-scale orchestration challenges. This system became the cornerstone for a major customer acquisition feature, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
-                    <li>Designed and deployed a comprehensive reconciliation framework within Google One to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of minimizing consumer complaints related to benefits.</li>
-                    <li>Led the end-to-end design, implementation, and successful rollout of multiple major benefit launches and international expansions, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
-                    <li>Identified and rectified critical infrastructure deficiencies within Google One that affected millions of users, delivering extensible solutions that significantly hardened the existing infrastructure and enhanced overall product reliability.</li>
-                    <li>Engineered backend capabilities for an advanced benefits feature, enabling internal and external partners to dynamically split or combine benefits, thereby allowing for more tailored and effective information delivery to users.</li>
-                    <li>Established and evangelized best practices for comprehensive alerting, SLOs, and monitoring capabilities across both existing services and new features, ensuring early detection of outages and bugs to maintain a superior user experience.</li>
-                    <li>Provided key design contributions to launches owned by teammates, fostering the development of a more robust and versatile system architecture capable of supporting expanded use cases and enabling wider product experimentation.</li>
-                    <li>Successfully owned and executed the complete on-call migration for both G1 Benefits and G1 Storage Quota Service teams from MTV to India. This complex undertaking included orchestrating knowledge transfer, deployment schedules, offline process realignment, and establishing new operational playbooks and incident management strategies, all accomplished without any incidents or degradation of user experience.</li>
+                    <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
+                    <li>Designed and deployed a <strong>comprehensive reconciliation framework within Google One</strong> to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of <strong>minimizing consumer complaints related to benefits</strong>.</li>
+                    <li>Led the end-to-end design, implementation, and <strong>successful rollout of multiple major benefit launches and international expansions</strong>, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
+                    <li>Identified and rectified critical <strong>infrastructure deficiencies within Google One that affected millions of users</strong>, delivering extensible solutions that significantly hardened the existing infrastructure and enhanced overall product reliability.</li>
+                    <li>Engineered backend capabilities for an advanced benefits feature, enabling internal and external partners to <strong>dynamically split or combine benefits</strong>, thereby allowing for more tailored and effective information delivery to users.</li>
+                    <li>Established and evangelized best practices for <strong>comprehensive alerting, SLOs, and monitoring capabilities</strong> across both existing services and new features, ensuring early detection of outages and bugs to maintain a superior user experience.</li>
+                    <li>Provided key design contributions to launches owned by teammates, fostering the development of a <strong>more robust and versatile system architecture</strong> capable of supporting expanded use cases and enabling wider product experimentation.</li>
+                    <li><strong>Successfully owned and executed the complete on-call migration for both G1 Benefits and G1 Storage Quota Service teams from MTV to India</strong>. This complex undertaking included orchestrating knowledge transfer, deployment schedules, offline process realignment, and establishing new operational playbooks and incident management strategies, all accomplished <strong>without any incidents or degradation of user experience</strong>.</li>
                 </ul>
             </article>
 
             <article class="stream-text">
                 <div class="company-row">
                     <h3 class="crypto-header" data-text="CrispyGames / Zopte Technologies">CrispyGames / Zopte Technologies</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Mumbai, India</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Mumbai, India</span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Software Engineer</span>
                     <span class="job-meta">Jun 2018 – Sept 2021</span>
                 </div>
                 <ul class="obs-list">
-                    <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, accelerating rapid prototyping by contributing up to 60% of the code for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
-                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). Achieved an <strong>~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
-                    <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an Order Management System (OMS) and Tick Collector, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
-                    <li>Integrated CDSL DP with E-DIS facility into the existing trading infrastructure and developed a streamlined client onboarding flow utilizing CVLKRA, CKYC, and Digio APIs, incorporating e-Signing and PDF processing for a new IBT platform.</li>
-                    <li>Constructed a dynamic reporting tool that consumed executed order and trade data to present insightful information and key performance statistics in a user-friendly interface, empowering users to build and test their trading strategies in real-time.</li>
-                    <li>Architected and built a resilient microservices-based service mesh from scratch (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on Kubernetes Clusters, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
-                    <li>Founded and delivered curriculum for an online coding education platform (Zopte Academy). Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance.</li>
-                    <li>Developed a suite of versatile pluggable widgets, user flows, and UI components using Flutter and Angular Dart, significantly enabling developers to build and iterate on applications with greater efficiency.</li>
+                    <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, <strong>accelerating rapid prototyping by contributing up to 60% of the code</strong> for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
+                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
+                    <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an <strong>Order Management System (OMS) and Tick Collector</strong>, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
+                    <li>Integrated <strong>CDSL DP with E-DIS facility</strong> into the existing trading infrastructure and developed a streamlined client onboarding flow utilizing <strong>CVLKRA, CKYC, and Digio APIs</strong>, incorporating e-Signing and PDF processing for a new IBT platform.</li>
+                    <li>Constructed a <strong>dynamic reporting tool</strong> that consumed executed order and trade data to present insightful information and key performance statistics in a user-friendly interface, empowering users to <strong>build and test their trading strategies in real-time</strong>.</li>
+                    <li>Architected and built a <strong>resilient microservices-based service mesh from scratch</strong> (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on **Kubernetes Clusters**, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
+                    <li>Founded and delivered curriculum for an <strong>online coding education platform (Zopte Academy)</strong>. Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance.</li>
+                    <li>Developed a suite of versatile <strong>pluggable widgets, user flows, and UI components using Flutter and Angular Dart</strong>, significantly enabling developers to build and iterate on applications with greater efficiency.</li>
                     <li><strong>Key R&D / Internal Projects:</strong>
                         <ul>
                             <li>Developed a foundational <strong>ML pipeline</strong> (Dlib, Tesseract, TensorFlow, OpenCV) in Python and Golang to extract valuable information from diverse data streams (e.g., analyzing poker gameplay, detecting room activity, conceptualizing indoor cat tracking).</li>
-                            <li>Contributed to the development of an algorithmic trading platform using classification/regression models to predict trading patterns from price data and public company information, with further plans to integrate news/social media feeds.</li>
-                            <li>Prototyped a social media application, Pawsome (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets.</li>
+                            <li>Contributed to the development of an <strong>algorithmic trading platform</strong> using classification/regression models to predict trading patterns from price data and public company information, with further plans to integrate news/social media feeds.</li>
+                            <li>Prototyped a social media application, <em>Pawsome</em> (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets.</li>
                         </ul>
                     </li>
                 </ul>
@@ -418,7 +416,7 @@
                 </div>
                 <ul class="obs-list">
                     <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
-                    <li>Built web-based administration tools to manage and inspect running applications, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
+                    <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
                 </ul>
             </article>
         </section>
@@ -438,10 +436,10 @@
         <section class="anim-trigger">
             <h2 class="crypto-header" data-text="CERTIFICATIONS">CERTIFICATIONS</h2>
             <ul class="obs-list stream-text">
-                <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
+                <li><a href="https://www.coursera.org/account/accomplishments/verify/PLKCH41J06C1" target="_blank"><strong>Generative AI with Large Language Models</strong></a>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
                 <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
-                <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
-                <li><strong>Distributed Systems for Practitioners</strong>, Educative.io (Completed: Mar 2023)</li>
+                <li><a href="https://www.coursera.org/account/accomplishments/verify/NTP9QO06OTPK" target="_blank"><strong>Transformer Models and BERT Model</strong></a>, Google Cloud & Coursera (Completed: Apr 2025)</li>
+                <li><a href="https://www.educative.io/verify-certificate/vgA3wPFLmLVKzwkA2tyZpYXPqM0MIl" target="_blank"><strong>Distributed Systems for Practitioners</strong></a>, Educative.io (Completed: Mar 2023)</li>
             </ul>
         </section>
 
@@ -450,13 +448,13 @@
             
             <div class="stream-text" style="margin-bottom: 50px;">
                 <h4>Publication</h4>
-                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
+                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
             </div>
 
             <div class="stream-text">
-                <h4>Other Activities</h4>
+                <h4>Other Activities & Achievements</h4>
                 <ul class="obs-list">
-                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: Traceback.</li>
+                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>.</li>
                     <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
                     <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
                     <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
@@ -636,7 +634,7 @@
                     
                     let isBold = false;
                     let parent = node.parentNode;
-                    if(parent.tagName === 'STRONG' || parent.tagName === 'B') {
+                    if(parent.tagName === 'STRONG' || parent.tagName === 'B' || parent.tagName === 'EM' || parent.tagName === 'I') {
                         isBold = true;
                         parent.classList.add('highlight-tech');
                     }
