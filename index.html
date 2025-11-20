@@ -9,11 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-sub: #555555;
+            --text-main: #050505;
+            --text-sub: #333;
             --accent-color: #1a73e8; 
             --accent-pop: #2563eb;
+            --train-color: #4285f4;
+            --backprop-color: #ea4335;
             --border-color: #e0e0e0;
         }
 
@@ -28,50 +29,53 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.65;
             color: var(--text-main);
-            background-color: transparent; /* Let layers show */
+            background-color: #fcfcfc;
             min-height: 100%;
             overflow-x: hidden;
+            background: transparent;
         }
 
-        /* --- LAYOUT LAYERS --- */
+        /* --- LAYOUT STACKING --- */
         
-        /* 1. Solid Base (Bottom) */
-        .bg-base {
+        /* 1. The Void (Bottomest) */
+        .void-layer {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-color);
-            /* Subtle gradient to give depth to the canvas lines */
-            background-image: radial-gradient(circle at 50% 0%, #fcfcfc 0%, #f0f2f5 100%);
-            z-index: -3;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f4f8 100%);
+            z-index: -10;
         }
 
-        /* 2. Canvas (The Network) */
-        #bg-canvas {
+        /* 2. The Neural Network (Canvas) */
+        #network-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            pointer-events: none;
-            opacity: 1;
+            z-index: -5;
+            pointer-events: auto; 
         }
 
-        /* 3. Glass (The Fog) */
-        .glass-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* Increased transparency to show background */
-            background: rgba(255,255,255,0.4); 
-            backdrop-filter: blur(15px) saturate(120%);
-            -webkit-backdrop-filter: blur(15px) saturate(120%);
-            z-index: -1;
-        }
-
+        /* 3. The Content Lens (Container) */
         .resume-container {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            padding: 0 20px 150px 20px;
+            padding: 100px 60px;
             position: relative;
             z-index: 1;
+            
+            /* Increased transparency for better background visibility */
+            background: linear-gradient(
+                to bottom, 
+                rgba(255, 255, 255, 0.6) 0%, 
+                rgba(255, 255, 255, 0.4) 20%,
+                rgba(255, 255, 255, 0.4) 80%,
+                rgba(255, 255, 255, 0.6) 100%
+            );
+            
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            
+            mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
         }
 
         /* --- SECTIONS --- */
@@ -79,47 +83,82 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 30px 0;
+            padding: 40px 0;
             box-sizing: border-box;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 40px;
         }
+        section:last-child { border-bottom: none; }
 
-        /* --- HEADER NAME --- */
+        /* --- TYPOGRAPHY --- */
         h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 5em;
+            font-size: 5.5em;
             font-weight: 800;
             margin: 0 0 20px 0;
             letter-spacing: -0.04em;
             text-align: center;
             line-height: 0.9;
-            position: relative;
             color: #000;
         }
 
-        /* --- SHINE EFFECT --- */
         .shimmer-text {
-            background: linear-gradient(110deg, #000 40%, #555 45%, #000 50%);
-            background-size: 250% 100%;
+            background: linear-gradient(120deg, #000 40%, #1a73e8 50%, #000 60%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent !important;
-            animation: shine-text 2s linear infinite; /* Fast Shine */
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.4em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin: 0 0 30px 0;
+            padding-left: 20px;
+            border-left: 4px solid var(--accent-color);
+            display: inline-block;
+            line-height: 1;
         }
 
-        @keyframes shine-text {
-            0% { background-position: 100% 0; }
-            100% { background-position: -150% 0; }
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            color: #000;
         }
 
-        /* --- CONTACT INFO --- */
+        .company-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 40px 0 15px 0;
+            color: #111;
+            letter-spacing: 0.01em;
+        }
+
+        /* --- CONTACT --- */
         .contact-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 50px;
+            gap: 12px;
+            margin-bottom: 60px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: var(--text-sub);
         }
 
@@ -128,105 +167,52 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px;
-            align-items: center;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: var(--text-sub);
             text-decoration: none;
             transition: all 0.2s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
-        
-        .contact-item:hover {
-            color: var(--accent-color);
-            transform: translateY(-1px);
+        .contact-item:hover { 
+            background: rgba(26,115,232,0.1);
+            color: var(--accent-color); 
         }
-        
-        .contact-item svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            opacity: 0.7;
-        }
-
-        .contact-row .contact-item:not(:last-child)::after {
-            content: ''; display: block; width: 1px; height: 12px;
-            background: #ddd; margin-left: 25px;
-        }
-        @media (max-width: 600px) {
-             .contact-row .contact-item:not(:last-child)::after { display: none; }
-             .contact-row { gap: 15px; }
-        }
-
-        /* --- HEADERS --- */
-        h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.2em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-            margin: 0 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-        }
-
-        .company-header {
-            display: flex;
-            align-items: baseline;
-            margin-bottom: 5px;
-            flex-wrap: wrap;
-        }
-
-        h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.8em;
-            font-weight: 600;
-            margin: 0 10px 0 0;
-            color: #000;
-        }
-
-        h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.2em;
-            font-weight: 600;
-            margin: 30px 0 10px 0;
-            color: #111;
-            letter-spacing: 0.01em;
-        }
+        .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
 
         /* --- CONTENT BLOCKS --- */
-        article { margin-bottom: 50px; }
+        article { margin-bottom: 40px; }
 
         .job-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            font-family: 'Inter', sans-serif;
         }
         .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
         
         .job-meta { 
             font-family: 'JetBrains Mono', monospace; 
-            color: #666; 
-            font-size: 0.85em; 
-            background: #f4f4f4;
-            padding: 4px 8px;
-            border-radius: 4px;
+            color: #555; font-size: 0.85em; 
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 2px 8px; border-radius: 4px;
+            background: rgba(255,255,255,0.5);
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
 
         ul li {
             position: relative;
-            padding-left: 25px;
-            margin-bottom: 10px;
-            color: #333;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            color: #222;
             font-size: 1.05em;
         }
 
@@ -234,53 +220,31 @@
             content: '';
             position: absolute; left: 6px; top: 11px;
             width: 6px; height: 6px;
-            background: var(--accent-color);
-            border-radius: 1px;
+            border: 1.5px solid var(--accent-color); /* Hollow diamond style */
+            transform: rotate(45deg);
         }
 
-        ul ul { margin-top: 8px; margin-bottom: 8px; }
-        ul ul li { font-size: 0.95em; color: #555; margin-bottom: 6px; }
-        ul ul li::before { background: #bbb; width: 4px; height: 4px; border-radius: 50%; }
+        ul ul li::before { border-radius: 50%; border: none; background: #999; width: 4px; height: 4px; }
 
-        /* --- SKILLS GRID --- */
+        /* --- SKILLS --- */
         .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px 50px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px 60px;
         }
-        .skill-row { margin-bottom: 12px; }
-        
+        .skill-row { margin-bottom: 15px; }
         .skill-row strong {
-            display: block;
-            font-family: 'Outfit', sans-serif; 
-            font-size: 0.85em;
-            color: #000;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 700;
-            padding-bottom: 4px;
-            border-bottom: 2px solid #f0f0f0;
+            display: block; font-family: 'Outfit', sans-serif; 
+            font-size: 0.85em; color: var(--accent-color); margin-bottom: 5px;
+            text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
         }
-        
-        .skill-row span { 
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 0.95em; 
-            color: #333; 
-            line-height: 1.6;
-        }
+        .skill-row span { font-family: 'JetBrains Mono', monospace; font-size: 0.95em; color: #111; }
 
         /* --- ANIMATION CLASSES --- */
-        
         .anim-trigger {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .anim-trigger.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .anim-trigger.in-view { opacity: 1; transform: translateY(0); }
 
         .computed-word {
             display: inline-block;
@@ -291,54 +255,41 @@
             vertical-align: top; 
             transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
         }
-        
-        .computed-word.in-view {
-            opacity: 1;
-            filter: blur(0);
-            transform: translateY(0);
-        }
+        .computed-word.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
 
         .highlight-tech {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: var(--accent-blue);
-            background: #f0f7ff;
-            padding: 0 4px;
-            border-radius: 3px;
+            font-size: 0.9em; font-weight: 600;
+            color: var(--accent-pop);
+            background: rgba(37, 99, 235, 0.05);
+            padding: 0 2px; border-radius: 2px;
         }
 
-        strong { font-weight: 700; color: #000; }
-
-        /* Crypto Header */
         .crypto-header {
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 0; transform: translateY(20px);
             transition: opacity 0.8s ease, transform 0.8s ease;
             display: inline-block; 
         }
-        .crypto-header.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .crypto-header.visible { opacity: 1; transform: translateY(0); }
 
         footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; margin-top: 40px; }
 
         @media (max-width: 700px) {
-            .resume-container { padding: 0 20px 80px 20px; }
+            .resume-container { padding: 60px 20px; }
             h1 { font-size: 3em; }
             .skills-grid { grid-template-columns: 1fr; gap: 20px; }
-            .job-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-            section, header { padding: 30px 0; }
+            .job-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .contact-row { flex-direction: column; gap: 10px; }
+            .contact-row .contact-item:not(:last-child)::after { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LAYERS -->
-    <div class="bg-base"></div>
-    <canvas id="bg-canvas"></canvas>
-    <div class="glass-overlay"></div>
+    <!-- 1. The Void Base -->
+    <div class="void-layer"></div>
+    <!-- 2. The Neural Network -->
+    <canvas id="network-canvas"></canvas>
 
     <div class="resume-container">
         
@@ -382,9 +333,9 @@
             <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY</h2>
             
             <article class="stream-text">
-                <div class="company-header">
+                <div class="company-row">
                     <h3 class="crypto-header" data-text="Google">Google</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Bangalore, India</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India</span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
@@ -405,7 +356,7 @@
                     <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
                 </ul>
 
-                <div class="job-header" style="margin-top:30px;">
+                <div class="job-header" style="margin-top:40px;">
                     <span class="job-title">Software Engineer III</span>
                     <span class="job-meta">Oct 2021 – Oct 2024</span>
                 </div>
@@ -435,7 +386,7 @@
             </article>
 
             <article class="stream-text">
-                <div class="company-header">
+                <div class="company-row">
                     <h3 class="crypto-header" data-text="CrispyGames / Zopte Technologies">CrispyGames / Zopte Technologies</h3>
                     <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Mumbai, India</span>
                 </div>
@@ -556,41 +507,121 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- 1. BACKGROUND CANVAS ---
-            const canvas = document.getElementById('bg-canvas');
+            // --- 1. NEURAL NETWORK TRAINING CANVAS ---
+            const canvas = document.getElementById('network-canvas');
             const ctx = canvas.getContext('2d');
-            let width, height, time = 0;
-            
+            let width, height;
+            let nodes = [];
+            let signals = [];
+            const numNodes = 60; 
+
             function resize() {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
+                initNetwork();
             }
             window.addEventListener('resize', resize);
+            
+            class Node {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 2 + 2;
+                    this.activation = 0; 
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                    if(this.activation > 0) this.activation -= 0.03;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius + (this.activation * 2), 0, Math.PI * 2);
+                    // More visible blue color for active nodes
+                    const alpha = 0.2 + this.activation * 0.8;
+                    ctx.fillStyle = `rgba(26, 115, 232, ${alpha})`; 
+                    ctx.fill();
+                }
+            }
+
+            class Signal {
+                constructor(start, end) {
+                    this.start = start;
+                    this.end = end;
+                    this.progress = 0;
+                    this.speed = Math.random() * 0.02 + 0.02;
+                    this.isDead = false;
+                }
+                update() {
+                    this.progress += this.speed;
+                    if(this.progress >= 1) {
+                        this.isDead = true;
+                        this.end.activation = 1;
+                    }
+                }
+                draw() {
+                    if(this.isDead) return;
+                    const curX = this.start.x + (this.end.x - this.start.x) * this.progress;
+                    const curY = this.start.y + (this.end.y - this.start.y) * this.progress;
+                    ctx.beginPath();
+                    ctx.arc(curX, curY, 2.5, 0, Math.PI*2);
+                    ctx.fillStyle = '#1a73e8';
+                    ctx.fill();
+                }
+            }
+
+            function initNetwork() {
+                nodes = [];
+                for(let i=0; i<numNodes; i++) nodes.push(new Node());
+            }
+            initNetwork();
             resize();
 
-            function animateBg() {
+            function animate() {
                 ctx.clearRect(0, 0, width, height);
-                // Stronger lines for better visibility
-                ctx.strokeStyle = 'rgba(0,0,0,0.06)'; 
-                ctx.lineWidth = 1.5;
                 
-                const step = 60;
-                for (let i = 0; i < height; i += step) {
-                    ctx.beginPath();
-                    for (let x = 0; x < width; x += 30) {
-                        const y = i + Math.sin(x * 0.005 + time) * 20 + Math.cos(x * 0.01 - time) * 10;
-                        ctx.lineTo(x, y);
+                for(let i=0; i<nodes.length; i++) {
+                    let nodeA = nodes[i];
+                    nodeA.update();
+                    nodeA.draw();
+                    
+                    for(let j=i+1; j<nodes.length; j++) {
+                        let nodeB = nodes[j];
+                        let dist = Math.hypot(nodeA.x - nodeB.x, nodeA.y - nodeB.y);
+                        
+                        if(dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(nodeA.x, nodeA.y);
+                            ctx.lineTo(nodeB.x, nodeB.y);
+                            // Visible connections
+                            ctx.strokeStyle = `rgba(0,0,0,0.1)`; 
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                            
+                            if(Math.random() < 0.005) {
+                                signals.push(new Signal(nodeA, nodeB));
+                            }
+                        }
                     }
-                    ctx.stroke();
                 }
-                time += 0.01;
-                requestAnimationFrame(animateBg);
-            }
-            animateBg();
 
-            // --- 2. TEXT SPLITTER ---
+                for(let i=signals.length-1; i>=0; i--) {
+                    signals[i].update();
+                    signals[i].draw();
+                    if(signals[i].isDead) signals.splice(i, 1);
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+
+            // --- 2. ROBUST TEXT SPLITTER ---
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
-            
             textRoots.forEach(root => {
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
                 if(root.classList.contains('contact-wrapper')) return; 
@@ -612,7 +643,6 @@
 
                     const wrapper = document.createElement('span');
                     const words = node.textContent.split(/(\s+)/);
-                    
                     words.forEach((w) => {
                         if (w.trim().length > 0) {
                             const s = document.createElement('span');
@@ -635,7 +665,6 @@
                 entries.forEach(entry => {
                     const target = entry.target;
                     
-                    // TRIGGER ONCE LOGIC
                     if (entry.isIntersecting && !target.classList.contains('triggered-once')) {
                         target.classList.add('triggered-once');
 
@@ -653,26 +682,21 @@
                                 }).join("");
                                 if(i >= original.length) {
                                     clearInterval(target.interval);
-                                    target.classList.add('shimmer-active'); // Apply Shine Effect
+                                    target.classList.add('shimmer-text'); 
                                 }
                                 i += 1/2; 
                             }, 30);
                             target.dataset.interval = interval;
                         }
 
-                        // B. Text Diffusion (Faster)
+                        // B. Text Diffusion
                         if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
                             const words = target.querySelectorAll('.computed-word');
-                            
                             words.forEach((w, i) => {
                                 void w.offsetWidth; 
-                                // FAST DELAY: 3ms per char for rapid streaming
                                 const delay = i * 3; 
-                                
                                 setTimeout(() => {
                                     w.classList.add('in-view');
-                                    
-                                    // Short Crypto Scramble
                                     if(w.textContent.length > 3) {
                                         const original = w.dataset.final;
                                         let count = 0;
@@ -695,17 +719,13 @@
                         }
                     }
                 });
-            }, { 
-                threshold: 0.05, // Increased sensitivity
-                rootMargin: "0px 0px -5% 0px" 
-            });
+            }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
 
             document.querySelectorAll('.crypto-header').forEach(el => observer.observe(el));
             document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
             document.querySelectorAll('.obs-list li, .stream-text, p, .contact-wrapper, .skills-grid').forEach(el => {
                 if(el.querySelector('.computed-word')) observer.observe(el);
             });
-
         });
     </script>
 </body>
