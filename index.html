@@ -56,7 +56,7 @@
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px 150px 20px;
+            padding: 0 20px 80px 20px;
             position: relative;
             z-index: 1;
         }
@@ -66,46 +66,80 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 60px 0;
+            padding: 20px 0; /* Reduced Spacing */
             box-sizing: border-box;
         }
 
-        /* --- HEADER NAME (Prismatic Effect) --- */
-        h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 5em;
-            font-weight: 800;
-            margin: 0 0 30px 0;
-            letter-spacing: -0.04em;
-            text-align: center;
-            line-height: 0.9;
-            position: relative;
-            
-            /* Constant Shimmer Effect */
-            background: linear-gradient(110deg, #000 40%, #444 45%, #000 50%);
-            background-size: 250% 100%;
+        /* --- SHINE EFFECT --- */
+        .shimmer-active {
+            background: linear-gradient(110deg, #000 40%, #666 50%, #000 60%);
+            background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
-            animation: shine-text 8s linear infinite;
-            
-            /* 3D Lift */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
-            transform: translateZ(0);
+            color: transparent !important;
+            animation: shine-text 2.5s linear infinite; /* Faster Shine */
         }
 
         @keyframes shine-text {
             0% { background-position: 100% 0; }
-            100% { background-position: -150% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        /* --- CONTACT INFO (Rearranged) --- */
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 5em;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.04em;
+            text-align: center;
+            line-height: 0.9;
+            opacity: 0; /* Handled by JS */
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin: 0 0 15px 0; /* Reduced */
+            padding-bottom: 10px;
+            border-bottom: 3px solid #000;
+            display: inline-block;
+        }
+
+        .company-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 5px;
+            flex-wrap: wrap;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin: 0 10px 0 0;
+            color: #000;
+        }
+
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin: 20px 0 10px 0; /* Reduced */
+            color: #111;
+            letter-spacing: 0.01em;
+        }
+
+        /* --- HEADER INFO --- */
         .contact-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 80px;
+            gap: 10px;
+            margin-bottom: 40px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9em;
             color: var(--text-sub);
@@ -115,7 +149,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -127,190 +161,104 @@
             text-decoration: none;
             transition: all 0.2s ease;
         }
-        
-        .contact-item:hover {
-            color: var(--accent-color);
-            transform: translateY(-1px);
-        }
-        
-        .contact-item svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            opacity: 0.7;
-        }
+        .contact-item:hover { color: var(--accent-color); transform: translateY(-1px); }
+        .contact-item svg { width: 14px; height: 14px; fill: currentColor; opacity: 0.7; }
 
-        /* Divider between items in row */
         .contact-row .contact-item:not(:last-child)::after {
-            content: '';
-            display: block;
-            width: 1px;
-            height: 12px;
-            background: #ddd;
-            margin-left: 25px;
+            content: ''; display: block; width: 1px; height: 12px;
+            background: #ddd; margin-left: 20px;
         }
-        /* Hide divider on mobile wrap */
         @media (max-width: 600px) {
              .contact-row .contact-item:not(:last-child)::after { display: none; }
-             .contact-row { gap: 15px; }
-        }
-
-
-        /* --- HEADERS --- */
-        h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.2em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-            margin: 0 0 40px 0;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-        }
-
-        h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.8em;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-            color: #000;
-        }
-
-        h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.2em;
-            font-weight: 600;
-            margin: 40px 0 15px 0;
-            color: #111;
-            letter-spacing: 0.01em;
         }
 
         /* --- CONTENT BLOCKS --- */
-        article { margin-bottom: 80px; }
+        article { margin-bottom: 30px; /* Reduced */ }
 
         .job-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
             border-bottom: 1px solid var(--border-color);
         }
         .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
         
         .job-meta { 
             font-family: 'JetBrains Mono', monospace; 
-            color: #666; 
-            font-size: 0.85em; 
-            background: #f4f4f4;
-            padding: 4px 8px;
-            border-radius: 4px;
+            color: #666; font-size: 0.85em; background: #f4f4f4;
+            padding: 4px 8px; border-radius: 4px;
         }
 
-        ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
+        ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
 
         ul li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 14px;
-            color: #333;
-            font-size: 1.05em;
+            position: relative; padding-left: 25px; margin-bottom: 8px; /* Tighter */
+            color: #333; font-size: 1.05em;
         }
 
         ul > li::before {
-            content: '';
-            position: absolute; left: 6px; top: 11px;
-            width: 6px; height: 6px;
-            background: var(--accent-color);
-            border-radius: 1px;
+            content: ''; position: absolute; left: 6px; top: 11px;
+            width: 6px; height: 6px; background: var(--accent-color); border-radius: 1px;
         }
 
-        ul ul { margin-top: 10px; margin-bottom: 10px; }
-        ul ul li { font-size: 0.95em; color: #555; margin-bottom: 8px; }
+        ul ul { margin-top: 8px; margin-bottom: 8px; }
+        ul ul li { font-size: 0.95em; color: #555; margin-bottom: 6px; }
         ul ul li::before { background: #bbb; width: 4px; height: 4px; border-radius: 50%; }
 
-        /* --- SKILLS GRID (JetBrains Theme) --- */
+        /* --- SKILLS GRID --- */
         .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px 60px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 25px 50px;
         }
-        .skill-row { margin-bottom: 15px; }
-        
+        .skill-row { margin-bottom: 10px; }
         .skill-row strong {
-            display: block;
-            font-family: 'Outfit', sans-serif; 
-            font-size: 0.85em;
-            color: #000;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 700;
-            padding-bottom: 4px;
-            border-bottom: 2px solid #f0f0f0;
+            display: block; font-family: 'Outfit', sans-serif; font-size: 0.85em; color: #000;
+            margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+            padding-bottom: 4px; border-bottom: 2px solid #f0f0f0;
         }
-        
-        .skill-row span { 
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 0.95em; 
-            color: #333; 
-            line-height: 1.6;
-        }
+        .skill-row span { font-family: 'JetBrains Mono', monospace; font-size: 0.95em; color: #333; line-height: 1.6; }
 
-        /* --- ANIMATION CLASSES --- */
-        
-        /* 1. Section Pop */
+        /* --- ANIMATION STATES --- */
         .anim-trigger {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        .anim-trigger.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .anim-trigger.in-view { opacity: 1; transform: translateY(0); }
 
-        /* 2. Computed Word (Crypto Effect) */
+        /* Computed Word */
         .computed-word {
-            display: inline-block;
-            white-space: pre;
-            opacity: 0;
-            filter: blur(8px);
-            transform: translateY(5px);
-            vertical-align: top; /* Stabilizes layout */
-            
-            /* Transition for ENTRY only */
+            display: inline-block; white-space: pre; opacity: 0;
+            filter: blur(8px); transform: translateY(5px); vertical-align: top; 
             transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
         }
-        
-        .computed-word.in-view {
-            opacity: 1;
-            filter: blur(0);
-            transform: translateY(0);
-        }
+        .computed-word.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
 
-        /* 3. Highlight */
+        /* Highlight */
         .highlight-tech {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: var(--accent-blue);
-            background: #f0f7ff;
-            padding: 0 4px;
-            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.9em; font-weight: 500;
+            color: var(--accent-blue); background: #f0f7ff; padding: 0 4px; border-radius: 3px;
         }
 
         strong { font-weight: 700; color: #000; }
 
-        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 60px; }
+        /* Crypto Header */
+        .crypto-header {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            /* Ensure shine clip works */
+            display: inline-block; 
+        }
+        .crypto-header.visible { opacity: 1; transform: translateY(0); }
+
+        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; margin-top: 20px; }
 
         @media (max-width: 700px) {
-            .resume-container { padding: 0 25px 100px 25px; }
+            .resume-container { padding: 0 20px 80px 20px; }
             h1 { font-size: 3em; }
-            .skills-grid { grid-template-columns: 1fr; gap: 30px; }
-            .job-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-            section, header { padding: 60px 0; }
+            .skills-grid { grid-template-columns: 1fr; gap: 20px; }
+            .job-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            section, header { padding: 30px 0; }
         }
     </style>
 </head>
@@ -362,8 +310,11 @@
         <section class="anim-trigger">
             <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY</h2>
             
-            <article>
-                <h3>Google <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Bangalore, India</span></h3>
+            <article class="stream-text">
+                <div class="company-header">
+                    <h3 class="crypto-header" data-text="Google">Google</h3>
+                    <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Bangalore, India</span>
+                </div>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
                     <span class="job-meta">Nov 2024 – Present</span>
@@ -383,12 +334,12 @@
                     <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
                 </ul>
 
-                <div class="job-header" style="margin-top:40px;">
+                <div class="job-header" style="margin-top:30px;">
                     <span class="job-title">Software Engineer III</span>
                     <span class="job-meta">Oct 2021 – Oct 2024</span>
                 </div>
                 
-                <h4>Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
+                <h4 class="crypto-header" data-text="Google One - Storage Quota Service (Apr 2023 – Oct 2024)">Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul class="obs-list">
                     <li>Spearheaded engineering efforts across diverse teams and fostered xFN & XPA collaboration to launch critical new email communications and Gmail warning banners, effectively alerting millions of users about their storage grace period status.</li>
                     <li>Orchestrated a successful phased launch impacting <strong>XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and driving substantial Google One signups and upgrades (estimated ~X Million users/year). This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
@@ -399,7 +350,7 @@
                     <li>Architected and implemented the backend infrastructure for Google service-level usage breakdown for Enterprise Customers, delivering a scalable, real-time solution that eliminated inefficient caching of millions of user-level rows for admin consoles.</li>
                 </ul>
 
-                <h4>Google One - Benefits (Oct 2021 – Apr 2023)</h4>
+                <h4 class="crypto-header" data-text="Google One - Benefits (Oct 2021 – Apr 2023)">Google One - Benefits (Oct 2021 – Apr 2023)</h4>
                 <ul class="obs-list">
                     <li>Architected and implemented the foundational backend system for determining user eligibility for Google One benefits, resolving complex large-scale orchestration challenges. This system became the cornerstone for a major customer acquisition feature, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
                     <li>Designed and deployed a comprehensive reconciliation framework within Google One to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of minimizing consumer complaints related to benefits.</li>
@@ -411,11 +362,12 @@
                     <li>Successfully owned and executed the complete on-call migration for both G1 Benefits and G1 Storage Quota Service teams from MTV to India. This complex undertaking included orchestrating knowledge transfer, deployment schedules, offline process realignment, and establishing new operational playbooks and incident management strategies, all accomplished without any incidents or degradation of user experience.</li>
                 </ul>
             </article>
-        </section>
 
-        <section class="anim-trigger">
-            <article>
-                <h3>CrispyGames / Zopte Technologies <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Mumbai, India</span></h3>
+            <article class="stream-text">
+                <div class="company-header">
+                    <h3 class="crypto-header" data-text="CrispyGames / Zopte Technologies">CrispyGames / Zopte Technologies</h3>
+                    <span style="font-weight:400; color:#888; font-size:0.8em; font-family:'JetBrains Mono'">| Mumbai, India</span>
+                </div>
                 <div class="job-header">
                     <span class="job-title">Software Engineer</span>
                     <span class="job-meta">Jun 2018 – Sept 2021</span>
@@ -451,19 +403,19 @@
 
         <section class="anim-trigger">
             <h2 class="crypto-header" data-text="EDUCATION">EDUCATION</h2>
-            <article>
+            <article class="stream-text">
                 <h3>National Institute of Technology, Meghalaya</h3>
                 <div class="job-header" style="border: none; margin-bottom: 0;">
                     <span class="job-title">B.Tech in Computer Science and Engineering</span>
                     <span class="job-meta">Shillong, India | 2014 – 2018</span>
                 </div>
-                <p class="stream-text">B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
+                <p>B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
             </article>
         </section>
 
         <section class="anim-trigger">
             <h2 class="crypto-header" data-text="CERTIFICATIONS">CERTIFICATIONS</h2>
-            <ul class="obs-list">
+            <ul class="obs-list stream-text">
                 <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
                 <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
                 <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
@@ -474,12 +426,12 @@
         <section class="anim-trigger">
             <h2 class="crypto-header" data-text="PUBLICATION & ACTIVITIES">PUBLICATION & ACTIVITIES</h2>
             
-            <div style="margin-bottom: 50px;">
+            <div class="stream-text" style="margin-bottom: 50px;">
                 <h4>Publication</h4>
-                <p class="stream-text">S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
+                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="#" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
             </div>
 
-            <div>
+            <div class="stream-text">
                 <h4>Other Activities</h4>
                 <ul class="obs-list">
                     <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: Traceback.</li>
@@ -533,7 +485,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- 1. BACKGROUND CANVAS ---
+            // --- 1. SUBTLE BG ANIMATION ---
             const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
             let width, height, time = 0;
@@ -565,11 +517,14 @@
             animateBg();
 
             // --- 2. ROBUST TEXT SPLITTER ---
+            // We split text into words for granular animation
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
             
             textRoots.forEach(root => {
+                // Skip complex containers, process leaf nodes only
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
-                if(root.classList.contains('contact-wrapper')) return; // Don't split icons
+                if(root.classList.contains('contact-wrapper')) return; 
+                if(root.classList.contains('company-header')) return;
 
                 const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
                 const textNodes = [];
@@ -580,6 +535,7 @@
                     
                     let isBold = false;
                     let parent = node.parentNode;
+                    // Check if inside bold tag
                     if(parent.tagName === 'STRONG' || parent.tagName === 'B') {
                         isBold = true;
                         parent.classList.add('highlight-tech');
@@ -603,17 +559,20 @@
                 });
             });
 
-            // --- 3. INTERSECTION OBSERVER ---
+            // --- 3. INTERSECTION OBSERVER (TRIGGER ONCE) ---
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const target = entry.target;
-                    const isVisible = entry.isIntersecting;
+                    
+                    // TRIGGER ONCE LOGIC:
+                    // Only run if intersecting AND NOT already triggered
+                    if (entry.isIntersecting && !target.classList.contains('triggered-once')) {
+                        target.classList.add('triggered-once');
 
-                    // A. Crypto Header
-                    if(target.classList.contains('crypto-header')) {
-                        if(isVisible) {
+                        // A. Crypto Header
+                        if(target.classList.contains('crypto-header')) {
                             target.classList.add('visible');
                             const original = target.dataset.text;
                             let i = 0;
@@ -624,28 +583,24 @@
                                     if(idx < i) return c;
                                     return chars[Math.floor(Math.random() * 26)];
                                 }).join("");
-                                if(i >= original.length) clearInterval(target.interval);
+                                if(i >= original.length) {
+                                    clearInterval(target.interval);
+                                    // ADD SHINE EFFECT ON FINISH
+                                    target.classList.add('shimmer-active');
+                                }
                                 i += 1/2; 
                             }, 30);
                             target.dataset.interval = interval;
-                        } else {
-                            target.classList.remove('visible');
-                            target.innerText = target.dataset.text; 
                         }
-                    }
 
-                    // B. Text Diffusion
-                    // We observe specific blocks (LI, P) so text animates only when THAT block enters
-                    if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
-                        const words = target.querySelectorAll('.computed-word');
-                        
-                        if(isVisible) {
+                        // B. Text Diffusion
+                        if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
+                            const words = target.querySelectorAll('.computed-word');
+                            
                             words.forEach((w, i) => {
-                                // Reset
-                                w.classList.remove('in-view');
                                 void w.offsetWidth; 
                                 
-                                // Staggered Delay (10ms)
+                                // Staggered Delay
                                 const delay = i * 10; 
                                 
                                 setTimeout(() => {
@@ -666,23 +621,13 @@
                                     }
                                 }, delay);
                             });
-                        } else {
-                            // INSTANT EXIT
-                            words.forEach(w => {
-                                w.style.transition = 'none'; // Disable transition for instant hide
-                                w.classList.remove('in-view');
-                                // Re-enable transition after a tick
-                                setTimeout(() => { w.style.transition = ''; }, 50);
-                            });
+                        }
+                        
+                        // C. Section Pop
+                        if(target.classList.contains('anim-trigger')) {
+                             target.classList.add('in-view');
                         }
                     }
-                    
-                    // C. Section Pop
-                    if(target.classList.contains('anim-trigger')) {
-                         if(isVisible) target.classList.add('in-view');
-                         else target.classList.remove('in-view');
-                    }
-
                 });
             }, { 
                 threshold: 0.1, 
@@ -692,7 +637,7 @@
             document.querySelectorAll('.crypto-header').forEach(el => observer.observe(el));
             document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
             // Granular Text Observation
-            document.querySelectorAll('.obs-list li, .stream-text, p, .contact-info, .skills-grid').forEach(el => {
+            document.querySelectorAll('.obs-list li, .stream-text, p, .contact-wrapper, .skills-grid').forEach(el => {
                 if(el.querySelector('.computed-word')) observer.observe(el);
             });
 
