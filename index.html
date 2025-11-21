@@ -10,11 +10,11 @@
     <style>
         :root {
             --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-sub: #555555;
-            --accent-color: #1a73e8; 
-            --accent-pop: #2563eb;
-            --border-color: #e0e0e0;
+            --text-main: #2d3436; /* Softer black for book feel */
+            --text-sub: #636e72;
+            --accent-color: #0984e3; /* Playful blue */
+            --accent-pop: #d63031;   /* Playful red */
+            --border-color: #dfe6e9;
         }
 
         html {
@@ -42,7 +42,7 @@
             width: 100%; 
             height: 100%;
             z-index: -10;
-            background: #ffffff;
+            background: #ffffff; /* Pure White Paper Background */
         }
 
         .resume-container {
@@ -53,23 +53,23 @@
             position: relative;
             z-index: 1;
             
-            /* High blur frosted glass */
+            /* Very clean, paper-like frosted glass */
             background: linear-gradient(
                 to bottom, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 255, 255, 0.75) 20%,
-                rgba(255, 255, 255, 0.75) 80%,
-                rgba(255, 255, 255, 0.9) 100%
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(255, 255, 255, 0.85) 20%,
+                rgba(255, 255, 255, 0.85) 80%,
+                rgba(255, 255, 255, 0.95) 100%
             );
             
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
             
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05); /* Soft shadow */
+            border: 1px solid rgba(255,255,255,1.0);
             margin-top: 40px;
             margin-bottom: 40px;
-            border-radius: 16px;
+            border-radius: 24px; /* Rounder, friendlier corners */
         }
 
         /* --- SECTIONS --- */
@@ -79,7 +79,7 @@
             justify-content: center;
             padding: 25px 0;
             box-sizing: border-box;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 2px dashed rgba(0,0,0,0.05); /* Dashed lines for book feel */
             margin-bottom: 25px;
         }
         section:last-child { border-bottom: none; margin-bottom: 0; }
@@ -93,17 +93,18 @@
             letter-spacing: -0.04em;
             text-align: center;
             line-height: 0.9;
-            color: #000;
-            transition: transform 0.3s ease, filter 0.3s ease;
-            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.1));
+            color: #2d3436;
+            /* Soft Paper Cutout Shadow */
+            filter: drop-shadow(2px 4px 0px rgba(0,0,0,0.1));
+            transform: scale(1.0);
+            transition: transform 0.3s ease;
         }
         h1:hover {
-            transform: scale(1.01);
-            filter: drop-shadow(0 8px 4px rgba(0,0,0,0.15));
+            transform: scale(1.02) rotate(-1deg);
         }
 
         .shimmer-text {
-            background: linear-gradient(120deg, #000 40%, #1a73e8 50%, #000 60%);
+            background: linear-gradient(120deg, #2d3436 40%, #0984e3 50%, #2d3436 60%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
@@ -120,16 +121,16 @@
             letter-spacing: -0.02em;
             margin: 0 0 25px 0;
             padding-left: 20px;
-            border-left: 4px solid var(--accent-color);
+            border-left: 6px solid var(--accent-color); /* Thicker, bolder line */
             display: inline-block;
             line-height: 1;
+            border-radius: 4px;
             
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.1));
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy transition */
+            filter: drop-shadow(2px 3px 0px rgba(0,0,0,0.1));
         }
         h2:hover {
-            transform: translateX(5px);
-            filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.15));
+            transform: translateX(10px) rotate(1deg);
         }
 
         h3 {
@@ -137,13 +138,8 @@
             font-size: 1.8em;
             font-weight: 600;
             margin: 0 0 5px 0;
-            color: #000;
-            transition: transform 0.2s ease;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        h3:hover {
-            transform: translateY(-1px);
-            text-shadow: 0 3px 4px rgba(0,0,0,0.15);
+            color: #2d3436;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
         }
 
         .company-row {
@@ -161,57 +157,49 @@
             font-size: 1.2em;
             font-weight: 600;
             margin: 30px 0 10px 0;
-            color: #111;
+            color: #2d3436;
             letter-spacing: 0.01em;
-            transition: transform 0.2s ease;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        h4:hover {
-            transform: translateX(2px);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
         }
 
-        /* --- FLASHING SHINE ANIMATION --- */
-        @keyframes flash-shine {
-            0%, 100% { background-position: 200% center; }
-            50% { background-position: -200% center; }
+        /* --- IMPROVED SHINY TAG ANIMATION --- */
+        @keyframes gleam {
+            0% { transform: skewX(-20deg) translateX(-150%); }
+            20% { transform: skewX(-20deg) translateX(250%); } /* Fast pass */
+            100% { transform: skewX(-20deg) translateX(250%); } /* Wait */
         }
 
         .shiny-tag {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(
-                120deg, 
-                rgba(255,255,255,0.9) 30%, 
-                rgba(255,255,255,0) 40%, 
-                rgba(255,255,255,0) 60%, 
-                rgba(255,255,255,0.9) 70%
-            );
-            background-size: 200% auto;
+            /* Ensure z-index handling so ::after is visible */
+            z-index: 1; 
         }
         
         .shiny-tag::after {
             content: "";
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 200%;
+            left: 0;
+            width: 100%;
             height: 100%;
+            
+            /* Stronger, wider, blue-tinted sheen */
             background: linear-gradient(
-                to right,
-                transparent 0%,
-                rgba(255,255,255,0.8) 50%,
-                transparent 100%
+                to right, 
+                rgba(255,255,255,0) 0%, 
+                rgba(220, 240, 255, 0.6) 50%, 
+                rgba(255,255,255,0) 100%
             );
-            transform: skewX(-20deg);
-            animation: shine-pass 3s infinite cubic-bezier(0.4, 0.0, 0.2, 1);
+            
+            /* Start off-screen */
+            transform: skewX(-20deg) translateX(-150%);
+            
+            /* Run every 5 seconds */
+            animation: gleam 5s infinite;
             pointer-events: none;
-        }
-
-        @keyframes shine-pass {
-            0% { left: -100%; opacity: 0; }
-            10% { opacity: 1; }
-            50% { left: 200%; opacity: 0; }
-            100% { left: 200%; opacity: 0; }
+            z-index: 2; /* Sit on top of text */
+            mix-blend-mode: overlay; /* Helps it shine correctly on white */
         }
 
         /* --- LINKS & CONTACT --- */
@@ -219,11 +207,13 @@
             color: var(--accent-color);
             text-decoration: none;
             transition: all 0.2s ease;
-            font-weight: 500;
+            font-weight: 600;
         }
         a:hover {
             color: var(--accent-pop);
-            text-decoration: underline;
+            text-decoration: none; /* Underline handled by border usually */
+            background-color: rgba(9, 132, 227, 0.05);
+            border-radius: 4px;
         }
 
         .contact-wrapper {
@@ -244,36 +234,43 @@
             gap: 25px;
         }
 
-        /* 3D Effect for Pills/Tags */
+        /* 3D Pills + Shine Fix */
         .contact-item {
             display: flex;
             align-items: center;
             gap: 8px;
             color: var(--text-sub);
             text-decoration: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            position: relative; /* For shiny tag */
-            overflow: hidden;
+            padding: 8px 16px; /* Larger touch target */
+            border-radius: 50px; /* Full pill shape */
+            background: #ffffff;
+            
+            /* Tactile Shadow */
+            box-shadow: 0 4px 0 #dfe6e9, 0 5px 10px rgba(0,0,0,0.05);
+            transform: translateY(0);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            position: relative; /* Required for shiny-tag */
+            overflow: hidden;   /* Required for shiny-tag */
+            border: 1px solid #f1f2f6;
         }
         .contact-item:hover { 
-            background: rgba(26,115,232,0.05);
+            background: #fff;
             color: var(--accent-color); 
-            text-decoration: none;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 0 #dfe6e9, 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .contact-item:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #dfe6e9;
         }
         .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
 
         .contact-row .contact-item:not(:last-child)::after {
-            content: ''; display: block; width: 1px; height: 12px;
-            background: #ccc; margin-left: 25px;
+            /* Remove old divider line logic for pills */
+            display: none; 
         }
         @media (max-width: 600px) {
-             .contact-row .contact-item:not(:last-child)::after { display: none; }
              .contact-row { gap: 15px; }
         }
 
@@ -290,35 +287,38 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
+        .job-title { font-weight: 700; color: #2d3436; font-size: 1.15em; font-family: 'Outfit', sans-serif; }
         
+        /* Job Meta Tags + Shine */
         .job-meta { 
             font-family: 'JetBrains Mono', monospace; 
-            color: #555; font-size: 0.85em; 
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 4px 8px; border-radius: 4px;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+            color: #636e72; font-size: 0.85em; 
+            border: 1px solid #dfe6e9;
+            padding: 4px 12px; border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 2px 0 #dfe6e9;
             position: relative;
             overflow: hidden;
+            display: inline-block;
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
 
         ul li {
             position: relative; padding-left: 25px; margin-bottom: 10px;
-            color: #333; font-size: 1.05em;
+            color: #2d3436; font-size: 1.05em;
         }
 
         ul > li::before {
             content: ''; position: absolute; left: 6px; top: 11px;
-            width: 6px; height: 6px; border: 1.5px solid var(--accent-color);
+            width: 8px; height: 8px; border-radius: 2px;
+            background: var(--accent-color); /* Square bullets */
             transform: rotate(45deg);
         }
 
         ul ul { margin-top: 8px; margin-bottom: 8px; }
-        ul ul li { font-size: 0.95em; color: #555; margin-bottom: 6px; }
-        ul ul li::before { border-radius: 50%; border: none; background: #999; width: 4px; height: 4px; top: 10px; transform: none; }
+        ul ul li { font-size: 0.95em; color: #636e72; margin-bottom: 6px; }
+        ul ul li::before { border-radius: 50%; background: #b2bec3; width: 5px; height: 5px; top: 10px; transform: none; }
 
         /* --- SKILLS --- */
         .skills-grid {
@@ -331,7 +331,7 @@
             font-size: 0.85em; color: var(--accent-color); margin-bottom: 5px;
             text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
         }
-        .skill-row span { font-family: 'JetBrains Mono', monospace; font-size: 0.95em; color: #111; }
+        .skill-row span { font-family: 'JetBrains Mono', monospace; font-size: 0.95em; color: #2d3436; }
 
         /* --- ANIMATION CLASSES --- */
         .anim-trigger {
@@ -347,19 +347,24 @@
         }
         .computed-word.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
 
-        /* 3D Effect for Highlighted Tech + Shine */
+        /* 3D Tech Tags + Shine */
         .highlight-tech {
             font-family: 'JetBrains Mono', monospace; font-size: 0.9em; font-weight: 600;
             color: var(--accent-pop);
-            background: rgba(37, 99, 235, 0.08);
-            padding: 2px 6px; border-radius: 4px; 
+            background: rgba(214, 48, 49, 0.05);
+            padding: 2px 8px; border-radius: 6px; 
             display: inline-block;
-            box-shadow: 0 2px 0 rgba(37, 99, 235, 0.15);
+            box-shadow: 0 2px 0 rgba(214, 48, 49, 0.1);
             position: relative;
             overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .highlight-tech:hover {
+            transform: translateY(-2px);
+            background: rgba(214, 48, 49, 0.1);
         }
 
-        strong { font-weight: 700; color: #000; }
+        strong { font-weight: 700; color: #2d3436; }
 
         .crypto-header {
             opacity: 0; transform: translateY(20px);
@@ -368,13 +373,13 @@
         }
         .crypto-header.visible { opacity: 1; transform: translateY(0); }
 
-        /* --- 3D BULGING EMOJIS --- */
+        /* --- 3D EMOJIS --- */
         .emoji-3d {
             display: inline-block;
             font-style: normal;
             cursor: default;
             
-            /* FORCE COLOR RENDER & RESET STYLES */
+            /* FORCE COLOR RENDER & RESET */
             font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             font-weight: 400 !important;
             color: transparent; 
@@ -382,21 +387,21 @@
             -webkit-text-fill-color: initial !important;
             text-shadow: none !important;
             
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 6px 3px rgba(0,0,0,0.25));
-            transform: scale(1.25);
-            margin-left: 8px;
-            /* Prevent inherritance issues */
+            /* Pop-up Animation */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 4px 0px rgba(0,0,0,0.15));
+            transform: scale(1.2);
+            margin-left: 10px;
             visibility: visible !important; 
             opacity: 1 !important;
         }
         
         .emoji-3d:hover {
-            transform: scale(1.45) rotate(12deg);
-            filter: drop-shadow(0 10px 6px rgba(0,0,0,0.3));
+            transform: scale(1.5) rotate(15deg);
+            filter: drop-shadow(0 8px 0px rgba(0,0,0,0.2));
         }
 
-        footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; margin-top: 40px; }
+        footer { text-align: center; color: #b2bec3; font-size: 0.9em; padding-bottom: 40px; margin-top: 40px; }
 
         @media (max-width: 700px) {
             .resume-container { padding: 60px 20px; }
@@ -642,9 +647,8 @@
         // --- 3D CELESTIAL SCENE ---
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff); // Pure White Background
-        // Minimal fog to keep stars visible
-        scene.fog = new THREE.FogExp2(0xffffff, 0.002);
+        scene.background = new THREE.Color(0xffffff); // Pure White
+        scene.fog = new THREE.FogExp2(0xffffff, 0.015);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 0, 25);
@@ -654,193 +658,128 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // --- 1. The Moon (Milky Yellow) ---
+        // --- 1. The Moon (Pale Yellow) ---
         const moonGeo = new THREE.SphereGeometry(2, 64, 64);
-        // Higher res texture simulation via noise (simplified for code)
-        function createMoonTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512; canvas.height = 512;
-            const ctx = canvas.getContext('2d');
-            
-            // Base Milky Yellow
-            ctx.fillStyle = '#FDFBD3'; 
-            ctx.fillRect(0,0,512,512);
-            
-            // Craters
-            for(let i=0; i<100; i++) {
-                const x = Math.random() * 512;
-                const y = Math.random() * 512;
-                const r = Math.random() * 20 + 2;
-                ctx.beginPath();
-                ctx.arc(x, y, r, 0, Math.PI*2);
-                ctx.fillStyle = 'rgba(220, 210, 180, 0.4)';
-                ctx.fill();
-            }
-            return new THREE.CanvasTexture(canvas);
-        }
-
-        const moonMat = new THREE.MeshStandardMaterial({ 
-            map: createMoonTexture(),
-            color: 0xFFFDD0, // Cream
-            emissive: 0x333333,
-            roughness: 0.8
+        const moonMat = new THREE.MeshToonMaterial({ 
+            color: 0xFFF9C4, 
+            emissive: 0xEEE8AA,
+            emissiveIntensity: 0.2
         });
         const moon = new THREE.Mesh(moonGeo, moonMat);
         scene.add(moon);
 
-        // Moon Light
-        const moonLight = new THREE.PointLight(0xFFFDD0, 0.8, 50);
+        const moonLight = new THREE.PointLight(0xFFF9C4, 0.8, 40);
         scene.add(moonLight);
 
-        // --- 2. The Sun (Radiant Orange-Yellow) ---
+        // --- 2. The Sun (Pastel Orange) ---
         const sunGeo = new THREE.SphereGeometry(1.8, 32, 32);
-        const sunMat = new THREE.MeshBasicMaterial({ color: 0xFFCC00 }); 
+        const sunMat = new THREE.MeshToonMaterial({ color: 0xFFB74D }); 
         const sun = new THREE.Mesh(sunGeo, sunMat);
         scene.add(sun);
 
-        // Sun Corona
-        const coronaGeo = new THREE.SphereGeometry(2.6, 32, 32);
-        const coronaMat = new THREE.MeshBasicMaterial({
-            color: 0xFF8C00,
-            transparent: true,
-            opacity: 0.2,
-            side: THREE.BackSide
+        // Simple Sun Glow
+        const coronaGeo = new THREE.RingGeometry(2.2, 3.0, 32);
+        const coronaMat = new THREE.MeshBasicMaterial({ 
+            color: 0xFFCC80, 
+            transparent: true, 
+            opacity: 0.4,
+            side: THREE.DoubleSide
         });
         const corona = new THREE.Mesh(coronaGeo, coronaMat);
+        corona.lookAt(camera.position); // Always face camera
         sun.add(corona);
 
-        // Sun Light
-        const sunLight = new THREE.DirectionalLight(0xFFCC00, 1.0);
+        const sunLight = new THREE.DirectionalLight(0xFFB74D, 1.0);
         scene.add(sunLight);
 
-        // Ambient Light (High for white background)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9); 
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); 
         scene.add(ambientLight);
 
-        // --- 3. Starfield (Fast Twinkle, Fixed Position) ---
-        function createStarTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 32; canvas.height = 32;
-            const ctx = canvas.getContext('2d');
+        // --- 3. 3D Star Shapes (5-Pointed) ---
+        function createStarShape() {
+            const shape = new THREE.Shape();
+            const points = 5;
+            const outerRadius = 0.5;
+            const innerRadius = 0.2;
             
-            const cx = 16, cy = 16, outerRadius = 12, innerRadius = 4;
-            let rot = Math.PI / 2 * 3;
-            let x = cx, y = cy;
-            const step = Math.PI / 5;
-
-            ctx.beginPath();
-            ctx.moveTo(cx, cy - outerRadius);
-            for (let i = 0; i < 5; i++) {
-                x = cx + Math.cos(rot) * outerRadius;
-                y = cy + Math.sin(rot) * outerRadius;
-                ctx.lineTo(x, y);
-                rot += step;
-                x = cx + Math.cos(rot) * innerRadius;
-                y = cy + Math.sin(rot) * innerRadius;
-                ctx.lineTo(x, y);
-                rot += step;
+            for (let i = 0; i < points * 2; i++) {
+                const r = (i % 2 === 0) ? outerRadius : innerRadius;
+                const angle = (i / (points * 2)) * Math.PI * 2;
+                const x = Math.cos(angle) * r;
+                const y = Math.sin(angle) * r;
+                if (i === 0) shape.moveTo(x, y);
+                else shape.lineTo(x, y);
             }
-            ctx.lineTo(cx, cy - outerRadius);
-            ctx.closePath();
-            // Darker Gold for visibility on white
-            ctx.fillStyle = '#D4AF37'; 
-            ctx.fill();
-            return new THREE.CanvasTexture(canvas);
+            shape.closePath();
+            return shape;
         }
 
-        const starMaterial = new THREE.ShaderMaterial({
-            uniforms: {
-                time: { value: 0 },
-                pointTexture: { value: createStarTexture() }
-            },
-            vertexShader: `
-                attribute float scale;
-                attribute float phase;
-                varying float vAlpha;
-                uniform float time;
-                void main() {
-                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                    gl_Position = projectionMatrix * mvPosition;
-                    
-                    // FAST TWINKLE (15.0 speed)
-                    float blink = sin(time * 15.0 + phase); 
-                    
-                    // Opacity oscillates 0.3 -> 1.0
-                    vAlpha = 0.3 + 0.7 * (0.5 + 0.5 * blink); 
-                    
-                    // Size pulses 
-                    gl_PointSize = scale * (0.8 + 0.4 * blink);
-                    gl_PointSize *= (300.0 / -mvPosition.z); 
-                }
-            `,
-            fragmentShader: `
-                uniform sampler2D pointTexture;
-                varying float vAlpha;
-                void main() {
-                    vec4 color = texture2D(pointTexture, gl_PointCoord);
-                    if (color.a < 0.1) discard;
-                    gl_FragColor = color;
-                    gl_FragColor.a *= vAlpha;
-                }
-            `,
-            transparent: true,
-            depthWrite: false,
-            // Normal Blending is crucial for visibility on white
-            blending: THREE.NormalBlending
-        });
+        const starGeometry = new THREE.ShapeGeometry(createStarShape());
+        const starMaterial = new THREE.MeshBasicMaterial({ color: 0xFDD835 });
+        
+        const starCount = 250;
+        const starMeshes = []; // Store to animate
 
-        const starsCount = 4000;
-        const starsGeo = new THREE.BufferGeometry();
-        const positions = new Float32Array(starsCount * 3);
-        const scales = new Float32Array(starsCount);
-        const phases = new Float32Array(starsCount);
-
-        for (let i = 0; i < starsCount; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * 600;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 600;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 400 - 100;
-            scales[i] = Math.random() * 12 + 6; // Slightly larger for visibility
-            phases[i] = Math.random() * Math.PI * 2; 
+        for (let i = 0; i < starCount; i++) {
+            const star = new THREE.Mesh(starGeometry, starMaterial);
+            
+            // Random positions spread out
+            star.position.set(
+                (Math.random() - 0.5) * 80,
+                (Math.random() - 0.5) * 60,
+                (Math.random() - 0.5) * 40 - 10 // Mostly background
+            );
+            
+            star.rotation.z = Math.random() * Math.PI;
+            const scale = Math.random() * 0.5 + 0.2;
+            star.scale.set(scale, scale, scale);
+            
+            // Store random rotation speed
+            star.userData = { rotSpeed: (Math.random() - 0.5) * 0.02 };
+            
+            scene.add(star);
+            starMeshes.push(star);
         }
 
-        starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        starsGeo.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
-        starsGeo.setAttribute('phase', new THREE.BufferAttribute(phases, 1));
 
-        const starField = new THREE.Points(starsGeo, starMaterial);
-        scene.add(starField); 
-
-        window.addEventListener('resize', () => {
+        // Resize Handler
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+        }
 
         let time = 0;
         function animate() {
             requestAnimationFrame(animate);
-            time += 0.002; 
-            starMaterial.uniforms.time.value = time;
+            time += 0.0015; // Slow, peaceful
 
-            // Orbit Sun & Moon
-            sun.position.x = Math.sin(time * 0.5) * 30;
-            sun.position.z = Math.cos(time * 0.5) * 30 - 30; 
-            sun.position.y = Math.sin(time * 0.3) * 10 + 5; 
+            // Orbit Logic
+            sun.position.x = Math.sin(time * 0.5) * 25;
+            sun.position.z = Math.cos(time * 0.5) * 25 - 25; 
+            sun.position.y = Math.sin(time * 0.3) * 8 + 4; 
             sunLight.position.copy(sun.position);
+            // Rotate corona to face camera
+            corona.lookAt(camera.position);
 
-            moon.position.x = Math.sin(time * 0.5 + Math.PI) * 25;
-            moon.position.z = Math.cos(time * 0.5 + Math.PI) * 25 - 20;
-            moon.position.y = Math.cos(time * 0.2) * 12;
+            moon.position.x = Math.sin(time * 0.5 + Math.PI) * 20;
+            moon.position.z = Math.cos(time * 0.5 + Math.PI) * 20 - 15;
+            moon.position.y = Math.cos(time * 0.2) * 10;
             moonLight.position.copy(moon.position);
-            
-            // StarField is FIXED (no rotation added here)
+
+            // Animate Stars
+            starMeshes.forEach(star => {
+                star.rotation.z += star.userData.rotSpeed;
+                // Gentle floating
+                star.position.y += Math.sin(time + star.position.x) * 0.005;
+            });
 
             renderer.render(scene, camera);
         }
         animate();
 
-        // --- ROBUST HEADER ANIMATION FIX ---
-        // Use WeakMap to store the complete, safe HTML state
+        // --- ROBUST HEADER ANIMATION & TEXT SPLITTING ---
         const originalStates = new WeakMap();
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -852,29 +791,25 @@
                         const target = entry.target;
                         target.classList.add('triggered-once');
 
-                        // --- 1. Crypto Header Logic ---
+                        // --- 1. Crypto Header Logic (Fixed) ---
                         if(target.classList.contains('crypto-header')) {
                             target.classList.add('visible');
                             
                             // Retrieve safe original HTML
                             const safeHTML = originalStates.get(target);
-                            // Use textContent for cleaner extraction
                             const plainText = target.textContent; 
                             
                             let progress = 0;
                             const interval = setInterval(() => {
-                                // Scramble text content
-                                const scrambled = plainText.split("").map((c, idx) => {
+                                target.textContent = plainText.split("").map((c, idx) => {
                                     if(idx < progress) return c;
                                     return chars[Math.floor(Math.random() * chars.length)];
                                 }).join("");
                                 
-                                target.textContent = scrambled;
-                                
                                 if(progress >= plainText.length) {
                                     clearInterval(interval);
                                     target.classList.add('shimmer-text');
-                                    // CRITICAL: Force restore full HTML to bring back emojis
+                                    // FORCE RESTORE HTML
                                     if(safeHTML) target.innerHTML = safeHTML;
                                 }
                                 progress += 1/2; 
@@ -914,7 +849,7 @@
                 observer.observe(el);
             });
 
-            // Text Splitting logic for paragraphs
+            // Text Splitting
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
             textRoots.forEach(root => {
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
