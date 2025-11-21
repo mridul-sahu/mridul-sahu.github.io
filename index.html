@@ -35,8 +35,6 @@
         }
 
         /* --- LAYOUT STACKING --- */
-        
-        /* 1. The Void (Bottomest) */
         .void-layer {
             position: fixed;
             inset: 0;
@@ -44,7 +42,6 @@
             z-index: -10;
         }
 
-        /* 2. The Neural Network (Canvas) */
         #network-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -52,7 +49,6 @@
             pointer-events: auto; 
         }
 
-        /* 3. The Content Lens (Container) */
         .resume-container {
             width: 100%;
             max-width: 950px;
@@ -184,7 +180,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-sub); /* Default grey for header */
+            color: var(--text-sub);
             text-decoration: none;
             padding: 4px 8px;
             border-radius: 4px;
@@ -196,7 +192,6 @@
         }
         .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
 
-        /* Divider */
         .contact-row .contact-item:not(:last-child)::after {
             content: ''; display: block; width: 1px; height: 12px;
             background: #ccc; margin-left: 25px;
@@ -348,30 +343,30 @@
         </header>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY</h2>
+            <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY 💼</h2>
             
             <article class="stream-text">
                 <div class="company-row">
-                    <h3 class="crypto-header" data-text="Google">Google</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India</span>
+                    <h3>Google</h3>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India 🇮🇳</span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
                     <span class="job-meta">Nov 2024 – Present</span>
                 </div>
                 <ul class="obs-list">
-                    <li>Designed and engineered critical components for high-frequency ML model checkpointing, notably <strong>asynchronous directory creation in Orbax</strong>. Authored the core design featuring novel synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, reducing save times by <strong>30-50%</strong> and yielding major annualized TPU resource savings.</li>
+                    <li>Revolutionized large-scale ML model checkpointing by designing and implementing a novel <strong>asynchronous directory creation</strong> mechanism within the open-source <strong>Orbax library</strong>. Authored the core design featuring advanced synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, slashing <strong>blocking</strong> save times by <strong>30-50%</strong>. This optimization yielded substantial annualized TPU/GPU resource savings, earning a prestigious <strong>Perfy award</strong> 🏆 (Google's internal recognition for impactful performance optimizations).</li>
+                    <li>Architected and spearheaded the development of the next-generation <strong>Dispatcher API</strong> for Orbax, a paradigm shift in interfacing with diverse distributed training backends. This strategic overhaul supports various execution models, including multi-controller and single-controller JAX (with colocated Python), enhancing extensibility and unlocking advanced capabilities for a more robust and scalable checkpointing solution.</li>
                     <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
                         <ul>
-                            <li><strong>Emergency Checkpoint Manager (ECM):</strong> Improved the two-stage saving mechanism (fast local cache & persistent storage) to be quicker and more reliable, reducing data loss risk during unexpected training interruptions.</li>
-                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined how training restarts from a single saved copy (<code>Single Replica Restore</code>) and how that data is efficiently shared (<code>Broadcast</code>) across all processing units, especially in complex, multi-device environments. This reduced startup times and resource bottlenecks.</li>
+                            <li><strong>Emergency Checkpoint Manager (ECM):</strong> Refined the two-stage saving mechanism (fast local cache & persistent storage) for increased speed and reliability, minimizing data loss risk during unexpected training interruptions.</li>
+                            <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined training restarts from single saved copies (<code>Single Replica Restore</code>) and an efficient data sharing mechanism (<code>Broadcast</code>) across all processing units, reducing startup times and resource bottlenecks in complex, multi-device environments.</li>
                         </ul>
                     </li>
-                    <li>Resolved critical performance and stability issues within the <strong>Orbax checkpointing library</strong> for large-scale model training on cloud platforms, unblocking key enterprise users by addressing complex multi-device and storage interaction bugs.</li>
-                    <li>Architected and led the development of a new, extensible <strong>ML Checkpointing Benchmark Framework</strong> for Orbax, featuring a modular design, YAML configuration, and automated CI/CD pipelines for continuous performance regression detection across various hardware. Designed key components for <strong>open-source compatibility</strong> to foster community engagement and simplify external debugging.</li>
-                    <li>Driving foundational checkpointing improvements through these Orbax enhancements within the <strong>Gemax Prod</strong> initiative, thereby bolstering the reliability, scalability, and overall performance of training workflows for Google's State-of-the-Art (SOTA) foundation models.</li>
-                    <li>Led the design and development of the Knowledge Distillation module for <strong>Tunix</strong> (JAX-native LLM post-training library), enhancing model efficiency. Architected a flexible framework using a strategy pattern to support diverse distillation techniques, including advanced logit-matching and feature/attention-based methods. Implemented novel utilities for dynamic intermediate feature extraction and dimension alignment (pooling/projection) across heterogeneous model architectures, enabling broader adoption of model compression.</li>
-                    <li>Playing a key role in establishing and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod.</li>
+                    <li><strong>Led the design and development</strong> of the Knowledge Distillation module for the <strong>Tunix</strong> JAX-native library. <strong>Architected a highly flexible and extensible framework</strong> using a strategy pattern, enabling a wide array of <strong>advanced distillation techniques (logit-matching, feature/attention transfer)</strong> and <strong>novel utilities for dynamic intermediate feature extraction and dimension alignment</strong> (pooling/projection) across diverse model architectures, <strong>significantly boosting model efficiency and accessibility</strong>.</li>
+                    <li>Pioneered a complete transformation of Orbax's testing and benchmarking infrastructure. Provided the technical vision and architectural blueprints for a new suite of frameworks, including a modular <strong>ML Checkpointing Benchmark Framework</strong> with automated CI/CD for continuous regression detection, alongside state-of-the-art <strong>internal (Guitar-based) and open-source (GCP-based) testing frameworks</strong>, ensuring rock-solid reliability across all deployment environments.</li>
+                    <li>Delivered critical solutions for key enterprise customers on <strong>cloud platforms</strong> by resolving complex, high-stakes performance and stability issues within Orbax, unblocking large-scale model training and strengthening strategic partnerships.</li>
+                    <li>Instrumental in founding and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod. 🚀</li>
                 </ul>
 
                 <div class="job-header" style="margin-top:40px;">
@@ -381,7 +376,7 @@
                 
                 <h4 class="crypto-header" data-text="Google One - Storage Quota Service (Apr 2023 – Oct 2024)">Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul class="obs-list">
-                    <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status.</li>
+                    <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status. ⚠️</li>
                     <li><strong>Orchestrated a successful phased launch impacting XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and <strong>driving substantial Google One signups and upgrades (estimated ~X Million users/year)</strong>. This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
                     <li>Assumed <strong>Tech Lead responsibilities for a major Gmail x SQS feature initiative</strong>; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
                     <li>Engineered an internal, <strong>highly extensible storage data validation and recovery pipeline</strong>, safeguarding data integrity for <strong>XX Billion users</strong>. This framework incorporated built-in <strong>optimizations for CPU and storage resources</strong>, proactive alerting, and a rapid, command-driven recovery mechanism to preempt user-facing issues.</li>
@@ -392,7 +387,7 @@
 
                 <h4 class="crypto-header" data-text="Google One - Benefits (Oct 2021 – Apr 2023)">Google One - Benefits (Oct 2021 – Apr 2023)</h4>
                 <ul class="obs-list">
-                    <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version.</li>
+                    <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version. ⚡</li>
                     <li>Designed and deployed a <strong>comprehensive reconciliation framework within Google One</strong> to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of <strong>minimizing consumer complaints related to benefits</strong>.</li>
                     <li>Led the end-to-end design, implementation, and <strong>successful rollout of multiple major benefit launches and international expansions</strong>, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
                     <li>Identified and rectified critical <strong>infrastructure deficiencies within Google One that affected millions of users</strong>, delivering extensible solutions that significantly hardened the existing infrastructure and enhanced overall product reliability.</li>
@@ -406,7 +401,7 @@
             <article class="stream-text">
                 <div class="company-row">
                     <h3 class="crypto-header" data-text="CrispyGames / Zopte Technologies">CrispyGames / Zopte Technologies</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Mumbai, India</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Mumbai, India 🇮🇳</span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Software Engineer</span>
@@ -414,18 +409,18 @@
                 </div>
                 <ul class="obs-list">
                     <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, <strong>accelerating rapid prototyping by contributing up to 60% of the code</strong> for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
-                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation.</li>
+                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation. 📈</li>
                     <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an <strong>Order Management System (OMS) and Tick Collector</strong>, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
                     <li>Integrated <strong>CDSL DP with E-DIS facility</strong> into the existing trading infrastructure and developed a streamlined client onboarding flow utilizing <strong>CVLKRA, CKYC, and Digio APIs</strong>, incorporating e-Signing and PDF processing for a new IBT platform.</li>
                     <li>Constructed a <strong>dynamic reporting tool</strong> that consumed executed order and trade data to present insightful information and key performance statistics in a user-friendly interface, empowering users to <strong>build and test their trading strategies in real-time</strong>.</li>
-                    <li>Architected and built a <strong>resilient microservices-based service mesh from scratch</strong> (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on **Kubernetes Clusters**, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
-                    <li>Founded and delivered curriculum for an <strong>online coding education platform (Zopte Academy)</strong>. Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance.</li>
+                    <li>Architected and built a <strong>resilient microservices-based service mesh from scratch</strong> (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on <strong>Kubernetes Clusters</strong>, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
+                    <li>Founded and delivered curriculum for an <strong>online coding education platform (Zopte Academy)</strong>. Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance. 🎓</li>
                     <li>Developed a suite of versatile <strong>pluggable widgets, user flows, and UI components using Flutter and Angular Dart</strong>, significantly enabling developers to build and iterate on applications with greater efficiency.</li>
                     <li><strong>Key R&D / Internal Projects:</strong>
                         <ul>
                             <li>Developed a foundational <strong>ML pipeline</strong> (Dlib, Tesseract, TensorFlow, OpenCV) in Python and Golang to extract valuable information from diverse data streams (e.g., analyzing poker gameplay, detecting room activity, conceptualizing indoor cat tracking).</li>
                             <li>Contributed to the development of an <strong>algorithmic trading platform</strong> using classification/regression models to predict trading patterns from price data and public company information, with further plans to integrate news/social media feeds.</li>
-                            <li>Prototyped a social media application, <em>Pawsome</em> (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets.</li>
+                            <li>Prototyped a social media application, <em>Pawsome</em> (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets. 🐾</li>
                         </ul>
                     </li>
                 </ul>
@@ -435,47 +430,47 @@
                     <span class="job-meta">Jun 2017 – Jul 2017</span>
                 </div>
                 <ul class="obs-list">
-                    <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++.</li>
+                    <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++. 🎮</li>
                     <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
                 </ul>
             </article>
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="EDUCATION">EDUCATION</h2>
+            <h2 class="crypto-header" data-text="EDUCATION 🎓">EDUCATION 🎓</h2>
             <article class="stream-text">
                 <h3>National Institute of Technology, Meghalaya</h3>
                 <div class="job-header" style="border: none; margin-bottom: 0;">
                     <span class="job-title">B.Tech in Computer Science and Engineering</span>
                     <span class="job-meta">Shillong, India | 2014 – 2018</span>
                 </div>
-                <p>B.Tech in Computer Science and Engineering | <strong>CGPA: 8.76/10</strong></p>
+                <p>CGPA: <strong>8.76/10</strong> 🌟</p>
             </article>
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="CERTIFICATIONS">CERTIFICATIONS</h2>
+            <h2 class="crypto-header" data-text="CERTIFICATIONS 📜">CERTIFICATIONS 📜</h2>
             <ul class="obs-list stream-text">
-                <li><a href="https://www.coursera.org/account/accomplishments/verify/PLKCH41J06C1" target="_blank"><strong>Generative AI with Large Language Models</strong></a>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
+                <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
                 <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
-                <li><a href="https://www.coursera.org/account/accomplishments/verify/NTP9QO06OTPK" target="_blank"><strong>Transformer Models and BERT Model</strong></a>, Google Cloud & Coursera (Completed: Apr 2025)</li>
-                <li><a href="https://www.educative.io/verify-certificate/vgA3wPFLmLVKzwkA2tyZpYXPqM0MIl" target="_blank"><strong>Distributed Systems for Practitioners</strong></a>, Educative.io (Completed: Mar 2023)</li>
+                <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
+                <li><strong>Distributed Systems for Practitioners</strong>, Educative.io (Completed: Mar 2023)</li>
             </ul>
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="PUBLICATION & ACTIVITIES">PUBLICATION & ACTIVITIES</h2>
+            <h2 class="crypto-header" data-text="PUBLICATION & ACTIVITIES 📚">PUBLICATION & ACTIVITIES 📚</h2>
             
             <div class="stream-text" style="margin-bottom: 50px;">
                 <h4>Publication</h4>
-                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72.</p>
+                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72. 📄</p>
             </div>
 
             <div class="stream-text">
                 <h4>Other Activities</h4>
                 <ul class="obs-list">
-                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>.</li>
-                    <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017).</li>
+                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>. 🏆</li>
+                    <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017). 🥇</li>
                     <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
                     <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
                 </ul>
@@ -483,7 +478,7 @@
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="TECHNICAL SKILLS">TECHNICAL SKILLS</h2>
+            <h2 class="crypto-header" data-text="TECHNICAL SKILLS 🛠️">TECHNICAL SKILLS 🛠️</h2>
             <div class="skills-grid stream-text">
                 <div class="skill-row">
                     <strong>Core Languages</strong>
@@ -491,7 +486,7 @@
                 </div>
                 <div class="skill-row">
                     <strong>Frameworks & Libraries</strong>
-                    <span>JAX, Orbax, Flax, Optax, Tunix, Flutter</span>
+                    <span>JAX, Orbax, Flax, Optax, Tunix, Pathways on Cloud, Flutter</span>
                 </div>
                 <div class="skill-row">
                     <strong>Systems & Architecture</strong>
@@ -499,7 +494,7 @@
                 </div>
                 <div class="skill-row">
                     <strong>DevOps & Cloud</strong>
-                    <span>Kubernetes, GCP, Docker, Git, Unix/Linux</span>
+                    <span>Kubernetes, GCP (Google Cloud Platform), Docker, Git, Unix/Linux, XPK</span>
                 </div>
                 <div class="skill-row">
                     <strong>Databases & Storage</strong>
@@ -518,7 +513,7 @@
         
         <footer>
              <hr>
-             <p>Mridul's Resume - Updated on Sept 25, 2025</p>
+             <p>Mridul's Resume - Updated on Nov 21, 2025</p>
         </footer>
     </div>
 
@@ -559,7 +554,6 @@
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius + (this.activation * 2), 0, Math.PI * 2);
-                    // More visible blue color for active nodes
                     const alpha = 0.2 + this.activation * 0.8;
                     ctx.fillStyle = `rgba(26, 115, 232, ${alpha})`; 
                     ctx.fill();
@@ -615,7 +609,6 @@
                             ctx.beginPath();
                             ctx.moveTo(nodeA.x, nodeA.y);
                             ctx.lineTo(nodeB.x, nodeB.y);
-                            // Stronger opacity for visibility
                             ctx.strokeStyle = `rgba(0,0,0,0.06)`;
                             ctx.lineWidth = 1;
                             ctx.stroke();
@@ -640,7 +633,6 @@
 
             // --- 2. ROBUST TEXT SPLITTER ---
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
-            
             textRoots.forEach(root => {
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
                 if(root.classList.contains('contact-wrapper')) return; 
@@ -662,7 +654,6 @@
 
                     const wrapper = document.createElement('span');
                     const words = node.textContent.split(/(\s+)/);
-                    
                     words.forEach((w) => {
                         if (w.trim().length > 0) {
                             const s = document.createElement('span');
@@ -678,18 +669,16 @@
                 });
             });
 
-            // --- 3. INTERSECTION OBSERVER (TRIGGER ONCE) ---
+            // --- 3. INTERSECTION OBSERVER ---
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const target = entry.target;
                     
-                    // TRIGGER ONCE LOGIC
                     if (entry.isIntersecting && !target.classList.contains('triggered-once')) {
                         target.classList.add('triggered-once');
 
-                        // A. Crypto Header
                         if(target.classList.contains('crypto-header')) {
                             target.classList.add('visible');
                             const original = target.dataset.text;
@@ -703,26 +692,20 @@
                                 }).join("");
                                 if(i >= original.length) {
                                     clearInterval(target.interval);
-                                    target.classList.add('shimmer-text'); // Apply Shine Effect
+                                    target.classList.add('shimmer-text'); 
                                 }
                                 i += 1/2; 
                             }, 30);
                             target.dataset.interval = interval;
                         }
 
-                        // B. Text Diffusion (Faster)
                         if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
                             const words = target.querySelectorAll('.computed-word');
-                            
                             words.forEach((w, i) => {
                                 void w.offsetWidth; 
-                                // FAST DELAY: 3ms per char for rapid streaming
                                 const delay = i * 3; 
-                                
                                 setTimeout(() => {
                                     w.classList.add('in-view');
-                                    
-                                    // Short Crypto Scramble
                                     if(w.textContent.length > 3) {
                                         const original = w.dataset.final;
                                         let count = 0;
@@ -739,23 +722,18 @@
                             });
                         }
                         
-                        // C. Section Pop
                         if(target.classList.contains('anim-trigger')) {
                              target.classList.add('in-view');
                         }
                     }
                 });
-            }, { 
-                threshold: 0.1, 
-                rootMargin: "0px 0px -5% 0px" 
-            });
+            }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
 
             document.querySelectorAll('.crypto-header').forEach(el => observer.observe(el));
             document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
             document.querySelectorAll('.obs-list li, .stream-text, p, .contact-wrapper, .skills-grid').forEach(el => {
                 if(el.querySelector('.computed-word')) observer.observe(el);
             });
-
         });
     </script>
 </body>
