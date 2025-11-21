@@ -42,13 +42,6 @@
             z-index: -10;
         }
 
-        #network-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -5;
-            pointer-events: auto; 
-        }
-
         .resume-container {
             width: 100%;
             max-width: 950px;
@@ -94,6 +87,14 @@
             text-align: center;
             line-height: 0.9;
             color: #000;
+            /* 3D Effect - Deepened Base State */
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15));
+            transform: scale(1.01);
+        }
+        h1:hover {
+            transform: scale(1.03);
+            filter: drop-shadow(0 10px 6px rgba(0,0,0,0.2));
         }
 
         .shimmer-text {
@@ -117,6 +118,15 @@
             border-left: 4px solid var(--accent-color);
             display: inline-block;
             line-height: 1;
+            
+            /* 3D Effect - Deepened Base State */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15));
+            transform: translateX(2px);
+        }
+        h2:hover {
+            transform: translateX(5px) scale(1.01);
+            filter: drop-shadow(3px 6px 4px rgba(0,0,0,0.2));
         }
 
         h3 {
@@ -125,6 +135,13 @@
             font-weight: 600;
             margin: 0 0 5px 0;
             color: #000;
+            /* 3D Effect */
+            transition: transform 0.2s ease;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        h3:hover {
+            transform: translateY(-1px);
+            text-shadow: 0 4px 6px rgba(0,0,0,0.15);
         }
 
         .company-row {
@@ -144,6 +161,12 @@
             margin: 30px 0 10px 0;
             color: #111;
             letter-spacing: 0.01em;
+            /* 3D Effect */
+            transition: transform 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        h4:hover {
+            transform: translateX(2px);
         }
 
         /* --- LINKS & CONTACT --- */
@@ -176,6 +199,7 @@
             gap: 25px;
         }
 
+        /* 3D Effect for Pills/Tags */
         .contact-item {
             display: flex;
             align-items: center;
@@ -184,11 +208,19 @@
             text-decoration: none;
             padding: 4px 8px;
             border-radius: 4px;
+            background: white; /* Added background for better shadow contrast */
+            
+            /* 3D Bulge - Deepened Base State */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.1));
+            transform: translateY(-1px);
         }
         .contact-item:hover { 
-            background: rgba(26,115,232,0.1);
+            background: rgba(26,115,232,0.05);
             color: var(--accent-color); 
             text-decoration: none;
+            transform: scale(1.05) translateY(-3px);
+            filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15));
         }
         .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
 
@@ -216,12 +248,25 @@
         }
         .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
         
+        /* 3D Effect for Job Meta Tags */
         .job-meta { 
             font-family: 'JetBrains Mono', monospace; 
             color: #555; font-size: 0.85em; 
             border: 1px solid rgba(0,0,0,0.1);
             padding: 4px 8px; border-radius: 4px;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.9);
+            
+            /* 3D Bulge - Deepened Base State */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.1));
+            transform: translateY(-1px);
+            cursor: default;
+        }
+        .job-meta:hover {
+            transform: scale(1.05) translateY(-3px);
+            filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15));
+            border-color: var(--accent-color);
+            color: var(--text-main);
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
@@ -268,11 +313,23 @@
         }
         .computed-word.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
 
+        /* 3D Effect for Highlighted Tech */
         .highlight-tech {
             font-family: 'JetBrains Mono', monospace; font-size: 0.9em; font-weight: 600;
             color: var(--accent-pop);
-            background: rgba(37, 99, 235, 0.05);
-            padding: 0 2px; border-radius: 2px;
+            background: rgba(37, 99, 235, 0.08);
+            padding: 2px 6px; border-radius: 4px; /* Increased padding for pill shape */
+            display: inline-block;
+            
+            /* 3D Bulge - Deepened Base State */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 3px 0 rgba(37, 99, 235, 0.15); /* Solid shadow for 3D feel */
+            transform: translateY(-2px);
+        }
+        .highlight-tech:hover {
+            transform: scale(1.1) translateY(-4px);
+            background: rgba(37, 99, 235, 0.15);
+            box-shadow: 0 6px 0 rgba(37, 99, 235, 0.15);
         }
 
         strong { font-weight: 700; color: #000; }
@@ -283,6 +340,27 @@
             display: inline-block; 
         }
         .crypto-header.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- 3D BULGING EMOJIS --- */
+        .emoji-3d {
+            display: inline-block;
+            font-style: normal;
+            cursor: default;
+            /* Force Color Emoji Font */
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            color: initial; 
+            
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Deep 3D Shadow */
+            filter: drop-shadow(0 6px 3px rgba(0,0,0,0.2));
+            transform: scale(1.2);
+            margin-left: 8px;
+        }
+        
+        .emoji-3d:hover {
+            transform: scale(1.4) rotate(12deg);
+            filter: drop-shadow(0 10px 6px rgba(0,0,0,0.3));
+        }
 
         footer { text-align: center; color: #888; font-size: 0.9em; padding-bottom: 40px; margin-top: 40px; }
 
@@ -301,8 +379,8 @@
 
     <!-- 1. The Void Base -->
     <div class="void-layer"></div>
-    <!-- 2. The Neural Network -->
-    <canvas id="network-canvas"></canvas>
+    
+    <!-- Neural Network Removed -->
 
     <div class="resume-container">
         
@@ -343,19 +421,19 @@
         </header>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY 💼</h2>
+            <h2 class="crypto-header" data-text="EMPLOYMENT HISTORY">EMPLOYMENT HISTORY <span class="emoji-3d">💼</span></h2>
             
             <article class="stream-text">
                 <div class="company-row">
                     <h3>Google</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India 🇮🇳</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Bangalore, India <span class="emoji-3d">🇮🇳</span></span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Senior Software Engineer, Core ML Frameworks</span>
                     <span class="job-meta">Nov 2024 – Present</span>
                 </div>
                 <ul class="obs-list">
-                    <li>Revolutionized large-scale ML model checkpointing by designing and implementing a novel <strong>asynchronous directory creation</strong> mechanism within the open-source <strong>Orbax library</strong>. Authored the core design featuring advanced synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, slashing <strong>blocking</strong> save times by <strong>30-50%</strong>. This optimization yielded substantial annualized TPU/GPU resource savings, earning a prestigious <strong>Perfy award</strong> 🏆 (Google's internal recognition for impactful performance optimizations).</li>
+                    <li>Revolutionized large-scale ML model checkpointing by designing and implementing a novel <strong>asynchronous directory creation</strong> mechanism within the open-source <strong><a href="https://github.com/google/orbax" target="_blank">Orbax library</a></strong>. Authored the core design featuring advanced synchronization mechanisms (e.g., JAX distributed client, <code>CommitFuture</code> abstractions) to minimize main thread blocking, slashing <strong>blocking</strong> save times by <strong>30-50%</strong>. This optimization yielded substantial annualized TPU/GPU resource savings, earning a prestigious <strong>Perfy award</strong> <span class="emoji-3d">🏆</span> (Google's internal recognition for impactful performance optimizations).</li>
                     <li>Architected and spearheaded the development of the next-generation <strong>Dispatcher API</strong> for Orbax, a paradigm shift in interfacing with diverse distributed training backends. This strategic overhaul supports various execution models, including multi-controller and single-controller JAX (with colocated Python), enhancing extensibility and unlocking advanced capabilities for a more robust and scalable checkpointing solution.</li>
                     <li>Significantly enhanced the resilience and performance of large-scale model training by optimizing:
                         <ul>
@@ -363,10 +441,10 @@
                             <li><strong>Checkpoint Restoration & Distribution:</strong> Streamlined training restarts from single saved copies (<code>Single Replica Restore</code>) and an efficient data sharing mechanism (<code>Broadcast</code>) across all processing units, reducing startup times and resource bottlenecks in complex, multi-device environments.</li>
                         </ul>
                     </li>
-                    <li><strong>Led the design and development</strong> of the Knowledge Distillation module for the <strong>Tunix</strong> JAX-native library. <strong>Architected a highly flexible and extensible framework</strong> using a strategy pattern, enabling a wide array of <strong>advanced distillation techniques (logit-matching, feature/attention transfer)</strong> and <strong>novel utilities for dynamic intermediate feature extraction and dimension alignment</strong> (pooling/projection) across diverse model architectures, <strong>significantly boosting model efficiency and accessibility</strong>.</li>
+                    <li><strong>Led the design and development</strong> of the Knowledge Distillation module for the <strong><a href="https://github.com/google/tunix" target="_blank">Tunix</a></strong> JAX-native library. <strong>Architected a highly flexible and extensible framework</strong> using a strategy pattern, enabling a wide array of <strong>advanced distillation techniques (logit-matching, feature/attention transfer)</strong> and <strong>novel utilities for dynamic intermediate feature extraction and dimension alignment</strong> (pooling/projection) across diverse model architectures, <strong>significantly boosting model efficiency and accessibility</strong>.</li>
                     <li>Pioneered a complete transformation of Orbax's testing and benchmarking infrastructure. Provided the technical vision and architectural blueprints for a new suite of frameworks, including a modular <strong>ML Checkpointing Benchmark Framework</strong> with automated CI/CD for continuous regression detection, alongside state-of-the-art <strong>internal (Guitar-based) and open-source (GCP-based) testing frameworks</strong>, ensuring rock-solid reliability across all deployment environments.</li>
                     <li>Delivered critical solutions for key enterprise customers on <strong>cloud platforms</strong> by resolving complex, high-stakes performance and stability issues within Orbax, unblocking large-scale model training and strengthening strategic partnerships.</li>
-                    <li>Instrumental in founding and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod. 🚀</li>
+                    <li>Instrumental in founding and scaling the new <strong>Core ML India team</strong> by mentoring engineers and providing expert technical guidance across pivotal Google Machine Learning verticals, including Keras, Keras Hub, Jax 3P, Orbax, and Gemax Prod. <span class="emoji-3d">🚀</span></li>
                 </ul>
 
                 <div class="job-header" style="margin-top:40px;">
@@ -376,7 +454,7 @@
                 
                 <h4 class="crypto-header" data-text="Google One - Storage Quota Service (Apr 2023 – Oct 2024)">Google One - Storage Quota Service (Apr 2023 – Oct 2024)</h4>
                 <ul class="obs-list">
-                    <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status. ⚠️</li>
+                    <li><strong>Spearheaded engineering efforts</strong> across diverse teams and fostered xFN & XPA collaboration to <strong>launch critical new email communications and Gmail warning banners</strong>, effectively alerting millions of users about their storage grace period status. <span class="emoji-3d">⚠️</span></li>
                     <li><strong>Orchestrated a successful phased launch impacting XX Million users annually</strong>, significantly improving user experience during out-of-storage scenarios and <strong>driving substantial Google One signups and upgrades (estimated ~X Million users/year)</strong>. This high-visibility launch was executed with <strong>zero production incidents</strong>.</li>
                     <li>Assumed <strong>Tech Lead responsibilities for a major Gmail x SQS feature initiative</strong>; architected a scalable experimentation framework for an <strong>XX Billion user base</strong> within SQS and contributed directly to Gmail's codebase to pilot a 30-day grace period and enhanced warning banner designs for improved user clarity.</li>
                     <li>Engineered an internal, <strong>highly extensible storage data validation and recovery pipeline</strong>, safeguarding data integrity for <strong>XX Billion users</strong>. This framework incorporated built-in <strong>optimizations for CPU and storage resources</strong>, proactive alerting, and a rapid, command-driven recovery mechanism to preempt user-facing issues.</li>
@@ -387,7 +465,7 @@
 
                 <h4 class="crypto-header" data-text="Google One - Benefits (Oct 2021 – Apr 2023)">Google One - Benefits (Oct 2021 – Apr 2023)</h4>
                 <ul class="obs-list">
-                    <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version. ⚡</li>
+                    <li>Architected and implemented the <strong>foundational backend system for determining user eligibility for Google One benefits</strong>, resolving complex large-scale orchestration challenges. This system became the <strong>cornerstone for a major customer acquisition feature</strong>, providing consistent eligibility data across multiple touchpoints and achieving a <strong>70% performance optimization</strong> over its initial version. <span class="emoji-3d">⚡</span></li>
                     <li>Designed and deployed a <strong>comprehensive reconciliation framework within Google One</strong> to proactively identify, prevent, and mitigate data inconsistencies with numerous Google partner teams (e.g., Photos, YouTube, Workspace, GStore), with the strategic aim of <strong>minimizing consumer complaints related to benefits</strong>.</li>
                     <li>Led the end-to-end design, implementation, and <strong>successful rollout of multiple major benefit launches and international expansions</strong>, directly impacting <strong>XX Million users</strong>. Functioned as the central technical liaison for various cross-Product Areas, coordinating complex efforts across global, multi-functional teams.</li>
                     <li>Identified and rectified critical <strong>infrastructure deficiencies within Google One that affected millions of users</strong>, delivering extensible solutions that significantly hardened the existing infrastructure and enhanced overall product reliability.</li>
@@ -401,7 +479,7 @@
             <article class="stream-text">
                 <div class="company-row">
                     <h3 class="crypto-header" data-text="CrispyGames / Zopte Technologies">CrispyGames / Zopte Technologies</h3>
-                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Mumbai, India 🇮🇳</span>
+                    <span style="font-weight:400; color:#888; font-size:0.9em; font-family:'JetBrains Mono'">| Mumbai, India <span class="emoji-3d">🇮🇳</span></span>
                 </div>
                 <div class="job-header">
                     <span class="job-title">Software Engineer</span>
@@ -409,18 +487,18 @@
                 </div>
                 <ul class="obs-list">
                     <li>Developed an innovative <strong>Code Generator</strong> that produced customizable and mockable codebases for server and client-side applications, <strong>accelerating rapid prototyping by contributing up to 60% of the code</strong> for numerous projects; this tool was integrated with a custom real-time continuous deployment system.</li>
-                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation. 📈</li>
+                    <li>Engineered a high-performance <strong>Python-based backtesting and live trading platform</strong>, featuring a sophisticated data flow pipeline for thousands of stocks (integrating Bloomberg, Zerodha, NSE-NNF, Quickfix Engine, and a custom TimeSeries DB). <strong>Achieved an ~80x performance uplift</strong> in existing infrastructure and deployed a distributed backtesting optimization module for efficient strategy parameter discovery via cluster computation. <span class="emoji-3d">📈</span></li>
                     <li>Implemented a specialized library for seamless communication with <strong>NSE and NFO exchanges</strong>, abstracting complex low-level network calls, proprietary protocols, binary data structures, and stringent security compliances. Built core modules, including an <strong>Order Management System (OMS) and Tick Collector</strong>, and maintained an NSE-licensed CTCL application currently utilized by a brokerage firm.</li>
                     <li>Integrated <strong>CDSL DP with E-DIS facility</strong> into the existing trading infrastructure and developed a streamlined client onboarding flow utilizing <strong>CVLKRA, CKYC, and Digio APIs</strong>, incorporating e-Signing and PDF processing for a new IBT platform.</li>
                     <li>Constructed a <strong>dynamic reporting tool</strong> that consumed executed order and trade data to present insightful information and key performance statistics in a user-friendly interface, empowering users to <strong>build and test their trading strategies in real-time</strong>.</li>
                     <li>Architected and built a <strong>resilient microservices-based service mesh from scratch</strong> (leveraging Zookeeper, Redis, Nginx, Elastic Search, MongoDB, MySQL with gRPC & RESTful APIs) to establish robust baseline infrastructure. Created configurations and automation scripts to deploy and manage services on <strong>Kubernetes Clusters</strong>, orchestrating with GCP services and utilizing Istio for enhanced security, control, and observability.</li>
-                    <li>Founded and delivered curriculum for an <strong>online coding education platform (Zopte Academy)</strong>. Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance. 🎓</li>
+                    <li>Founded and delivered curriculum for an <strong>online coding education platform (Zopte Academy)</strong>. Responsibilities encompassed building modules for streaming/recording sessions (Nginx, HLS) and developing a Go & Angular Dart-based student progress management system, alongside full-stack codebase maintenance. <span class="emoji-3d">🎓</span></li>
                     <li>Developed a suite of versatile <strong>pluggable widgets, user flows, and UI components using Flutter and Angular Dart</strong>, significantly enabling developers to build and iterate on applications with greater efficiency.</li>
                     <li><strong>Key R&D / Internal Projects:</strong>
                         <ul>
                             <li>Developed a foundational <strong>ML pipeline</strong> (Dlib, Tesseract, TensorFlow, OpenCV) in Python and Golang to extract valuable information from diverse data streams (e.g., analyzing poker gameplay, detecting room activity, conceptualizing indoor cat tracking).</li>
                             <li>Contributed to the development of an <strong>algorithmic trading platform</strong> using classification/regression models to predict trading patterns from price data and public company information, with further plans to integrate news/social media feeds.</li>
-                            <li>Prototyped a social media application, <em>Pawsome</em> (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets. 🐾</li>
+                            <li>Prototyped a social media application, <em>Pawsome</em> (not in production), using Flutter and Golang, designed to encourage community-based care for stray pets. <span class="emoji-3d">🐾</span></li>
                         </ul>
                     </li>
                 </ul>
@@ -430,47 +508,47 @@
                     <span class="job-meta">Jun 2017 – Jul 2017</span>
                 </div>
                 <ul class="obs-list">
-                    <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++. 🎮</li>
+                    <li>Developed engaging <strong>2D cross-platform games</strong> for Android, iOS, and desktop environments using Cocos2dx, Android SDK, Swift, and C++. <span class="emoji-3d">🎮</span></li>
                     <li>Built <strong>web-based administration tools to manage and inspect running applications</strong>, utilizing the Java-based open-source framework Jappy and deploying on AWS S3 and EC2 instances.</li>
                 </ul>
             </article>
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="EDUCATION 🎓">EDUCATION 🎓</h2>
+            <h2 class="crypto-header" data-text="EDUCATION 🎓">EDUCATION <span class="emoji-3d">🎓</span></h2>
             <article class="stream-text">
                 <h3>National Institute of Technology, Meghalaya</h3>
                 <div class="job-header" style="border: none; margin-bottom: 0;">
                     <span class="job-title">B.Tech in Computer Science and Engineering</span>
                     <span class="job-meta">Shillong, India | 2014 – 2018</span>
                 </div>
-                <p>CGPA: <strong>8.76/10</strong> 🌟</p>
+                <p>CGPA: <strong>8.76/10</strong> <span class="emoji-3d">🌟</span></p>
             </article>
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="CERTIFICATIONS 📜">CERTIFICATIONS 📜</h2>
+            <h2 class="crypto-header" data-text="CERTIFICATIONS 📜">CERTIFICATIONS <span class="emoji-3d">📜</span></h2>
             <ul class="obs-list stream-text">
-                <li><strong>Generative AI with Large Language Models</strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
+                <li><strong><a href="https://www.coursera.org/account/accomplishments/verify/PLKCH41J06C1" target="_blank">Generative AI with Large Language Models</a></strong>, DeepLearning.AI & Coursera (Completed: Apr 2025)</li>
                 <li><strong>Learning JAX</strong>, LinkedIn Learning (Completed: Apr 2025)</li>
-                <li><strong>Transformer Models and BERT Model</strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
-                <li><strong>Distributed Systems for Practitioners</strong>, Educative.io (Completed: Mar 2023)</li>
+                <li><strong><a href="https://www.coursera.org/account/accomplishments/verify/NTP9QO06OTPK" target="_blank">Transformer Models and BERT Model</a></strong>, Google Cloud & Coursera (Completed: Apr 2025)</li>
+                <li><strong><a href="https://www.educative.io/verify-certificate/vgA3wPFLmLVKzwkA2tyZpYXPqM0MIl" target="_blank">Distributed Systems for Practitioners</a></strong>, Educative.io (Completed: Mar 2023)</li>
             </ul>
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="PUBLICATION & ACTIVITIES 📚">PUBLICATION & ACTIVITIES 📚</h2>
+            <h2 class="crypto-header" data-text="PUBLICATION & ACTIVITIES 📚">PUBLICATION & ACTIVITIES <span class="emoji-3d">📚</span></h2>
             
             <div class="stream-text" style="margin-bottom: 50px;">
                 <h4>Publication</h4>
-                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72. 📄</p>
+                <p>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu and A. Dev, "<a href="https://ieeexplore.ieee.org/document/8468280" target="_blank" style="color:inherit; text-decoration:underline;">EvoCut: A new Generalization of Albert-Barabási Model for Evolution of Complex Networks</a>," 2018 22nd Conference of Open Innovations Association (FRUCT), Jyvaskyla, 2018, pp. 67-72. <span class="emoji-3d">📄</span></p>
             </div>
 
             <div class="stream-text">
                 <h4>Other Activities</h4>
                 <ul class="obs-list">
-                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>. 🏆</li>
-                    <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017). 🥇</li>
+                    <li><strong>Rank 44</strong>, ACM ICPC Asia Amritapuri Doublesite Regionals (Dec 2017). Team: <em>Traceback</em>. <span class="emoji-3d">🏆</span></li>
+                    <li><strong>Rank 8</strong> (out of 443 teams), CodeDangal (Inter-University Programming Contest, Oct 2017). <span class="emoji-3d">🥇</span></li>
                     <li>Web Technical Secretary, College Technical Committee, NIT Meghalaya (2016 – 2018).</li>
                     <li>Member, Google Student Community, NIT Meghalaya (2016 – 2018).</li>
                 </ul>
@@ -478,7 +556,7 @@
         </section>
 
         <section class="anim-trigger">
-            <h2 class="crypto-header" data-text="TECHNICAL SKILLS 🛠️">TECHNICAL SKILLS 🛠️</h2>
+            <h2 class="crypto-header" data-text="TECHNICAL SKILLS 🛠️">TECHNICAL SKILLS <span class="emoji-3d">🛠️</span></h2>
             <div class="skills-grid stream-text">
                 <div class="skill-row">
                     <strong>Core Languages</strong>
@@ -520,118 +598,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- 1. NEURAL NETWORK TRAINING CANVAS ---
-            const canvas = document.getElementById('network-canvas');
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let nodes = [];
-            let signals = [];
-            const numNodes = 60; 
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                initNetwork();
-            }
-            window.addEventListener('resize', resize);
-            
-            class Node {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
-                    this.radius = Math.random() * 2 + 2;
-                    this.activation = 0; 
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > width) this.vx *= -1;
-                    if (this.y < 0 || this.y > height) this.vy *= -1;
-                    if(this.activation > 0) this.activation -= 0.03;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius + (this.activation * 2), 0, Math.PI * 2);
-                    const alpha = 0.2 + this.activation * 0.8;
-                    ctx.fillStyle = `rgba(26, 115, 232, ${alpha})`; 
-                    ctx.fill();
-                }
-            }
-
-            class Signal {
-                constructor(start, end) {
-                    this.start = start;
-                    this.end = end;
-                    this.progress = 0;
-                    this.speed = Math.random() * 0.02 + 0.02;
-                    this.isDead = false;
-                }
-                update() {
-                    this.progress += this.speed;
-                    if(this.progress >= 1) {
-                        this.isDead = true;
-                        this.end.activation = 1;
-                    }
-                }
-                draw() {
-                    if(this.isDead) return;
-                    const curX = this.start.x + (this.end.x - this.start.x) * this.progress;
-                    const curY = this.start.y + (this.end.y - this.start.y) * this.progress;
-                    ctx.beginPath();
-                    ctx.arc(curX, curY, 2.5, 0, Math.PI*2);
-                    ctx.fillStyle = '#1a73e8';
-                    ctx.fill();
-                }
-            }
-
-            function initNetwork() {
-                nodes = [];
-                for(let i=0; i<numNodes; i++) nodes.push(new Node());
-            }
-            initNetwork();
-            resize();
-
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                
-                for(let i=0; i<nodes.length; i++) {
-                    let nodeA = nodes[i];
-                    nodeA.update();
-                    nodeA.draw();
-                    
-                    for(let j=i+1; j<nodes.length; j++) {
-                        let nodeB = nodes[j];
-                        let dist = Math.hypot(nodeA.x - nodeB.x, nodeA.y - nodeB.y);
-                        
-                        if(dist < 150) {
-                            ctx.beginPath();
-                            ctx.moveTo(nodeA.x, nodeA.y);
-                            ctx.lineTo(nodeB.x, nodeB.y);
-                            ctx.strokeStyle = `rgba(0,0,0,0.06)`;
-                            ctx.lineWidth = 1;
-                            ctx.stroke();
-                            
-                            if(Math.random() < 0.005) {
-                                signals.push(new Signal(nodeA, nodeB));
-                            }
-                        }
-                    }
-                }
-
-                for(let i=signals.length-1; i>=0; i--) {
-                    signals[i].update();
-                    signals[i].draw();
-                    if(signals[i].isDead) signals.splice(i, 1);
-                }
-                
-                requestAnimationFrame(animate);
-            }
-            animate();
-
-
-            // --- 2. ROBUST TEXT SPLITTER ---
+            // --- 1. ROBUST TEXT SPLITTER ---
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
             textRoots.forEach(root => {
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
@@ -669,7 +636,7 @@
                 });
             });
 
-            // --- 3. INTERSECTION OBSERVER ---
+            // --- 2. INTERSECTION OBSERVER ---
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
             
             const observer = new IntersectionObserver((entries) => {
