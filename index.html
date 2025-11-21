@@ -42,7 +42,7 @@
             width: 100%; 
             height: 100%;
             z-index: -10;
-            background: #ffffff; /* White Background */
+            background: #ffffff;
         }
 
         .resume-container {
@@ -53,20 +53,20 @@
             position: relative;
             z-index: 1;
             
-            /* Frosted White Glass */
+            /* High blur frosted glass for readability over stars */
             background: linear-gradient(
                 to bottom, 
-                rgba(255, 255, 255, 0.85) 0%, 
-                rgba(255, 255, 255, 0.65) 20%,
-                rgba(255, 255, 255, 0.65) 80%,
-                rgba(255, 255, 255, 0.85) 100%
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.75) 20%,
+                rgba(255, 255, 255, 0.75) 80%,
+                rgba(255, 255, 255, 0.9) 100%
             );
             
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
             
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.8);
             margin-top: 40px;
             margin-bottom: 40px;
             border-radius: 16px;
@@ -95,12 +95,11 @@
             line-height: 0.9;
             color: #000;
             transition: transform 0.3s ease, filter 0.3s ease;
-            filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15));
-            transform: scale(1.01);
+            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.1));
         }
         h1:hover {
-            transform: scale(1.03);
-            filter: drop-shadow(0 10px 6px rgba(0,0,0,0.2));
+            transform: scale(1.01);
+            filter: drop-shadow(0 8px 4px rgba(0,0,0,0.15));
         }
 
         .shimmer-text {
@@ -126,12 +125,11 @@
             line-height: 1;
             
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15));
-            transform: translateX(2px);
+            filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.1));
         }
         h2:hover {
-            transform: translateX(5px) scale(1.01);
-            filter: drop-shadow(3px 6px 4px rgba(0,0,0,0.2));
+            transform: translateX(5px);
+            filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.15));
         }
 
         h3 {
@@ -141,11 +139,11 @@
             margin: 0 0 5px 0;
             color: #000;
             transition: transform 0.2s ease;
-            text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         h3:hover {
             transform: translateY(-1px);
-            text-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            text-shadow: 0 3px 4px rgba(0,0,0,0.15);
         }
 
         .company-row {
@@ -172,18 +170,26 @@
             transform: translateX(2px);
         }
 
-        /* --- ANIMATIONS --- */
-        /* Gleam/Blink Animation for Tags */
-        @keyframes gleam {
-            0% { left: -100%; opacity: 0; }
-            20% { opacity: 0.5; }
-            50% { left: 200%; opacity: 0; }
-            100% { left: 200%; opacity: 0; }
+        /* --- FLASHING SHINE ANIMATION --- */
+        @keyframes flash-shine {
+            0%, 100% { background-position: 200% center; }
+            50% { background-position: -200% center; }
         }
 
         .shiny-tag {
             position: relative;
             overflow: hidden;
+            /* Create a gradient background that moves */
+            background: linear-gradient(
+                120deg, 
+                rgba(255,255,255,0.9) 30%, 
+                rgba(255,255,255,0) 40%, 
+                rgba(255,255,255,0) 60%, 
+                rgba(255,255,255,0.9) 70%
+            );
+            background-size: 200% auto;
+            /* We overlay this on top of the existing background color using ::after usually, 
+               but for a simple "blink", let's use an overlay pseudo-element */
         }
         
         .shiny-tag::after {
@@ -191,17 +197,24 @@
             position: absolute;
             top: 0;
             left: -100%;
-            width: 50%;
+            width: 200%;
             height: 100%;
             background: linear-gradient(
-                to right, 
-                rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.8) 50%, 
-                rgba(255,255,255,0) 100%
+                to right,
+                transparent 0%,
+                rgba(255,255,255,0.8) 50%,
+                transparent 100%
             );
-            transform: skewX(-25deg);
-            animation: gleam 4s infinite cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none; /* Allow clicking through the shine */
+            transform: skewX(-20deg);
+            animation: shine-pass 3s infinite cubic-bezier(0.4, 0.0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        @keyframes shine-pass {
+            0% { left: -100%; opacity: 0; }
+            10% { opacity: 1; }
+            50% { left: 200%; opacity: 0; }
+            100% { left: 200%; opacity: 0; }
         }
 
         /* --- LINKS & CONTACT --- */
@@ -234,7 +247,7 @@
             gap: 25px;
         }
 
-        /* 3D Effect for Pills/Tags + Shine */
+        /* 3D Effect for Pills/Tags */
         .contact-item {
             display: flex;
             align-items: center;
@@ -244,18 +257,17 @@
             padding: 4px 8px;
             border-radius: 4px;
             background: white;
-            
-            /* 3D Bulge - Deepened Base State */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.1));
-            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            position: relative; /* For shiny tag */
+            overflow: hidden;
         }
         .contact-item:hover { 
             background: rgba(26,115,232,0.05);
             color: var(--accent-color); 
             text-decoration: none;
-            transform: scale(1.05) translateY(-3px);
-            filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .contact-item svg { width: 16px; height: 16px; fill: currentColor; }
 
@@ -283,25 +295,15 @@
         }
         .job-title { font-weight: 600; color: #000; font-size: 1.1em; font-family: 'Outfit', sans-serif; }
         
-        /* 3D Effect for Job Meta Tags + Shine */
         .job-meta { 
             font-family: 'JetBrains Mono', monospace; 
             color: #555; font-size: 0.85em; 
             border: 1px solid rgba(0,0,0,0.1);
             padding: 4px 8px; border-radius: 4px;
             background: rgba(255,255,255,0.9);
-            
-            /* 3D Bulge - Deepened Base State */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.1));
-            transform: translateY(-1px);
-            cursor: default;
-        }
-        .job-meta:hover {
-            transform: scale(1.05) translateY(-3px);
-            filter: drop-shadow(0 6px 4px rgba(0,0,0,0.15));
-            border-color: var(--accent-color);
-            color: var(--text-main);
+            box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
         }
 
         ul { list-style: none; padding: 0; margin: 0 0 15px 0; }
@@ -355,14 +357,9 @@
             background: rgba(37, 99, 235, 0.08);
             padding: 2px 6px; border-radius: 4px; 
             display: inline-block;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 3px 0 rgba(37, 99, 235, 0.15); 
-            transform: translateY(-2px);
-        }
-        .highlight-tech:hover {
-            transform: scale(1.1) translateY(-4px);
-            background: rgba(37, 99, 235, 0.15);
-            box-shadow: 0 6px 0 rgba(37, 99, 235, 0.15);
+            box-shadow: 0 2px 0 rgba(37, 99, 235, 0.15);
+            position: relative;
+            overflow: hidden;
         }
 
         strong { font-weight: 700; color: #000; }
@@ -380,10 +377,10 @@
             font-style: normal;
             cursor: default;
             
-            /* Force Native Color Rendering & Reset Text Properties */
+            /* FORCE COLOR RENDER */
             font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             font-weight: 400 !important;
-            color: transparent; /* Often helps if text-fill is used, but let's use initial first */
+            color: transparent; /* Fallback */
             color: initial !important; 
             -webkit-text-fill-color: initial !important;
             text-shadow: none !important;
@@ -645,134 +642,245 @@
         // --- 3D CELESTIAL SCENE ---
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff); // Pure White Background
-        scene.fog = new THREE.FogExp2(0xffffff, 0.015); // Increased range
+        scene.background = new THREE.Color(0xffffff); // White
+        scene.fog = new THREE.FogExp2(0xffffff, 0.015);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 25); // Moved back slightly for better orbit view
+        camera.position.set(0, 0, 25);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // --- 1. The Moon (Warm Yellow/Gold) ---
+        // --- 1. The Moon (Milky Yellow) ---
         const moonGeo = new THREE.SphereGeometry(2, 64, 64);
         const moonMat = new THREE.MeshStandardMaterial({ 
-            color: 0xFFEB3B, // Bright Gold
-            emissive: 0xFBC02D,
-            roughness: 0.4,
-            metalness: 0.2
+            color: 0xFFF8E7, // Cosmic Latte
+            emissive: 0x443300,
+            roughness: 0.8,
+            metalness: 0.1
         });
         const moon = new THREE.Mesh(moonGeo, moonMat);
-        scene.add(moon); // Position set in animation loop
+        scene.add(moon);
 
         // Moon Light
-        const moonLight = new THREE.PointLight(0xFFEB3B, 1.0, 40);
+        const moonLight = new THREE.PointLight(0xFFF8E7, 1.0, 40);
         scene.add(moonLight);
 
-        // --- 2. The Sun (Orange-Gold) ---
+        // --- 2. The Sun (Yellow-Orange) ---
         const sunGeo = new THREE.SphereGeometry(1.5, 32, 32);
-        const sunMat = new THREE.MeshBasicMaterial({ color: 0xFFA000 }); 
+        const sunMat = new THREE.MeshBasicMaterial({ color: 0xFFCC00 }); 
         const sun = new THREE.Mesh(sunGeo, sunMat);
-        scene.add(sun); // Position set in animation loop
+        scene.add(sun);
+
+        // Sun Corona
+        const coronaGeo = new THREE.SphereGeometry(2.2, 32, 32);
+        const coronaMat = new THREE.MeshBasicMaterial({
+            color: 0xFF8800,
+            transparent: true,
+            opacity: 0.3,
+            side: THREE.BackSide
+        });
+        const corona = new THREE.Mesh(coronaGeo, coronaMat);
+        sun.add(corona);
 
         // Sun Light
-        const sunLight = new THREE.DirectionalLight(0xFFA000, 0.6);
+        const sunLight = new THREE.DirectionalLight(0xFFCC00, 0.8);
         scene.add(sunLight);
 
         // Ambient Light
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.7); 
         scene.add(ambientLight);
 
-        // --- 3. Starfield (Gold/Yellow Stars) ---
-        const starsCount = 2000;
-        const starsGeo = new THREE.BufferGeometry();
-        const starPos = new Float32Array(starsCount * 3);
-        
-        for(let i=0; i<starsCount*3; i+=3) {
-            starPos[i] = (Math.random() - 0.5) * 300; 
-            starPos[i+1] = (Math.random() - 0.5) * 300; 
-            starPos[i+2] = (Math.random() - 0.5) * 150 - 50; 
+        // --- 3. Starfield (Fixed Position, Fast Twinkle) ---
+        function createStarTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 32; canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            const cx = 16, cy = 16, outerRadius = 14, innerRadius = 6;
+            let rot = Math.PI / 2 * 3;
+            let x = cx, y = cy;
+            const step = Math.PI / 5;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            for (let i = 0; i < 5; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+            ctx.fillStyle = '#FFD700';
+            ctx.fill();
+            return new THREE.CanvasTexture(canvas);
         }
-        
-        starsGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-        const starsMat = new THREE.PointsMaterial({
-            color: 0xFFD700, // Gold Color
-            size: 0.25,
-            sizeAttenuation: true,
+
+        const starMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0 },
+                pointTexture: { value: createStarTexture() }
+            },
+            vertexShader: `
+                attribute float scale;
+                attribute float phase;
+                varying float vAlpha;
+                uniform float time;
+                void main() {
+                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                    gl_Position = projectionMatrix * mvPosition;
+                    
+                    // FAST TWINKLE
+                    float blink = sin(time * 15.0 + phase); 
+                    vAlpha = 0.2 + 0.8 * (0.5 + 0.5 * blink); // Flash opacity
+                    
+                    gl_PointSize = scale * (0.8 + 0.4 * blink);
+                    gl_PointSize *= (300.0 / -mvPosition.z); 
+                }
+            `,
+            fragmentShader: `
+                uniform sampler2D pointTexture;
+                varying float vAlpha;
+                void main() {
+                    vec4 color = texture2D(pointTexture, gl_PointCoord);
+                    if (color.a < 0.1) discard;
+                    gl_FragColor = color;
+                    gl_FragColor.a *= vAlpha;
+                }
+            `,
             transparent: true,
-            opacity: 0.8
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
         });
-        const starField = new THREE.Points(starsGeo, starsMat);
-        scene.add(starField);
 
-        // Mouse Interaction
-        const mouse = new THREE.Vector2();
-        const target = new THREE.Vector2();
-        const windowHalfX = window.innerWidth / 2;
-        const windowHalfY = window.innerHeight / 2;
+        const starsCount = 4000;
+        const starsGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(starsCount * 3);
+        const scales = new Float32Array(starsCount);
+        const phases = new Float32Array(starsCount);
 
-        function onDocumentMouseMove(event) {
-            mouse.x = (event.clientX - windowHalfX) * 0.02;
-            mouse.y = (event.clientY - windowHalfY) * 0.02;
+        for (let i = 0; i < starsCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 600;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 600;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 400 - 100;
+            scales[i] = Math.random() * 8 + 4; 
+            phases[i] = Math.random() * Math.PI * 2; 
         }
-        document.addEventListener('mousemove', onDocumentMouseMove, false);
 
-        // Resize Handler
-        window.addEventListener('resize', onWindowResize, false);
-        function onWindowResize() {
+        starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        starsGeo.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
+        starsGeo.setAttribute('phase', new THREE.BufferAttribute(phases, 1));
+
+        const starField = new THREE.Points(starsGeo, starMaterial);
+        scene.add(starField); // FIXED POSITION - No Rotation in Animate
+
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        });
 
         let time = 0;
-
         function animate() {
             requestAnimationFrame(animate);
-            time += 0.002; // Speed of orbit
+            time += 0.002; 
+            starMaterial.uniforms.time.value = time;
 
-            // --- ORBIT LOGIC ---
-            // Sun Orbit
-            sun.position.x = Math.sin(time) * 20;
-            sun.position.z = Math.cos(time) * 20 - 20; // Offset deep
-            sun.position.y = Math.sin(time * 0.5) * 5 + 5; 
-            
+            // Orbit
+            sun.position.x = Math.sin(time * 0.5) * 30;
+            sun.position.z = Math.cos(time * 0.5) * 30 - 30; 
+            sun.position.y = Math.sin(time * 0.3) * 10 + 5; 
             sunLight.position.copy(sun.position);
 
-            // Moon Orbit (Counter phase)
-            moon.position.x = Math.sin(time + Math.PI) * 15;
-            moon.position.z = Math.cos(time + Math.PI) * 15 - 10;
-            moon.position.y = Math.cos(time * 0.3) * 8;
-            
+            moon.position.x = Math.sin(time * 0.5 + Math.PI) * 25;
+            moon.position.z = Math.cos(time * 0.5 + Math.PI) * 25 - 20;
+            moon.position.y = Math.cos(time * 0.2) * 12;
             moonLight.position.copy(moon.position);
-
-            // Rotate Celestial Bodies
-            moon.rotation.y += 0.002;
-            
-            // Drift Stars slowly
-            starField.rotation.z += 0.0003; 
-            starField.rotation.x = Math.sin(time * 0.1) * 0.05;
-
-            // Mouse Follow Camera
-            target.x += (mouse.x - target.x) * 0.05;
-            target.y += (mouse.y - target.y) * 0.05;
-            
-            camera.position.x += (target.x * 0.05 - camera.position.x) * 0.05;
-            camera.position.y += (-target.y * 0.05 - camera.position.y) * 0.05;
-            
-            // Look at center of scene
-            camera.lookAt(0, 0, -15); 
 
             renderer.render(scene, camera);
         }
         animate();
 
-        // --- ORIGINAL TEXT SPLITTER & OBSERVER LOGIC ---
+        // --- ROBUST HEADER ANIMATION ---
+        // Uses WeakMap to safely store original HTML state
+        const originalStates = new WeakMap();
+
         document.addEventListener("DOMContentLoaded", () => {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
             
-            // --- 1. ROBUST TEXT SPLITTER ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('triggered-once')) {
+                        const target = entry.target;
+                        target.classList.add('triggered-once');
+
+                        // --- 1. Crypto Header Logic (Fixed) ---
+                        if(target.classList.contains('crypto-header')) {
+                            target.classList.add('visible');
+                            
+                            // Retrieve safe original HTML
+                            const safeHTML = originalStates.get(target);
+                            const plainText = target.innerText; 
+                            
+                            let progress = 0;
+                            const interval = setInterval(() => {
+                                // Generate scramble text
+                                target.innerText = plainText.split("").map((c, idx) => {
+                                    if(idx < progress) return c;
+                                    return chars[Math.floor(Math.random() * chars.length)];
+                                }).join("");
+                                
+                                if(progress >= plainText.length) {
+                                    clearInterval(interval);
+                                    target.classList.add('shimmer-text');
+                                    // CRITICAL FIX: Force restore HTML structure (including emojis)
+                                    if(safeHTML) target.innerHTML = safeHTML;
+                                }
+                                progress += 1/2; 
+                            }, 30);
+                        }
+
+                        // --- 2. Other Animations ---
+                        if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
+                            const words = target.querySelectorAll('.computed-word');
+                            words.forEach((w, i) => {
+                                void w.offsetWidth; 
+                                setTimeout(() => {
+                                    w.classList.add('in-view');
+                                    // Simple scramble for words
+                                    if(w.textContent.length > 3) {
+                                        const original = w.dataset.final;
+                                        let c = 0;
+                                        const t = setInterval(() => {
+                                            w.innerText = chars[Math.floor(Math.random() * chars.length)];
+                                            c++;
+                                            if(c > 2) { w.innerText = original; clearInterval(t); }
+                                        }, 40);
+                                    }
+                                }, i * 3);
+                            });
+                        }
+                        
+                        if(target.classList.contains('anim-trigger')) {
+                             target.classList.add('in-view');
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Pre-process headers: Save HTML state BEFORE any manipulation
+            document.querySelectorAll('.crypto-header').forEach(el => {
+                originalStates.set(el, el.innerHTML);
+                observer.observe(el);
+            });
+
+            // Pre-process text splitting
             const textRoots = document.querySelectorAll('.stream-text, .obs-list li, p');
             textRoots.forEach(root => {
                 if(root.tagName === 'LI' && root.querySelector('ul')) return;
@@ -785,15 +893,10 @@
                 
                 textNodes.forEach(node => {
                     if(!node.textContent.trim()) return;
-                    
-                    let isBold = false;
                     let parent = node.parentNode;
                     if(parent.tagName === 'STRONG' || parent.tagName === 'B') {
-                        isBold = true;
-                        parent.classList.add('highlight-tech');
-                        parent.classList.add('shiny-tag'); // Add shiny effect to tech keywords too
+                        parent.classList.add('highlight-tech', 'shiny-tag');
                     }
-
                     const wrapper = document.createElement('span');
                     const words = node.textContent.split(/(\s+)/);
                     words.forEach((w) => {
@@ -809,93 +912,10 @@
                     });
                     node.parentNode.replaceChild(wrapper, node);
                 });
-            });
-
-            // --- 2. INTERSECTION OBSERVER ---
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const target = entry.target;
-                    
-                    if (entry.isIntersecting && !target.classList.contains('triggered-once')) {
-                        target.classList.add('triggered-once');
-
-                        if(target.classList.contains('crypto-header')) {
-                            target.classList.add('visible');
-                            const original = target.dataset.text;
-                            let i = 0;
-                            if(target.dataset.interval) clearInterval(target.dataset.interval);
-
-                            const interval = setInterval(() => {
-                                target.innerText = original.split("").map((c, idx) => {
-                                    if(idx < i) return c;
-                                    return chars[Math.floor(Math.random() * 26)];
-                                }).join("");
-                                if(i >= original.length) {
-                                    clearInterval(target.interval);
-                                    target.classList.add('shimmer-text'); 
-                                    // Re-append emoji if it was part of the original text (simplified approach: just keep original text)
-                                    // Since emojis are in spans next to text, this loop only affects text node content usually if structured right.
-                                    // The crypto-header only has text content in data-text, so it replaces everything. 
-                                    // To fix emojis disappearing during crypto effect, we rely on the HTML structure: 
-                                    // The emoji is a SPAN next to the text, not inside the text node being animated? 
-                                    // Wait, the HTML has <h2 ...>TEXT <span class="emoji"></span></h2>. 
-                                    // innerText replaces children. We need to be careful.
-                                    // Actually, the current JS replaces target.innerText. This KILLS the emoji span.
-                                    
-                                    // FIX: Restore the emoji span after animation
-                                    // We can cheat by appending the emoji span back if we know which one belongs where.
-                                    // Or better, wrap the TEXT part in a span and animate THAT.
-                                    // Given current constraints, I will leave as is, but the emoji might disappear during animation and reappear if I restore innerHTML.
-                                    // Let's try to just restore original HTML at the end.
-                                    target.innerHTML = target.dataset.html || original; 
-                                }
-                                i += 1/2; 
-                            }, 30);
-                            target.dataset.interval = interval;
-                        }
-
-                        if(target.classList.contains('stream-text') || target.tagName === 'LI' || target.tagName === 'P') {
-                            const words = target.querySelectorAll('.computed-word');
-                            words.forEach((w, i) => {
-                                void w.offsetWidth; 
-                                const delay = i * 3; 
-                                setTimeout(() => {
-                                    w.classList.add('in-view');
-                                    if(w.textContent.length > 3) {
-                                        const original = w.dataset.final;
-                                        let count = 0;
-                                        const scramble = setInterval(() => {
-                                            w.innerText = chars[Math.floor(Math.random() * chars.length)];
-                                            count++;
-                                            if(count > 2) {
-                                                w.innerText = original;
-                                                clearInterval(scramble);
-                                            }
-                                        }, 40);
-                                    }
-                                }, delay);
-                            });
-                        }
-                        
-                        if(target.classList.contains('anim-trigger')) {
-                             target.classList.add('in-view');
-                        }
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
-
-            // Store original HTML for crypto headers to restore emojis
-            document.querySelectorAll('.crypto-header').forEach(el => {
-                el.dataset.html = el.innerHTML;
-                observer.observe(el);
+                observer.observe(root);
             });
             
             document.querySelectorAll('.anim-trigger').forEach(el => observer.observe(el));
-            document.querySelectorAll('.obs-list li, .stream-text, p, .contact-wrapper, .skills-grid').forEach(el => {
-                if(el.querySelector('.computed-word')) observer.observe(el);
-            });
         });
     </script>
 </body>
