@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800;900&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; }
+      body {
+        font-family: 'Geist', sans-serif;
+        background: #ffffff;
+        color: #0c0c0d;
+        padding: 70px 80px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      body::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(12, 12, 13, 0.1) 1px, transparent 1.4px);
+        background-size: 30px 30px;
+        opacity: 0.5;
+      }
+      .zone { position: relative; z-index: 1; }
+      .kicker {
+        font-family: 'Geist Mono', monospace;
+        font-size: 21px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #78776f;
+      }
+      .rule { height: 3px; width: 64px; background: #0c0c0d; margin-top: 18px; }
+      h1 { font-size: 116px; font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; }
+      .role { margin-top: 26px; font-size: 33px; font-weight: 500; color: #33333a; max-width: 900px; }
+      .role em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 1.1em; }
+      .chips { display: flex; gap: 12px; margin-top: 30px; }
+      .chip {
+        font-family: 'Geist Mono', monospace;
+        font-size: 18px;
+        letter-spacing: 0.03em;
+        color: #33333a;
+        border: 1px solid rgba(12, 12, 13, 0.2);
+        border-radius: 999px;
+        padding: 10px 17px;
+      }
+      .bot { display: flex; justify-content: space-between; align-items: flex-end; }
+      .url { font-family: 'Geist Mono', monospace; font-size: 23px; font-weight: 500; }
+      .tag { font-family: 'Geist Mono', monospace; font-size: 18px; color: #78776f; }
+    </style>
+  </head>
+  <body>
+    <div class="zone top">
+      <div class="kicker">Senior SWE · Core ML Frameworks · Google</div>
+      <div class="rule"></div>
+    </div>
+    <div class="zone mid">
+      <h1>Mridul Sahu</h1>
+      <div class="role">Building &amp; optimizing <em>Orbax</em> — JAX&rsquo;s distributed checkpointing library</div>
+      <div class="chips">
+        <span class="chip">JAX / XLA</span>
+        <span class="chip">Distributed training</span>
+        <span class="chip">Orbax · Tunix</span>
+        <span class="chip">arXiv:2605.23066</span>
+      </div>
+    </div>
+    <div class="zone bot">
+      <div class="url">mridul-sahu.github.io</div>
+      <div class="tag">// distributed ML systems, made legible</div>
+    </div>
+  </body>
+</html>

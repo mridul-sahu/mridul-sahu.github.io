@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mridul-sahu.github.io/sitemap.xml
