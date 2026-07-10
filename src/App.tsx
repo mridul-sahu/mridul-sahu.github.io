@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { motion, useScroll, useSpring } from 'motion/react'
-import { profile, publications, project } from './data'
+import { profile, publications, projects } from './data'
 import { Reveal, rich } from './ui'
 import { Icon } from './icons'
 import { StatBand, ShardingDiagram, BroadcastDiagram, SaveDiagram } from './exhibits'
@@ -182,24 +182,29 @@ export default function App() {
             ))}
           </div>
           <div style={{ height: 26 }} />
-          <Reveal>
-            <div className="feature">
-              <div className="kicker">{project.kicker}</div>
-              <h3>
-                <a href={project.href} target="_blank" rel="noreferrer">
-                  {project.title} ↗
-                </a>
-              </h3>
-              <p>{project.body}</p>
-              <div className="tags">
-                {project.tags.map((t) => (
-                  <span className="tag" key={t}>
-                    {t}
-                  </span>
-                ))}
-              </div>
+          {projects.map((project, i) => (
+            <div key={project.href}>
+              {i > 0 && <div style={{ height: 26 }} />}
+              <Reveal>
+                <div className="feature">
+                  <div className="kicker">{project.kicker}</div>
+                  <h3>
+                    <a href={project.href} target="_blank" rel="noreferrer">
+                      {project.title} ↗
+                    </a>
+                  </h3>
+                  <p>{project.body}</p>
+                  <div className="tags">
+                    {project.tags.map((t) => (
+                      <span className="tag" key={t}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
+          ))}
         </div>
       </section>
 
