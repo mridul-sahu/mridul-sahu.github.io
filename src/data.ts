@@ -162,14 +162,14 @@ export const projects = [
     kicker: 'Independent Research · 2025 — now',
     title: 'research.rudrite.com',
     href: 'https://research.rudrite.com',
-    body: 'Building a site that visualizes and explains landmark AI/ML research papers through 120+ interactive, animated explainers — the systems behind the models, redrawn and made legible.',
+    body: 'Building a site that visualizes and explains landmark AI/ML research papers as interactive, animated explainers — a growing library covering the systems behind the models, redrawn and made legible.',
     tags: ['Training at scale', 'Megatron · GSPMD · ZeRO', 'LLM serving', 'Transformers', 'RLHF · reasoning'],
   },
   {
     kicker: 'Interactive Explainers · 2026 — now',
     title: 'explainers.rudrite.com',
     href: 'https://explainers.rudrite.com',
-    body: 'Interactive visual explainers of system design, distributed systems, and real code — 19 explainers live, from high-level architecture down to line-by-line code walks.',
+    body: 'Interactive visual explainers of system design, distributed systems, and real code — a growing library spanning high-level architecture down to line-by-line code walks.',
     tags: ['System design', 'Distributed systems', 'Code walkthroughs', 'Interactive'],
   },
 ]
