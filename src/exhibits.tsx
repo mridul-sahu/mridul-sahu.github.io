@@ -272,7 +272,7 @@ export function SaveDiagram() {
     <div className="diagram">
       <svg viewBox="0 0 600 230" width="100%" aria-hidden>
         {/* BEFORE row */}
-        <text x="20" y="36" className="dlabel" fill={C.d2}>before — main thread</text>
+        <text x="20" y="36" className="dlabel" fill={C.d2}>before · main thread</text>
         <rect x="20" y="46" width="120" height="26" rx="4" fill={C.d3} opacity={0.55} />
         <rect x="142" y="46" width="190" height="26" rx="4" fill="none" stroke={C.on} strokeDasharray="5 4" />
         <text x="237" y="63" className="dseg" fill={C.on} textAnchor="middle">
@@ -281,7 +281,7 @@ export function SaveDiagram() {
         <rect x="334" y="46" width="90" height="26" rx="4" fill={C.d3} opacity={0.55} />
 
         {/* AFTER row */}
-        <text x="20" y="120" className="dlabel" fill={C.d2}>after — main thread</text>
+        <text x="20" y="120" className="dlabel" fill={C.d2}>after · main thread</text>
         <rect x="20" y="130" width="120" height="26" rx="4" fill={C.d3} opacity={0.55} />
         <rect x="142" y="130" width="90" height="26" rx="4" fill={C.on} opacity={0.9} />
         <text x="187" y="147" className="dseg" fill="#0b0b0c" textAnchor="middle">

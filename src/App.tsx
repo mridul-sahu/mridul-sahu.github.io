@@ -18,23 +18,23 @@ type System = { flip: boolean; kicker: string; title: string; body: string; diag
 const SYSTEMS: System[] = [
   {
     flip: false,
-    kicker: 'Orbax · JAX — the marquee',
+    kicker: 'Orbax · JAX · the marquee',
     title: 'A loader that reads the sharding, not the file',
-    body: 'The old multi-host loader had every host read a file-contiguous slab, build a transient `(hosts, …)` array, then collapse it with a per-tensor `jnp.sum` reshard — a cross-host collective and a fresh XLA compile for **every tensor**. I rewrote it to read from the target `jax.sharding`: each process resolves its devices’ shards, turns their index domains into coalesced **byte-range reads**, and assembles locally — no collective, no recompilation, ~1× cluster I/O.',
+    body: 'The old multi-host loader had every host read a file-contiguous slab, build a transient `(hosts, …)` array, then collapse it with a per-tensor `jnp.sum` reshard. That meant a cross-host collective and a fresh XLA compile for **every tensor**. I rewrote it to read from the target `jax.sharding`: each process resolves its devices’ shards, turns their index domains into coalesced **byte-range reads**, and assembles locally. No collective, no recompilation, ~1× cluster I/O.',
     diagram: <ShardingDiagram />,
   },
   {
     flip: true,
-    kicker: 'Orbax — restart',
+    kicker: 'Orbax · restart',
     title: 'Single-Replica Restore + Broadcast',
-    body: 'On restart, instead of every host re-reading the full checkpoint from storage, **one replica loads and broadcasts** across all devices — collapsing storage read amplification from **N× to 1×** and cutting startup time in multi-controller / multi-slice runs.',
+    body: 'On restart, instead of every host re-reading the full checkpoint from storage, **one replica loads and broadcasts** across all devices. Storage read amplification collapses from **N× to 1×**, and startup gets faster in multi-controller / multi-slice runs.',
     diagram: <BroadcastDiagram />,
   },
   {
     flip: false,
     kicker: 'Orbax · Perfy Award',
     title: 'Checkpoint saves that don’t block training',
-    body: 'Directory creation used to block the main training thread on every checkpoint. I moved it off the critical path with an async mechanism coordinated through the JAX distributed client and `CommitFuture` — **cutting blocking save time 30–50%** with large annualized TPU/GPU savings.',
+    body: 'Directory creation used to block the main training thread on every checkpoint. I moved it off the critical path with an async mechanism coordinated through the JAX distributed client and `CommitFuture`, **cutting blocking save time 30–50%** with large annualized TPU/GPU savings.',
     diagram: <SaveDiagram />,
   },
 ]
@@ -88,7 +88,7 @@ export default function App() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="role">
-            I build and optimize <span className="serif">Orbax</span> — JAX&rsquo;s distributed checkpointing library.
+            I build and optimize <span className="serif">Orbax</span>, JAX&rsquo;s distributed checkpointing library.
           </p>
         </Reveal>
         <Reveal delay={0.12}>
@@ -97,7 +97,7 @@ export default function App() {
         <Reveal delay={0.16}>
           <p className="lede">
             I work the <span className="mono">JAX / XLA</span> training stack at the sharding, collective, and compiler
-            level — checkpoint I/O, fault tolerance, and large-model save/load. 8+ years building high-performance
+            level: checkpoint I/O, fault tolerance, and large-model save/load. 8+ years building high-performance
             distributed systems across ML infrastructure, planet-scale backend services, and low-latency trading
             platforms.
           </p>

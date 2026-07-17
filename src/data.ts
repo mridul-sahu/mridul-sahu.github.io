@@ -43,27 +43,27 @@ export type Role = {
 
 export const roles: Role[] = [
   {
-    era: '2024 — now',
+    era: '2024 – now',
     theme: 'ML infrastructure · JAX',
-    note: 'This is the JAX checkpointing layer — where I make saving and loading frontier models fast and fault-tolerant.',
-    summary: 'Performance and reliability for the open-source JAX training stack — Orbax & Tunix.',
+    note: 'This is the JAX checkpointing layer, where I make saving and loading frontier models fast and fault-tolerant.',
+    summary: 'Performance and reliability for the open-source JAX training stack: Orbax & Tunix.',
     company: 'Google',
     title: 'Senior Software Engineer, Core ML Frameworks',
     dates: 'Nov 2024 – Present',
     location: 'Bangalore',
     current: true,
     bullets: [
-      'Cut Orbax checkpoint **blocking-save time 30–50%** with an asynchronous directory-creation mechanism (JAX distributed-client + `CommitFuture`) — awarded Google’s internal **Perfy** performance award.',
+      'Cut Orbax checkpoint **blocking-save time 30–50%** with an asynchronous directory-creation mechanism (JAX distributed-client + `CommitFuture`); awarded Google’s internal **Perfy** performance award.',
       'Designed a **sharding-driven checkpoint loader** that reads from the target `jax.sharding` rather than file layout, eliminating a **per-tensor reshard collective and per-tensor XLA recompilation** (~1× read amplification).',
       '**Single-Replica Restore + Broadcast** cut large-model restart time and storage read amplification **N×→1×**; hardened fault tolerance via the Emergency Checkpoint Manager.',
-      'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing — enabling single-controller frameworks like **Pathways** at scale; built the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library).',
+      'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing so frameworks like **Pathways** can checkpoint at scale; built the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library).',
       'Built Orbax’s **benchmarking / observability framework** (`jax.monitoring`, XProf, HBM, TensorStore I/O), validated at **llama3-8B/70B/405B** scale. Founding member of the Core ML India team; mentor **8+ engineers**.',
     ],
   },
   {
-    era: '2021 — 24',
+    era: '2021 – 24',
     theme: 'Planet-scale backend',
-    note: 'Backend at planet scale — billions of users and O(100K) writes per second.',
+    note: 'Backend at planet scale: billions of users and O(100K) writes per second.',
     summary: 'Storage and benefits infrastructure for one of the world’s largest consumer products.',
     company: 'Google One',
     title: 'Software Engineer III',
@@ -77,9 +77,9 @@ export const roles: Role[] = [
     ],
   },
   {
-    era: '2018 — 21',
+    era: '2018 – 21',
     theme: 'Low-latency trading',
-    note: 'Electronic trading systems — exchanges, order management, and an ~80× speedup.',
+    note: 'Electronic trading systems: exchanges, order management, and an ~80× speedup.',
     summary: 'Built trading, exchange-protocol, and developer-education platforms end to end.',
     company: 'Zopte Technologies',
     title: 'Software Engineer',
@@ -94,7 +94,7 @@ export const roles: Role[] = [
   {
     era: '2017',
     theme: 'Where it started',
-    note: 'Where it began — games, C++, and shipping fast.',
+    note: 'Where it began: games, C++, and shipping fast.',
     summary: 'First taste of shipping software: cross-platform games and tooling.',
     company: 'CrispyGames',
     title: 'Software Engineer, Intern',
@@ -117,19 +117,19 @@ export const highlights: Highlight[] = [
   {
     kicker: 'Orbax · JAX',
     title: 'Sharding-driven checkpoint load',
-    body: 'Drives reads from the target `jax.sharding` instead of file layout — coalescing each process’s shards into byte-range reads. Removes a per-tensor reshard collective and per-tensor XLA recompilation.',
+    body: 'Drives reads from the target `jax.sharding` instead of file layout, coalescing each process’s shards into byte-range reads. Removes a per-tensor reshard collective and per-tensor XLA recompilation.',
     viz: 'shard',
   },
   {
     kicker: 'Orbax · Perfy Award',
     title: 'Asynchronous checkpoint save',
-    body: 'An async directory-creation mechanism keeps directory work off the main training thread — cutting blocking-save time 30–50% with large annualized TPU/GPU savings.',
+    body: 'An async directory-creation mechanism keeps directory work off the main training thread. Blocking-save time dropped 30–50%, with large annualized TPU/GPU savings.',
     viz: 'save',
   },
   {
     kicker: 'Orbax',
     title: 'Single-Replica Restore + Broadcast',
-    body: 'One replica loads the checkpoint from storage and broadcasts it across all devices — collapsing storage read amplification from N× to 1× and shrinking restart time.',
+    body: 'One replica loads the checkpoint from storage and broadcasts it across all devices, collapsing storage read amplification from N× to 1× and shrinking restart time.',
     viz: 'broadcast',
   },
   {
@@ -145,31 +145,31 @@ export const publications = [
     when: '2026',
     title: 'Orbax: Distributed Checkpointing with JAX',
     href: 'https://arxiv.org/abs/2605.23066',
-    authors: 'C. Gaffney, S. Li, D. Ng, M. Sahu, et al. — arXiv:2605.23066 (cs.DC / cs.LG)',
+    authors: 'C. Gaffney, S. Li, D. Ng, M. Sahu, et al. · arXiv:2605.23066 (cs.DC / cs.LG)',
     body: 'A modular, JAX-native checkpointing library demonstrating up to 3.5× faster saving and 2× faster loading vs. comparable PyTorch checkpointing.',
   },
   {
     when: '2018',
     title: 'EvoCut: A Generalization of the Albert-Barabási Model for Evolution of Complex Networks',
     href: 'https://ieeexplore.ieee.org/document/8468280',
-    authors: 'S. K. Jaiswal, M. Pal, M. Sahu, P. Sahu, A. Dev — 22nd FRUCT Conference',
+    authors: 'S. K. Jaiswal, M. Pal, M. Sahu, P. Sahu, A. Dev · 22nd FRUCT Conference',
     body: '',
   },
 ]
 
 export const projects = [
   {
-    kicker: 'Independent Research · 2025 — now',
+    kicker: 'Independent Research · 2025 – now',
     title: 'research.rudrite.com',
     href: 'https://research.rudrite.com',
-    body: 'Building a site that visualizes and explains landmark AI/ML research papers as interactive, animated explainers — a growing library covering the systems behind the models, redrawn and made legible.',
+    body: 'Building a site that visualizes and explains landmark AI/ML research papers as interactive, animated explainers. The library keeps growing, covering the systems behind the models, redrawn and made legible.',
     tags: ['Training at scale', 'Megatron · GSPMD · ZeRO', 'LLM serving', 'Transformers', 'RLHF · reasoning'],
   },
   {
-    kicker: 'Interactive Explainers · 2026 — now',
+    kicker: 'Interactive Explainers · 2026 – now',
     title: 'explainers.rudrite.com',
     href: 'https://explainers.rudrite.com',
-    body: 'A library of 30+ interactive visual explainers of system design, distributed systems, and real code — spanning high-level architecture down to line-by-line code walks.',
+    body: 'A library of 30+ interactive visual explainers of system design, distributed systems, and real code, spanning high-level architecture down to line-by-line code walks.',
     tags: ['System design', 'Distributed systems', 'Code walkthroughs', 'Interactive'],
   },
 ]
