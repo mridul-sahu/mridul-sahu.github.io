@@ -57,7 +57,7 @@ export const roles: Role[] = [
       'Designed a **sharding-driven checkpoint loader** that reads from the target `jax.sharding` rather than file layout, eliminating a **per-tensor reshard collective and per-tensor XLA recompilation** (~1× read amplification).',
       '**Single-Replica Restore + Broadcast** cut large-model restart time and storage read amplification **N×→1×**; hardened fault tolerance via the Emergency Checkpoint Manager.',
       'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing — enabling single-controller frameworks like **Pathways** at scale; built the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library).',
-      'Built Orbax’s **benchmarking / observability framework** (`jax.monitoring`, XProf, HBM, TensorStore I/O), validated at **llama3-8B/70B/405B** scale. Founding member of the Core ML India team.',
+      'Built Orbax’s **benchmarking / observability framework** (`jax.monitoring`, XProf, HBM, TensorStore I/O), validated at **llama3-8B/70B/405B** scale. Founding member of the Core ML India team; mentor **8+ engineers**.',
     ],
   },
   {
