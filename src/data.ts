@@ -8,7 +8,7 @@ export const profile = {
     github: 'https://github.com/mridul-sahu',
     linkedin: 'https://linkedin.com/in/mridul-sahu',
     x: 'https://x.com/TheMridulSahu',
-    resume: '/Mridul_Sahu_Resume.pdf',
+    resume: '/Mridul_Sahu_Resume.pdf?v=20260717',
   },
 }
 
@@ -169,7 +169,7 @@ export const projects = [
     kicker: 'Interactive Explainers · 2026 — now',
     title: 'explainers.rudrite.com',
     href: 'https://explainers.rudrite.com',
-    body: 'Interactive visual explainers of system design, distributed systems, and real code — a growing library spanning high-level architecture down to line-by-line code walks.',
+    body: 'A library of 30+ interactive visual explainers of system design, distributed systems, and real code — spanning high-level architecture down to line-by-line code walks.',
     tags: ['System design', 'Distributed systems', 'Code walkthroughs', 'Interactive'],
   },
 ]
