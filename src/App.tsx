@@ -97,7 +97,7 @@ export default function App() {
         <Reveal delay={0.16}>
           <p className="lede">
             I work the <span className="mono">JAX / XLA</span> training stack at the sharding, collective, and compiler
-            level — checkpoint I/O, fault tolerance, and large-model save/load. 7+ years building high-performance
+            level — checkpoint I/O, fault tolerance, and large-model save/load. 8+ years building high-performance
             distributed systems across ML infrastructure, planet-scale backend services, and low-latency trading
             platforms.
           </p>

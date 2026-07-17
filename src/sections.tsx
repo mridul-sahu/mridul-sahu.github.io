@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, useInView, animate } from 'motion/react'
-import { skillGroups, certs, education } from './data'
+import { skillGroups, education } from './data'
 import { EASE, Reveal } from './ui'
 
 export function SkillsSection() {
@@ -39,16 +39,6 @@ export function SkillsSection() {
             </Reveal>
           ))}
         </div>
-        <Reveal>
-          <div className="certs">
-            <div className="sg-label">Certifications</div>
-            <ul>
-              {certs.map((c) => (
-                <li key={c}>{c}</li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
       </div>
     </section>
   )

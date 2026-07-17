@@ -56,7 +56,7 @@ export const roles: Role[] = [
       'Cut Orbax checkpoint **blocking-save time 30–50%** with an asynchronous directory-creation mechanism (JAX distributed-client + `CommitFuture`) — awarded Google’s internal **Perfy** performance award.',
       'Designed a **sharding-driven checkpoint loader** that reads from the target `jax.sharding` rather than file layout, eliminating a **per-tensor reshard collective and per-tensor XLA recompilation** (~1× read amplification).',
       '**Single-Replica Restore + Broadcast** cut large-model restart time and storage read amplification **N×→1×**; hardened fault tolerance via the Emergency Checkpoint Manager.',
-      'Architected Orbax’s **Dispatcher API** over multi- and single-controller JAX (incl. colocated Python) backends; built the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library).',
+      'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing — enabling single-controller frameworks like **Pathways** at scale; built the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library).',
       'Built Orbax’s **benchmarking / observability framework** (`jax.monitoring`, XProf, HBM, TensorStore I/O), validated at **llama3-8B/70B/405B** scale. Founding member of the Core ML India team.',
     ],
   },
@@ -71,9 +71,9 @@ export const roles: Role[] = [
     location: 'Bangalore',
     bullets: [
       'Designed an **asynchronous processing system** that eliminated database lock contention and sustained **O(100K) write QPS** across all Google services.',
-      'Tech-led a Gmail × Storage Quota Service initiative for an **XX Billion-user** base; piloted a 30-day storage grace period and shipped in-Gmail warning banners.',
-      'Shipped a phased out-of-storage launch impacting **XX Million users/year** with **zero production incidents**, and a data-validation + outage-recovery pipeline safeguarding integrity for **XX Billion users** (Gmail, Photos, Drive).',
-      'Built the **benefits-eligibility backend** (+70% over v1) impacting **XX Million users**; owned a **zero-incident** on-call migration of two teams from the US to India.',
+      'Tech-led a Gmail × Storage Quota Service initiative for a **billion-plus-user** base; piloted a 30-day storage grace period and shipped in-Gmail warning banners.',
+      'Shipped a phased out-of-storage launch reaching millions of users each year with **zero production incidents**, and a data-validation + outage-recovery pipeline safeguarding integrity for **billions of user accounts** (Gmail, Photos, Drive).',
+      'Built the **benefits-eligibility backend** (+70% over v1) impacting **millions of users**; owned a **zero-incident** on-call migration of two teams from the US to India.',
     ],
   },
   {
@@ -188,13 +188,6 @@ export const skillGroups = [
     label: 'Infrastructure & Data',
     items: ['Kubernetes', 'GCP', 'Docker', 'Linux', 'Git', 'SQL', 'MySQL', 'MongoDB', 'Elasticsearch', 'Redis', 'Cloud Pub/Sub'],
   },
-]
-
-export const certs = [
-  'Generative AI with LLMs — DeepLearning.AI',
-  'Learning JAX — LinkedIn',
-  'Transformer Models & BERT — Google Cloud',
-  'Distributed Systems for Practitioners — Educative',
 ]
 
 export const education = {
