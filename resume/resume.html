@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mridul Sahu · Résumé</title>
+<style>
+  @page { size: letter; margin: 0.5in 0.6in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 9.3pt;
+    line-height: 1.28;
+    color: #000;
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+  a { color: #1155cc; text-decoration: underline; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.94em;
+  }
+
+  h1 {
+    font-size: 26pt;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.2pt;
+    text-align: left;
+    margin-bottom: 3pt;
+  }
+  .contact {
+    font-size: 9.1pt;
+    text-align: left;
+    padding-bottom: 4pt;
+    border-bottom: 1.1pt solid #111;
+  }
+
+  .summary { margin-top: 9pt; }
+
+  h2 {
+    font-size: 11.4pt;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0.2pt;
+    margin-top: 12pt;
+    padding-bottom: 2pt;
+    border-bottom: 0.8pt solid #9a9a9a;
+  }
+  section > *:first-child { margin-top: 0; }
+
+  .entry { margin-top: 8pt; }
+  h2 + .entry { margin-top: 7pt; }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-align: left;
+    gap: 12pt;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .row .org { font-weight: 700; }
+  .row .dates { font-weight: 700; white-space: nowrap; }
+  .row .role { font-style: italic; }
+  .row .loc { font-style: italic; white-space: nowrap; }
+  .role-row { margin-top: 8pt; break-after: avoid; page-break-after: avoid; }
+  .sub { font-style: italic; text-align: left; margin-top: 5pt; break-after: avoid; page-break-after: avoid; }
+
+  ul {
+    list-style: disc;
+    margin-top: 4pt;
+    padding-left: 14.5pt;
+  }
+  li { margin-bottom: 2.7pt; break-inside: avoid; page-break-inside: avoid; }
+  li:last-child { margin-bottom: 0; }
+  li::marker { font-size: 0.9em; }
+
+  .proj .row { text-align: left; }
+</style>
+</head>
+<body>
+
+  <h1>Mridul Sahu</h1>
+  <div class="contact">mridulsahu01@gmail.com&nbsp; |&nbsp; +91 90822 65471&nbsp; |&nbsp; Bangalore, India&nbsp; |&nbsp; <a href="https://linkedin.com/in/mridul-sahu">linkedin.com/in/mridul-sahu</a>&nbsp; |&nbsp; <a href="https://github.com/mridul-sahu">github.com/mridul-sahu</a></div>
+
+  <p class="summary">Senior Software Engineer on Google's Core ML Frameworks team and functional lead of <strong>Orbax</strong> India. I direct the checkpointing function end to end: roadmap and OKR planning, work assignment and delegated design for the India team, delivery timelines for US counterparts and Google Cloud customers, and escalation ownership, on <strong>Orbax</strong>, JAX's distributed checkpointing library. I work the <strong>JAX / XLA</strong> training stack at the sharding, collective, and compiler level: checkpoint I/O, fault tolerance, and large-model save/load. Contributor to the <strong>Orbax paper</strong> (arXiv, 2026). 8+ years building high-performance distributed systems across ML infrastructure, planet-scale backend services, and low-latency trading platforms.</p>
+
+  <section>
+    <h2>WORK EXPERIENCE</h2>
+
+    <div class="entry">
+      <div class="row"><span class="org">Google</span><span class="dates">Oct. 2021 – Present</span></div>
+      <div class="row"><span class="role">Senior Software Engineer · Orbax India Lead, Core ML Frameworks&nbsp; (Nov. 2024 – Present)</span><span class="loc">Bangalore, India</span></div>
+      <ul>
+        <li><strong>Lead the Orbax India function, directly responsible for its charter and planning</strong>: own OKR planning and work assignment for the 2-engineer India team (who builds what, and when), set delivery timelines for US counterparts and external Cloud customers, and review and verify the team's work from design through launch.</li>
+        <li>Set the long-term plan for <strong>continuous checkpointing</strong> across Google's flagship training and post-training stacks in service of company-wide TPU-efficiency goals, delegating feature design, implementation, and launch to team engineers and owning final review.</li>
+        <li><strong>Direct the resolution of high-stakes Orbax escalations</strong> for big-tech Google Cloud customers: triage and delegate fixes (slow checkpoint loads, storage optimizations, sharding bugs) to team engineers and own review and verification, unblocking training runs of models with <strong>billions to trillions of parameters</strong> on fleets of 32k+ TPU chips.</li>
+        <li>Founding member of the <strong>Core ML India</strong> team: drove the transfer of Orbax workstream ownership from the US to India, proposed the charter of projects the team owns beyond Orbax, defined hiring signals for early hires, and mentor 8+ engineers across the Keras, JAX, and Orbax ecosystems.</li>
+        <li><strong>Cut Orbax checkpoint blocking-save time 30–50%</strong>, with substantial annualized TPU/GPU savings, by designing an asynchronous directory-creation mechanism on JAX distributed-client coordination; awarded Google's internal Perfy performance award.</li>
+        <li>Designed a <strong>sharding-driven checkpoint loader</strong> that reads from the target <code>jax.sharding</code> rather than file layout, eliminating per&#8209;tensor reshard collectives and XLA recompilation and cutting cluster read amplification to ~1× the checkpoint.</li>
+        <li>Cut large-model restart time and <strong>storage read amplification N×→1×</strong> with Single-Replica Restore + Broadcast (one replica loads, then broadcasts); hardened fault tolerance via the Emergency Checkpoint Manager's two-stage local + persistent save.</li>
+        <li>Architected Orbax's next-generation <strong>Dispatcher API</strong>, unifying multi-controller and single-controller checkpointing behind one extensible interface that lets single-controller frameworks like Pathways checkpoint at large distributed scale; directed the follow-on design and development, delegated to team engineers.</li>
+        <li>Built Orbax's checkpoint <strong>benchmarking and observability framework</strong> (stage timings, XProf traces, per-device HBM usage, TensorStore I/O) with A/B regression baselines, correctness digests, and CI/CD, validated at llama3-8B/70B/405B scale; delegated the design of the internal and open-source testing harnesses and Cloud benchmarking setups built on it, and administer the Cloud benchmark project, its usage policy, and request approvals.</li>
+        <li>Built v0 of the <strong>Knowledge Distillation</strong> module for Tunix (Google's JAX-native LLM post-training library): a strategy-pattern framework for logit, feature/attention transfer, and pooling/projection alignment across heterogeneous architectures; v1 led and implemented by team engineers on that foundation. Eliminated Tunix per-step <strong>XLA recompilation</strong> by hoisting <code>nnx.jit</code> to one-time setup.</li>
+      </ul>
+
+      <div class="row role-row"><span class="role">Software Engineer III, Google One&nbsp; (Oct. 2021 – Oct. 2024)</span><span class="loc">Bangalore, India</span></div>
+      <div class="sub">Storage Quota Service · Apr. 2023 – Oct. 2024</div>
+      <ul>
+        <li>Designed an asynchronous processing system that eliminated database lock contention and sustained <strong>O(100K) write QPS</strong>, unlocking usage-calculation capacity across all Google services.</li>
+        <li>Tech-led a Gmail × Storage Quota Service initiative for a <strong>billion-plus-user</strong> base: built a scalable experimentation framework, piloted a 30-day storage grace period in Gmail's codebase, and shipped email + in-Gmail warning banners alerting millions of users.</li>
+        <li>Shipped a phased out-of-storage launch reaching millions of users each year with <strong>zero production incidents</strong>, driving substantial Google One signups and upgrades.</li>
+        <li>Built a data-validation and recovery pipeline safeguarding storage-usage integrity for <strong>billions of user accounts</strong>, plus a precision outage-recovery mechanism restoring usage across Gmail, Photos, and Drive.</li>
+        <li>Built real-time <strong>service-level usage-breakdown</strong> infrastructure for Enterprise Customers, eliminating inefficient caching of millions of user-level rows in admin consoles.</li>
+      </ul>
+      <div class="sub">Benefits · Oct. 2021 – Apr. 2023</div>
+      <ul>
+        <li>Built the foundational benefits-eligibility backend (cornerstone of a major customer-acquisition feature), improving performance <strong>70% over v1</strong>, plus a reconciliation framework preventing data inconsistencies across partner teams (Photos, YouTube, Workspace, GStore).</li>
+        <li>Led multiple benefit launches and international expansions impacting <strong>millions of users</strong> as central technical liaison across Product Areas; built backend to dynamically split/combine benefits for tailored delivery.</li>
+        <li>Fixed critical infrastructure deficiencies affecting millions of users; established alerting/SLO/monitoring standards; owned a <strong>zero-incident on-call migration</strong> of the Benefits and Storage Quota Service teams from the US to India.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="row"><span class="org">Zopte Technologies (CrispyGames)</span><span class="dates">2018 – 2021</span></div>
+      <div class="row"><span class="role">Software Engineer</span><span class="loc">Mumbai, India</span></div>
+      <ul>
+        <li>Engineered a Python backtesting and live-trading platform (Bloomberg, Zerodha, NSE-NNF, QuickFIX, custom TimeSeries DB) with an <strong>~80× performance uplift</strong>, plus a distributed backtesting optimizer for strategy-parameter search over a compute cluster.</li>
+        <li>Built a low-level <strong>NSE/NFO exchange</strong> library (proprietary protocols, binary structures, security compliance), an Order Management System (OMS), and Tick Collector; maintained an NSE-licensed CTCL (computer-to-computer link) trading application in production at a brokerage.</li>
+        <li>Built a code generator producing customizable, mockable server- and client-side codebases (up to <strong>60% of project code</strong>), wired to a custom real-time continuous-deployment system.</li>
+        <li>Architected a <strong>microservices service mesh</strong> from scratch on Kubernetes with GCP and Istio (gRPC/REST, Zookeeper, Redis, Elasticsearch, MongoDB); built pluggable Flutter / Angular Dart UI components.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>PROJECTS</h2>
+
+    <div class="entry proj">
+      <div class="row"><span class="role" style="font-style:normal;font-weight:700;"><a href="https://research.rudrite.com">research.rudrite.com</a> · Interactive Research-Paper Visualizer</span><span class="dates">2025 – Present</span></div>
+      <ul>
+        <li>Building a site that <strong>visualizes and explains landmark AI/ML research papers</strong> through 120+ interactive, animated explainers spanning training-at-scale parallelism (Megatron, GSPMD, ZeRO), efficient LLM serving (batching, speculation, KV-cache), transformers, and RLHF / reasoning.</li>
+      </ul>
+    </div>
+
+    <div class="entry proj">
+      <div class="row"><span class="role" style="font-style:normal;font-weight:700;"><a href="https://explainers.rudrite.com">explainers.rudrite.com</a> · Interactive Visual Explainers</span><span class="dates">2026 – Present</span></div>
+      <ul>
+        <li>Building a library of <strong>30+ interactive visual explainers</strong> of system design, distributed systems, and real code, from high-level architecture to line-by-line code walks.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>PUBLICATIONS</h2>
+    <div class="entry">
+      <ul>
+        <li>C. Gaffney, S. Li, D. Ng, <strong>M. Sahu</strong>, et al., <strong>"Orbax: Distributed Checkpointing with JAX,"</strong> <em>arXiv:2605.23066</em> (cs.DC / cs.LG), 2026. A modular, JAX-native checkpointing library demonstrating up to <strong>3.5x faster saving and 2x faster loading</strong> vs. comparable PyTorch checkpointing.</li>
+        <li>S. K. Jaiswal, M. Pal, <strong>M. Sahu</strong>, P. Sahu, A. Dev, "EvoCut: A New Generalization of the Albert-Barabási Model for Evolution of Complex Networks," <em>22nd FRUCT Conference</em>, Jyväskylä, 2018, pp. 67–72.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>EDUCATION</h2>
+    <div class="entry">
+      <div class="row"><span class="org">National Institute of Technology, Meghalaya</span><span class="dates">2014 – 2018</span></div>
+      <div class="row"><span class="role">B.Tech, Computer Science &amp; Engineering, CGPA 8.76/10</span><span class="loc">Shillong, India</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>TECHNICAL SKILLS</h2>
+    <div class="entry">
+      <p><strong>Languages:</strong> Python, Java, Go, C++, Dart, JavaScript</p>
+      <p style="margin-top:3pt;"><strong>ML &amp; Performance:</strong> JAX, XLA, Orbax, Flax (NNX), Optax, Tunix, TensorStore, Pathways on Cloud; distributed training, sharding, collectives, TPU, profiling (XProf, jax.profiler, jax.monitoring), knowledge distillation, ML systems</p>
+      <p style="margin-top:3pt;"><strong>Technical Leadership:</strong> roadmap &amp; OKR planning, work assignment &amp; delegated design, design/launch review, escalation direction, cross-org &amp; customer timeline ownership, hiring signals, mentoring</p>
+      <p style="margin-top:3pt;"><strong>Systems &amp; Infrastructure:</strong> distributed systems, microservices, system design, API design, low-latency / trading systems (FIX, OMS, exchange protocols), gRPC, REST; Kubernetes, GCP, Docker, XPK</p>
+      <p style="margin-top:3pt;"><strong>Data &amp; Web:</strong> SQL, MySQL, MongoDB, Elasticsearch, Redis, Cloud Pub/Sub; Flutter, Angular Dart, OpenCV</p>
+    </div>
+  </section>
+
+</body>
+</html>
