@@ -57,7 +57,7 @@ export const roles: Role[] = [
       'Cut Orbax checkpoint **blocking-save time 30–50%** with an asynchronous directory-creation mechanism (JAX distributed-client + `CommitFuture`); awarded Google’s internal **Perfy** performance award.',
       'Designed a **sharding-driven checkpoint loader** that reads from the target `jax.sharding` rather than file layout, eliminating a **per-tensor reshard collective and per-tensor XLA recompilation** (~1× read amplification).',
       '**Single-Replica Restore + Broadcast** cut large-model restart time and storage read amplification **N×→1×**; hardened fault tolerance via the Emergency Checkpoint Manager.',
-      'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing so frameworks like **Pathways** can checkpoint at scale, then directed the follow-on development; built v0 of the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library), with v1 led by team engineers.',
+      'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing so frameworks like **Pathways** can checkpoint at scale, then directed the follow-on development; built v0 of the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library), then directed its continued development.',
       'Built Orbax’s **benchmarking / observability framework** (`jax.monitoring`, XProf, HBM, TensorStore I/O), validated at **llama3-8B/70B/405B** scale. Founding member of **Core ML India**: drove the US-to-India transfer of Orbax ownership; mentor **8+ engineers**.',
     ],
   },
