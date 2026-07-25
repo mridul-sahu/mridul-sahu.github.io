@@ -123,11 +123,23 @@ export function CareerSection() {
                     {r.title} <span className="loc">· {r.location}</span>
                   </div>
                   <p className="st-summary">{r.summary}</p>
-                  <ul className="st-bullets">
-                    {r.bullets.map((b, j) => (
-                      <li key={j}>{rich(b)}</li>
-                    ))}
-                  </ul>
+                  {r.bullets.length > 0 && (
+                    <ul className="st-bullets">
+                      {r.bullets.map((b, j) => (
+                        <li key={j}>{rich(b)}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {r.sections?.map((s) => (
+                    <div key={s.label}>
+                      <div className="st-sublabel">{s.label}</div>
+                      <ul className="st-bullets">
+                        {s.bullets.map((b, j) => (
+                          <li key={j}>{rich(b)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </Reveal>
             ))}

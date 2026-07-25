@@ -917,6 +917,14 @@ footer .colophon {
   color: var(--mute);
   margin-left: 10px;
 }
+.st-sublabel {
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
 .st-summary {
   margin-top: 10px;
   font-size: 1.04rem;

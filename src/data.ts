@@ -28,6 +28,11 @@ export const stats: Stat[] = [
   { value: 405, suffix: 'B', label: 'params checkpointed', sub: 'llama3 scale' },
 ]
 
+export type RoleSection = {
+  label: string
+  bullets: string[]
+}
+
 export type Role = {
   era: string
   theme: string
@@ -39,6 +44,7 @@ export type Role = {
   location: string
   current?: boolean
   bullets: string[]
+  sections?: RoleSection[]
 }
 
 export const roles: Role[] = [
@@ -48,17 +54,21 @@ export const roles: Role[] = [
     note: 'This is the JAX checkpointing layer, where I make saving and loading frontier models fast and fault-tolerant.',
     summary: 'Leading the Orbax India function: performance and reliability for the open-source JAX training stack, Orbax & Tunix.',
     company: 'Google',
-    title: 'Senior Software Engineer, Core ML Frameworks',
+    title: 'Senior Software Engineer · Orbax India Lead, Core ML Frameworks',
     dates: 'Nov 2024 – Present',
     location: 'Bangalore',
     current: true,
     bullets: [
-      'Lead the **Orbax India** function, directly responsible for its charter and planning: OKR planning and work assignment for the India team, delivery timelines for US counterparts and Cloud customers, and review of the team’s work from design through launch; **direct the resolution of high-stakes Cloud-customer escalations**, delegating fixes to team engineers.',
-      'Cut Orbax checkpoint **blocking-save time 30–50%** with an asynchronous directory-creation mechanism (JAX distributed-client + `CommitFuture`); awarded Google’s internal **Perfy** performance award.',
-      'Designed a **sharding-driven checkpoint loader** that reads from the target `jax.sharding` rather than file layout, eliminating a **per-tensor reshard collective and per-tensor XLA recompilation** (~1× read amplification).',
-      '**Single-Replica Restore + Broadcast** cut large-model restart time and storage read amplification **N×→1×**; hardened fault tolerance via the Emergency Checkpoint Manager.',
-      'Architected Orbax’s **Dispatcher API**, unifying multi- and single-controller checkpointing so frameworks like **Pathways** can checkpoint at scale, then directed the follow-on development; built v0 of the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library), then directed its continued development.',
-      'Built Orbax’s **benchmarking / observability framework** (`jax.monitoring`, XProf, HBM, TensorStore I/O), validated at **llama3-8B/70B/405B** scale. Founding member of **Core ML India**: drove the US-to-India transfer of Orbax ownership; mentor **8+ engineers**.',
+      '**Lead the Orbax India function, directly responsible for its charter and planning**: own OKR planning and work assignment for the 2-engineer India team (who builds what, and when), set delivery timelines for US counterparts and external Cloud customers, and review and verify the team’s work from design through launch.',
+      'Set the long-term plan for **continuous checkpointing** across Google’s flagship training and post-training stacks in service of company-wide TPU-efficiency goals, delegating feature design, implementation, and launch to team engineers and owning final review.',
+      '**Direct the resolution of high-stakes Orbax escalations** for big-tech Google Cloud customers: triage and delegate fixes (slow checkpoint loads, storage optimizations, sharding bugs) to team engineers and own review and verification, unblocking training runs of models with **billions to trillions of parameters** on fleets of 32k+ TPU chips.',
+      'Founding member of the **Core ML India** team: drove the transfer of Orbax workstream ownership from the US to India, proposed the charter of projects the team owns beyond Orbax, defined hiring signals for early hires, and mentor **8+ engineers** across the Keras, JAX, and Orbax ecosystems.',
+      '**Cut Orbax checkpoint blocking-save time 30–50%**, with substantial annualized TPU/GPU savings, by designing an asynchronous directory-creation mechanism on JAX distributed-client coordination; awarded Google’s internal **Perfy** performance award. Now direct team engineers on follow-on save-path optimizations.',
+      'Designed a **sharding-driven checkpoint loader** that reads from the target `jax.sharding` rather than file layout, eliminating per-tensor reshard collectives and XLA recompilation and cutting cluster read amplification to **~1×** the checkpoint; direct team engineers on its follow-on sharding fixes.',
+      'Cut large-model restart time and **storage read amplification N×→1×** with Single-Replica Restore + Broadcast (one replica loads, then broadcasts); hardened fault tolerance via the Emergency Checkpoint Manager’s two-stage local + persistent save, delegating its follow-on metadata design to team engineers.',
+      'Architected Orbax’s next-generation **Dispatcher API**, unifying multi-controller and single-controller checkpointing behind one extensible interface that lets single-controller frameworks like **Pathways** checkpoint at large distributed scale; directed the follow-on design and development, delegated to team engineers.',
+      'Built Orbax’s checkpoint **benchmarking and observability framework** (stage timings, XProf traces, per-device HBM usage, TensorStore I/O) with A/B regression baselines, correctness digests, and CI/CD, validated at **llama3-8B/70B/405B** scale; delegated the design of the internal and open-source testing harnesses and Cloud benchmarking setups built on it, and administer the Cloud benchmark project, its usage policy, and request approvals.',
+      'Built v0 of the **Knowledge Distillation** module for **Tunix** (Google’s JAX-native LLM post-training library): a strategy-pattern framework for logit, feature/attention transfer, and pooling/projection alignment across heterogeneous architectures; directed the module’s continued development by team engineers.',
     ],
   },
   {
@@ -70,11 +80,26 @@ export const roles: Role[] = [
     title: 'Software Engineer III',
     dates: 'Oct 2021 – Oct 2024',
     location: 'Bangalore',
-    bullets: [
-      'Designed an **asynchronous processing system** that eliminated database lock contention and sustained **O(100K) write QPS** across all Google services.',
-      'Tech-led a Gmail × Storage Quota Service initiative for a **billion-plus-user** base; piloted a 30-day storage grace period and shipped in-Gmail warning banners.',
-      'Shipped a phased out-of-storage launch reaching millions of users each year with **zero production incidents**, and a data-validation + outage-recovery pipeline safeguarding integrity for **billions of user accounts** (Gmail, Photos, Drive).',
-      'Built the **benefits-eligibility backend** (+70% over v1) impacting **millions of users**; owned a **zero-incident** on-call migration of two teams from the US to India.',
+    bullets: [],
+    sections: [
+      {
+        label: 'Storage Quota Service · Apr 2023 – Oct 2024',
+        bullets: [
+          'Designed an **asynchronous processing system** that eliminated database lock contention and sustained **O(100K) write QPS**, unlocking usage-calculation capacity across all Google services.',
+          'Tech-led a Gmail × Storage Quota Service initiative for a **billion-plus-user** base: built a scalable experimentation framework, piloted a 30-day storage grace period in Gmail’s codebase, and shipped email + in-Gmail warning banners alerting millions of users.',
+          'Shipped a phased out-of-storage launch reaching **millions of users** each year with **zero production incidents**, driving substantial Google One signups and upgrades.',
+          'Built a **data-validation and recovery pipeline** safeguarding storage-usage integrity for **billions of user accounts**, plus a precision outage-recovery mechanism restoring usage across Gmail, Photos, and Drive.',
+          'Built real-time **service-level usage-breakdown** infrastructure for Enterprise Customers, eliminating inefficient caching of millions of user-level rows in admin consoles.',
+        ],
+      },
+      {
+        label: 'Benefits · Oct 2021 – Apr 2023',
+        bullets: [
+          'Built the foundational **benefits-eligibility backend** (cornerstone of a major customer-acquisition feature), improving performance **70% over v1**, plus a reconciliation framework preventing data inconsistencies across partner teams (Photos, YouTube, Workspace, GStore).',
+          'Led multiple benefit launches and international expansions impacting **millions of users** as central technical liaison across Product Areas; built backend to dynamically split/combine benefits for tailored delivery.',
+          'Fixed critical infrastructure deficiencies affecting millions of users; established alerting/SLO/monitoring standards; owned a **zero-incident on-call migration** of the Benefits and Storage Quota Service teams from the US to India.',
+        ],
+      },
     ],
   },
   {
@@ -87,9 +112,10 @@ export const roles: Role[] = [
     dates: 'Jun 2018 – Sep 2021',
     location: 'Mumbai',
     bullets: [
-      'Engineered a Python **backtesting + live-trading platform** (Bloomberg, Zerodha, NSE-NNF, QuickFIX) with an **~80× performance uplift**, plus a distributed optimizer over a compute cluster.',
-      'Built a low-level **NSE/NFO exchange** library, an **Order Management System (OMS)**, and Tick Collector; maintained an NSE-licensed CTCL application in production at a brokerage.',
-      'Architected a **microservices service mesh** from scratch (gRPC, Redis, Kubernetes, Istio) and a code generator producing up to **60% of project code**; founded Zopte Academy and built ML pipelines for information extraction.',
+      'Engineered a Python **backtesting and live-trading platform** (Bloomberg, Zerodha, NSE-NNF, QuickFIX, custom TimeSeries DB) with an **~80× performance uplift**, plus a distributed backtesting optimizer for strategy-parameter search over a compute cluster.',
+      'Built a low-level **NSE/NFO exchange** library (proprietary protocols, binary structures, security compliance), an **Order Management System (OMS)**, and Tick Collector; maintained an NSE-licensed CTCL (computer-to-computer link) trading application in production at a brokerage.',
+      'Built a **code generator** producing customizable, mockable server- and client-side codebases (up to **60% of project code**), wired to a custom real-time continuous-deployment system.',
+      'Architected a **microservices service mesh** from scratch on Kubernetes with GCP and Istio (gRPC/REST, Zookeeper, Redis, Elasticsearch, MongoDB); built pluggable Flutter / Angular Dart UI components.',
     ],
   },
   {
@@ -180,6 +206,10 @@ export const skillGroups = [
   {
     label: 'ML & Performance',
     items: ['JAX', 'XLA', 'Orbax', 'Flax (NNX)', 'Optax', 'Tunix', 'TensorStore', 'Pathways', 'Sharding', 'Collectives', 'TPU', 'XProf', 'Knowledge distillation'],
+  },
+  {
+    label: 'Technical Leadership',
+    items: ['Roadmap & OKR planning', 'Work assignment & delegated design', 'Design/launch review', 'Escalation direction', 'Cross-org & customer timelines', 'Hiring signals', 'Mentoring'],
   },
   {
     label: 'Systems & Architecture',
