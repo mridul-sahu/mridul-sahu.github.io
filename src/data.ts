@@ -199,6 +199,13 @@ export const projects = [
     body: 'A library of 30+ interactive visual explainers of system design, distributed systems, and real code, spanning high-level architecture down to line-by-line code walks.',
     tags: ['System design', 'Distributed systems', 'Code walkthroughs', 'Interactive'],
   },
+  {
+    kicker: 'TPU Mastery Courses · 2026 – now',
+    title: 'kernels.rudrite.com',
+    href: 'https://kernels.rudrite.com',
+    body: 'Four open, lab-driven mastery courses on the TPU ML stack: Pallas kernels, JAX, XLA, and PyTorch. 53 chapters with 30 runnable labs, drill gyms, reproduced-failure exhibits, and live instruments, every published number benchmarked on real chips.',
+    tags: ['Pallas', 'JAX', 'XLA', 'PyTorch', 'TPU'],
+  },
 ]
 
 export const skillGroups = [
