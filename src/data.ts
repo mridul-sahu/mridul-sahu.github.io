@@ -59,7 +59,7 @@ export const roles: Role[] = [
     location: 'Bangalore',
     current: true,
     bullets: [
-      '**Lead the Orbax India function, directly responsible for its charter and planning**: own OKR planning and work assignment for the 2-engineer India team (who builds what, and when), set delivery timelines for US counterparts and external Cloud customers, and review and verify the team’s work from design through launch.',
+      '**Lead the Orbax India function, with direct ownership of its charter and planning**: run OKR planning and work assignment for the India engineering team, set delivery timelines for US counterparts and external Cloud customers, and review the team’s work from design through launch.',
       'Set the long-term plan for **continuous checkpointing** across Google’s flagship training and post-training stacks in service of company-wide TPU-efficiency goals, delegating feature design, implementation, and launch to team engineers and owning final review.',
       '**Direct the resolution of high-stakes Orbax escalations** for big-tech Google Cloud customers: triage and delegate fixes (slow checkpoint loads, storage optimizations, sharding bugs) to team engineers and own review and verification, unblocking training runs of models with **billions to trillions of parameters** on fleets of 32k+ TPU chips.',
       'Founding member of the **Core ML India** team: drove the transfer of Orbax workstream ownership from the US to India, proposed the charter of projects the team owns beyond Orbax, defined hiring signals for early hires, and mentor **8+ engineers** across the Keras, JAX, and Orbax ecosystems.',
