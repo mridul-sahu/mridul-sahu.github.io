@@ -55,7 +55,7 @@ export const roles: Role[] = [
     summary: 'Leading the Orbax India function: performance and reliability for the open-source JAX training stack, Orbax & Tunix.',
     company: 'Google',
     title: 'Senior Software Engineer · Orbax India Lead, Core ML Frameworks',
-    dates: 'Nov 2024 – Present',
+    dates: 'Dec 2024 – Present',
     location: 'Bangalore',
     current: true,
     bullets: [
@@ -77,13 +77,13 @@ export const roles: Role[] = [
     note: 'Backend at planet scale: billions of users and O(100K) writes per second.',
     summary: 'Storage and benefits infrastructure for one of the world’s largest consumer products.',
     company: 'Google One',
-    title: 'Software Engineer III',
-    dates: 'Oct 2021 – Oct 2024',
+    title: 'Software Engineer III → Senior Software Engineer',
+    dates: 'Oct 2021 – Nov 2024',
     location: 'Bangalore',
     bullets: [],
     sections: [
       {
-        label: 'Storage Quota Service · Apr 2023 – Oct 2024',
+        label: 'Storage Quota Service · Apr 2023 – Nov 2024',
         bullets: [
           'Designed an **asynchronous processing system** that eliminated database lock contention and sustained **O(100K) write QPS**, unlocking usage-calculation capacity across all Google services.',
           'Tech-led a Gmail × Storage Quota Service initiative for a **billion-plus-user** base: built a scalable experimentation framework, piloted a 30-day storage grace period in Gmail’s codebase, and shipped email + in-Gmail warning banners alerting millions of users.',
